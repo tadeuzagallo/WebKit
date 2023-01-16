@@ -269,7 +269,7 @@ Expected<AST::StructMember, Error> Parser<Lexer>::parseStructMember()
     CONSUME_TYPE_NAMED(name, Identifier);
     CONSUME_TYPE(Colon);
     PARSE(type, TypeDecl);
-    CONSUME_TYPE(Semicolon);
+    CONSUME_TYPE(Comma);
 
     RETURN_NODE(StructMember, name.m_ident, WTFMove(type), WTFMove(attributes));
 }
@@ -473,6 +473,10 @@ Expected<AST::FunctionDecl, Error> Parser<Lexer>::parseFunctionDecl(AST::Attribu
     while (current().m_type != TokenType::ParenRight) {
         PARSE(parameter, Parameter);
         parameters.append(makeUniqueRef<AST::Parameter>(WTFMove(parameter)));
+        if (current().m_type == TokenType::Comma)
+            consume();
+        else
+            break;
     }
     CONSUME_TYPE(ParenRight);
 
