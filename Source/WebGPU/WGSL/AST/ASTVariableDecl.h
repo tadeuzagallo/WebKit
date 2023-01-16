@@ -42,9 +42,9 @@ class VariableDecl final : public Decl {
 public:
     using List = UniqueRefVector<VariableDecl>;
 
-    VariableDecl(SourceSpan span, String name, std::unique_ptr<VariableQualifier>&& qualifier, std::unique_ptr<TypeDecl>&& type, std::unique_ptr<Expression>&& initializer, Attribute::List&& attributes)
+    VariableDecl(SourceSpan span, String name, std::unique_ptr<VariableQualifier>&& qualifier, RefPtr<TypeDecl>&& type, std::unique_ptr<Expression>&& initializer, Attribute::List&& attributes)
         : Decl(span)
-        , m_name(name)
+        , m_name(WTFMove(name))
         , m_attributes(WTFMove(attributes))
         , m_qualifier(WTFMove(qualifier))
         , m_type(WTFMove(type))
@@ -66,7 +66,7 @@ private:
     // Each of the following may be null
     // But at least one of type and initializer must be non-null
     std::unique_ptr<VariableQualifier> m_qualifier;
-    std::unique_ptr<TypeDecl> m_type;
+    RefPtr<TypeDecl> m_type;
     std::unique_ptr<Expression> m_initializer;
 };
 

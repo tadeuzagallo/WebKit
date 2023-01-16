@@ -94,6 +94,8 @@ public:
     void visit(AST::ArrayType&) override;
     void visit(AST::NamedType&) override;
     void visit(AST::ParameterizedType&) override;
+    void visit(AST::StructType&) override;
+    void visit(AST::TypeReference&) override;
 
     void visit(AST::Parameter&) override;
     // virtual void visit(StructMember&);
@@ -122,7 +124,16 @@ void FunctionDefinitionWriter::visit(AST::FunctionDecl& functionDefinition)
     for (auto& parameter : functionDefinition.parameters()) {
         if (!first)
             m_stringBuilder.append(", ");
+        bool isBuiltin = false;
+        for (auto& attribute : parameter.attributes()) {
+            if (attribute->kind() == AST::Node::Kind::BuiltinAttribute) {
+                isBuiltin = true;
+                break;
+            }
+        }
         checkErrorAndVisit(parameter);
+        if (!isBuiltin)
+            m_stringBuilder.append(" [[stage_in]]");
         first = false;
     }
     m_stringBuilder.append(")\n");
@@ -278,6 +289,16 @@ void FunctionDefinitionWriter::visit(AST::ParameterizedType& type)
         // TODO
         break;
     }
+}
+
+void FunctionDefinitionWriter::visit(AST::StructType& structType)
+{
+    m_stringBuilder.append(structType.structDecl().name());
+}
+
+void FunctionDefinitionWriter::visit(AST::TypeReference& type)
+{
+    visit(type.type());
 }
 
 void FunctionDefinitionWriter::visit(AST::Parameter& parameter)

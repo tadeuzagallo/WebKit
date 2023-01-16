@@ -54,10 +54,13 @@ namespace WGSL {
     } while (false)
 
 #define RETURN_NODE_REF(type, ...) \
+    return { Ref(*new AST::type(CURRENT_SOURCE_SPAN(), __VA_ARGS__)) };
+
+#define RETURN_NODE_UNIQUE_REF(type, ...) \
     return { makeUniqueRef<AST::type>(CURRENT_SOURCE_SPAN(), __VA_ARGS__) };
 
-// Passing 0 arguments beyond the type to RETURN_NODE_REF is invalid because of a stupid limitation of the C preprocessor
-#define RETURN_NODE_REF_NO_ARGS(type) \
+// Passing 0 arguments beyond the type to RETURN_NODE_UNIQUE_REF is invalid because of a stupid limitation of the C preprocessor
+#define RETURN_NODE_UNIQUE_REF_NO_ARGS(type) \
     return { makeUniqueRef<AST::type>(CURRENT_SOURCE_SPAN()) };
 
 #define FAIL(string) \
@@ -191,7 +194,7 @@ Expected<AST::Attribute::List, Error> Parser<Lexer>::parseAttributes()
 }
 
 template<typename Lexer>
-Expected<UniqueRef<AST::Attribute>, Error> Parser<Lexer>::parseAttribute()
+Expected<Ref<AST::Attribute>, Error> Parser<Lexer>::parseAttribute()
 {
     START_PARSE();
 
@@ -275,7 +278,7 @@ Expected<AST::StructMember, Error> Parser<Lexer>::parseStructMember()
 }
 
 template<typename Lexer>
-Expected<UniqueRef<AST::TypeDecl>, Error> Parser<Lexer>::parseTypeDecl()
+Expected<Ref<AST::TypeDecl>, Error> Parser<Lexer>::parseTypeDecl()
 {
     START_PARSE();
 
@@ -306,7 +309,7 @@ Expected<UniqueRef<AST::TypeDecl>, Error> Parser<Lexer>::parseTypeDecl()
 }
 
 template<typename Lexer>
-Expected<UniqueRef<AST::TypeDecl>, Error> Parser<Lexer>::parseTypeDeclAfterIdentifier(String&& name, SourcePosition _startOfElementPosition)
+Expected<Ref<AST::TypeDecl>, Error> Parser<Lexer>::parseTypeDeclAfterIdentifier(String&& name, SourcePosition _startOfElementPosition)
 {
     if (auto kind = AST::ParameterizedType::stringToKind(name)) {
         CONSUME_TYPE(LT);
@@ -318,13 +321,13 @@ Expected<UniqueRef<AST::TypeDecl>, Error> Parser<Lexer>::parseTypeDeclAfterIdent
 }
 
 template<typename Lexer>
-Expected<UniqueRef<AST::TypeDecl>, Error> Parser<Lexer>::parseArrayType()
+Expected<Ref<AST::TypeDecl>, Error> Parser<Lexer>::parseArrayType()
 {
     START_PARSE();
 
     CONSUME_TYPE(KeywordArray);
 
-    std::unique_ptr<AST::TypeDecl> maybeElementType;
+    RefPtr<AST::TypeDecl> maybeElementType;
     std::unique_ptr<AST::Expression> maybeElementCount;
 
     if (current().m_type == TokenType::LT) {
@@ -333,7 +336,7 @@ Expected<UniqueRef<AST::TypeDecl>, Error> Parser<Lexer>::parseArrayType()
         consume();
 
         PARSE(elementType, TypeDecl);
-        maybeElementType = elementType.moveToUniquePtr();
+        maybeElementType = WTFMove(elementType);
 
         if (current().m_type == TokenType::Comma) {
             consume();
@@ -372,11 +375,11 @@ Expected<AST::VariableDecl, Error> Parser<Lexer>::parseVariableDeclWithAttribute
 
     CONSUME_TYPE_NAMED(name, Identifier);
 
-    std::unique_ptr<AST::TypeDecl> maybeType = nullptr;
+    RefPtr<AST::TypeDecl> maybeType = nullptr;
     if (current().m_type == TokenType::Colon) {
         consume();
         PARSE(typeDecl, TypeDecl);
-        maybeType = typeDecl.moveToUniquePtr();
+        maybeType = WTFMove(typeDecl);
     }
 
     std::unique_ptr<AST::Expression> maybeInitializer = nullptr;
@@ -481,13 +484,13 @@ Expected<AST::FunctionDecl, Error> Parser<Lexer>::parseFunctionDecl(AST::Attribu
     CONSUME_TYPE(ParenRight);
 
     AST::Attribute::List returnAttributes;
-    std::unique_ptr<AST::TypeDecl> maybeReturnType = nullptr;
+    RefPtr<AST::TypeDecl> maybeReturnType = nullptr;
     if (current().m_type == TokenType::Arrow) {
         consume();
         PARSE(parsedReturnAttributes, Attributes);
         returnAttributes = WTFMove(parsedReturnAttributes);
         PARSE(type, TypeDecl);
-        maybeReturnType = type.moveToUniquePtr();
+        maybeReturnType = WTFMove(type);
     }
 
     PARSE(body, CompoundStatement);
@@ -539,7 +542,7 @@ Expected<UniqueRef<AST::Statement>, Error> Parser<Lexer>::parseStatement()
         CONSUME_TYPE(Equal);
         PARSE(rhs, Expression);
         CONSUME_TYPE(Semicolon);
-        RETURN_NODE_REF(AssignmentStatement, lhs.moveToUniquePtr(), WTFMove(rhs));
+        RETURN_NODE_UNIQUE_REF(AssignmentStatement, lhs.moveToUniquePtr(), WTFMove(rhs));
     }
     default:
         FAIL("Not a valid statement"_s);
@@ -622,7 +625,7 @@ Expected<UniqueRef<AST::Expression>, Error> Parser<Lexer>::parseUnaryExpression(
     if (current().m_type == TokenType::Minus) {
         consume();
         PARSE(expression, SingularExpression);
-        RETURN_NODE_REF(UnaryExpression, WTFMove(expression), AST::UnaryOperation::Negate);
+        RETURN_NODE_UNIQUE_REF(UnaryExpression, WTFMove(expression), AST::UnaryOperation::Negate);
     }
 
     return parseSingularExpression();
@@ -696,42 +699,42 @@ Expected<UniqueRef<AST::Expression>, Error> Parser<Lexer>::parsePrimaryExpressio
         if (current().m_type == TokenType::LT || current().m_type == TokenType::ParenLeft) {
             PARSE(type, TypeDeclAfterIdentifier, WTFMove(ident.m_ident), _startOfElementPosition);
             PARSE(arguments, ArgumentExpressionList);
-            RETURN_NODE_REF(CallableExpression, WTFMove(type), WTFMove(arguments));
+            RETURN_NODE_UNIQUE_REF(CallableExpression, WTFMove(type), WTFMove(arguments));
         }
-        RETURN_NODE_REF(IdentifierExpression, ident.m_ident);
+        RETURN_NODE_UNIQUE_REF(IdentifierExpression, ident.m_ident);
     }
     case TokenType::KeywordArray: {
         PARSE(arrayType, ArrayType);
         PARSE(arguments, ArgumentExpressionList);
-        RETURN_NODE_REF(CallableExpression, WTFMove(arrayType), WTFMove(arguments));
+        RETURN_NODE_UNIQUE_REF(CallableExpression, WTFMove(arrayType), WTFMove(arguments));
     }
 
     // const_literal
     case TokenType::LiteralTrue:
         consume();
-        RETURN_NODE_REF(BoolLiteral, true);
+        RETURN_NODE_UNIQUE_REF(BoolLiteral, true);
     case TokenType::LiteralFalse:
         consume();
-        RETURN_NODE_REF(BoolLiteral, false);
+        RETURN_NODE_UNIQUE_REF(BoolLiteral, false);
     case TokenType::IntegerLiteral: {
         CONSUME_TYPE_NAMED(lit, IntegerLiteral);
-        RETURN_NODE_REF(AbstractIntLiteral, lit.m_literalValue);
+        RETURN_NODE_UNIQUE_REF(AbstractIntLiteral, lit.m_literalValue);
     }
     case TokenType::IntegerLiteralSigned: {
         CONSUME_TYPE_NAMED(lit, IntegerLiteralSigned);
-        RETURN_NODE_REF(Int32Literal, lit.m_literalValue);
+        RETURN_NODE_UNIQUE_REF(Int32Literal, lit.m_literalValue);
     }
     case TokenType::IntegerLiteralUnsigned: {
         CONSUME_TYPE_NAMED(lit, IntegerLiteralUnsigned);
-        RETURN_NODE_REF(Uint32Literal, lit.m_literalValue);
+        RETURN_NODE_UNIQUE_REF(Uint32Literal, lit.m_literalValue);
     }
     case TokenType::DecimalFloatLiteral: {
         CONSUME_TYPE_NAMED(lit, DecimalFloatLiteral);
-        RETURN_NODE_REF(AbstractFloatLiteral, lit.m_literalValue);
+        RETURN_NODE_UNIQUE_REF(AbstractFloatLiteral, lit.m_literalValue);
     }
     case TokenType::HexFloatLiteral: {
         CONSUME_TYPE_NAMED(lit, HexFloatLiteral);
-        RETURN_NODE_REF(AbstractFloatLiteral, lit.m_literalValue);
+        RETURN_NODE_UNIQUE_REF(AbstractFloatLiteral, lit.m_literalValue);
     }
     // TODO: bitcast expression
 
@@ -773,7 +776,7 @@ Expected<UniqueRef<AST::Expression>, Error> Parser<Lexer>::parseCoreLHSExpressio
     }
     case TokenType::Identifier: {
         CONSUME_TYPE_NAMED(ident, Identifier);
-        RETURN_NODE_REF(IdentifierExpression, ident.m_ident);
+        RETURN_NODE_UNIQUE_REF(IdentifierExpression, ident.m_ident);
     }
     default:
         break;
