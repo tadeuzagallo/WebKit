@@ -283,19 +283,19 @@ Expected<UniqueRef<AST::TypeDecl>, Error> Parser<Lexer>::parseTypeDecl()
         return parseArrayType();
     if (current().m_type == TokenType::KeywordI32) {
         consume();
-        RETURN_NODE_REF(NamedType, StringView { "i32"_s });
+        RETURN_NODE_REF(NamedType, String { "i32"_s });
     }
     if (current().m_type == TokenType::KeywordF32) {
         consume();
-        RETURN_NODE_REF(NamedType, StringView { "f32"_s });
+        RETURN_NODE_REF(NamedType, String { "f32"_s });
     }
     if (current().m_type == TokenType::KeywordU32) {
         consume();
-        RETURN_NODE_REF(NamedType, StringView { "u32"_s });
+        RETURN_NODE_REF(NamedType, String { "u32"_s });
     }
     if (current().m_type == TokenType::KeywordBool) {
         consume();
-        RETURN_NODE_REF(NamedType, StringView { "bool"_s });
+        RETURN_NODE_REF(NamedType, String { "bool"_s });
     }
     if (current().m_type == TokenType::Identifier) {
         CONSUME_TYPE_NAMED(name, Identifier);
@@ -306,9 +306,9 @@ Expected<UniqueRef<AST::TypeDecl>, Error> Parser<Lexer>::parseTypeDecl()
 }
 
 template<typename Lexer>
-Expected<UniqueRef<AST::TypeDecl>, Error> Parser<Lexer>::parseTypeDeclAfterIdentifier(StringView&& name, SourcePosition _startOfElementPosition)
+Expected<UniqueRef<AST::TypeDecl>, Error> Parser<Lexer>::parseTypeDeclAfterIdentifier(String&& name, SourcePosition _startOfElementPosition)
 {
-    if (auto kind = AST::ParameterizedType::stringViewToKind(name)) {
+    if (auto kind = AST::ParameterizedType::stringToKind(name)) {
         CONSUME_TYPE(LT);
         PARSE(elementType, TypeDecl);
         CONSUME_TYPE(GT);
