@@ -70,6 +70,7 @@ public:
     void visit(AST::StructureAccess&) override;
     void visit(AST::UnaryExpression&) override;
     void visit(AST::BinaryExpression&) override;
+    void visit(AST::PointerDereference&) override;
 
     void visit(AST::Statement&) override;
     void visit(AST::AssignmentStatement&) override;
@@ -83,9 +84,12 @@ public:
     void visit(AST::TypeReference&) override;
 
     void visit(AST::Parameter&) override;
+    void visitGlobalVariableParameter(AST::Parameter&);
 
+private:
     StringBuilder& m_stringBuilder;
     Indentation<4> m_indent { 0 };
+    std::optional<AST::StructRole> m_structRole;
 };
 
 void FunctionDefinitionWriter::visit(AST::ShaderModule& shaderModule)
@@ -107,16 +111,18 @@ void FunctionDefinitionWriter::visit(AST::FunctionDecl& functionDefinition)
     for (auto& parameter : functionDefinition.parameters()) {
         if (!first)
             m_stringBuilder.append(", ");
-        bool isBuiltin = false;
-        for (auto& attribute : parameter.attributes()) {
-            if (attribute->kind() == AST::Node::Kind::BuiltinAttribute) {
-                isBuiltin = true;
-                break;
-            }
-        }
-        checkErrorAndVisit(parameter);
-        if (!isBuiltin)
+        switch (parameter.parameterType()) {
+        case AST::ParameterType::UserDefined:
+            checkErrorAndVisit(parameter);
+            break;
+        case AST::ParameterType::StageIn:
+            checkErrorAndVisit(parameter);
             m_stringBuilder.append(" [[stage_in]]");
+            break;
+        case AST::ParameterType::GlobalVariable:
+            visitGlobalVariableParameter(parameter);
+            break;
+        }
         first = false;
     }
     m_stringBuilder.append(")\n");
@@ -129,6 +135,7 @@ void FunctionDefinitionWriter::visit(AST::FunctionDecl& functionDefinition)
 void FunctionDefinitionWriter::visit(AST::StructDecl& structDecl)
 {
     // FIXME: visit struct attributes
+    m_structRole = { structDecl.role() };
     m_stringBuilder.append(m_indent, "struct ", structDecl.name(), " {\n");
     {
         IndentationScope scope(m_indent);
@@ -144,6 +151,7 @@ void FunctionDefinitionWriter::visit(AST::StructDecl& structDecl)
         }
     }
     m_stringBuilder.append(m_indent, "};\n\n");
+    m_structRole = std::nullopt;
 }
 
 void FunctionDefinitionWriter::visit(AST::VariableDecl& variableDecl)
@@ -197,6 +205,21 @@ void FunctionDefinitionWriter::visit(AST::StageAttribute& stage)
 
 void FunctionDefinitionWriter::visit(AST::LocationAttribute& location)
 {
+    if (m_structRole.has_value()) {
+        auto role = *m_structRole;
+        switch (role) {
+        case AST::StructRole::UserDefined:
+            break;
+        case AST::StructRole::VertexOutput:
+        case AST::StructRole::FragmentInput:
+            m_stringBuilder.append("[[user(loc", location.location(), ")]]");
+            return;
+        case AST::StructRole::VertexInput:
+        case AST::StructRole::ComputeInput:
+            // FIXME: not sure if these should actually be attributes or not
+            break;
+        }
+    }
     m_stringBuilder.append("[[attribute(", location.location(), ")]]");
 }
 
@@ -304,6 +327,14 @@ void FunctionDefinitionWriter::visit(AST::Parameter& parameter)
     }
 }
 
+void FunctionDefinitionWriter::visitGlobalVariableParameter(AST::Parameter& parameter)
+{
+    m_stringBuilder.append("const device ");
+    visit(parameter.type());
+    m_stringBuilder.append("* ", parameter.name());
+    m_stringBuilder.append(" [[buffer(0)]]");
+}
+
 void FunctionDefinitionWriter::visit(AST::Expression& expression)
 {
     AST::Visitor::visit(expression);
@@ -352,10 +383,20 @@ void FunctionDefinitionWriter::visit(AST::BinaryExpression& binary)
     switch (binary.operation()) {
     case AST::BinaryOperation::Add:
         m_stringBuilder.append(" + ");
+        break;
+    case AST::BinaryOperation::Times:
+        m_stringBuilder.append(" * ");
+        break;
     }
     visit(binary.rhs());
 }
 
+void FunctionDefinitionWriter::visit(AST::PointerDereference& pointerDereference)
+{
+    m_stringBuilder.append("(*");
+    visit(pointerDereference.target());
+    m_stringBuilder.append(")");
+}
 void FunctionDefinitionWriter::visit(AST::ArrayAccess& access)
 {
     visit(access.base());

@@ -31,6 +31,7 @@ namespace WGSL::AST {
 
 enum class BinaryOperation : uint8_t {
     Add,
+    Times,
 };
     
 class BinaryExpression final : public Expression {

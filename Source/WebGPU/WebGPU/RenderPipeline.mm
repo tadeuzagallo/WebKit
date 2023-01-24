@@ -490,7 +490,8 @@ RenderPipeline::RenderPipeline(id<MTLRenderPipelineState> renderPipelineState, M
     , m_frontFace(frontFace)
     , m_cullMode(cullMode)
     , m_depthStencilDescriptor(depthStencilDescriptor)
-    , m_depthStencilState([device.device() newDepthStencilStateWithDescriptor:depthStencilDescriptor])
+    //, m_depthStencilState([device.device() newDepthStencilStateWithDescriptor:depthStencilDescriptor])
+    , m_depthStencilState(depthStencilDescriptor ? [device.device() newDepthStencilStateWithDescriptor:depthStencilDescriptor] : nil)
 #if HAVE(METAL_BUFFER_BINDING_REFLECTION)
     , m_reflection(reflection)
 #endif
@@ -509,7 +510,8 @@ RenderPipeline::RenderPipeline(id<MTLRenderPipelineState> renderPipelineState, M
     , m_frontFace(frontFace)
     , m_cullMode(cullMode)
     , m_depthStencilDescriptor(depthStencilDescriptor)
-    , m_depthStencilState([device.device() newDepthStencilStateWithDescriptor:depthStencilDescriptor])
+    //, m_depthStencilState([device.device() newDepthStencilStateWithDescriptor:depthStencilDescriptor])
+    , m_depthStencilState(depthStencilDescriptor ? [device.device() newDepthStencilStateWithDescriptor:depthStencilDescriptor] : nil)
     , m_pipelineLayout(&pipelineLayout)
     , m_vertexShaderInputBufferCount(vertexShaderInputBufferCount)
 {
@@ -599,7 +601,7 @@ void RenderPipeline::setLabel(String&&)
 
 id<MTLDepthStencilState> RenderPipeline::depthStencilState() const
 {
-    ASSERT(m_depthStencilState);
+    //ASSERT(m_depthStencilState);
     return m_depthStencilState;
 }
 

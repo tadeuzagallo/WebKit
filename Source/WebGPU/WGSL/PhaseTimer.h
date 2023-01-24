@@ -38,12 +38,12 @@ namespace AST {
 class ShaderModule;
 }
 
-static constexpr bool dumpASTBeforeEachPass = false;
-static constexpr bool dumpASTAfterParsing = false;
-static constexpr bool dumpASTAtEnd = false;
-static constexpr bool alwaysDumpPassFailures = false;
+static constexpr bool dumpASTBeforeEachPass = true;
+static constexpr bool dumpASTAfterParsing = true;
+static constexpr bool dumpASTAtEnd = true;
+static constexpr bool alwaysDumpPassFailures = true;
 static constexpr bool dumpPassFailure = dumpASTBeforeEachPass || dumpASTAfterParsing || dumpASTAtEnd || alwaysDumpPassFailures;
-static constexpr bool dumpPhaseTimes = false;
+static constexpr bool dumpPhaseTimes = true;
 
 static inline bool dumpASTIfNeeded(bool shouldDump, AST::ShaderModule& program, const char* message)
 {

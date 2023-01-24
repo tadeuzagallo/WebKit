@@ -34,8 +34,9 @@ namespace WGSL {
 
 class EntryPointRewriter {
 public:
-    EntryPointRewriter(AST::ShaderModule& shaderModule, AST::FunctionDecl& functionDecl)
-        : m_shaderModule(shaderModule)
+    EntryPointRewriter(AST::ShaderModule& shaderModule, AST::FunctionDecl& functionDecl, AST::StageAttribute::Stage stage)
+        : m_stage(stage)
+        , m_shaderModule(shaderModule)
         , m_functionDecl(functionDecl)
         , m_emptySourceSpan(0, 0, 0, 0)
     {
@@ -63,6 +64,7 @@ private:
     void visit(Vector<String>& path, MemberOrParameter&&);
     void appendBuiltins();
 
+    AST::StageAttribute::Stage m_stage;
     AST::ShaderModule& m_shaderModule;
     AST::FunctionDecl& m_functionDecl;
 
@@ -100,18 +102,28 @@ void EntryPointRewriter::rewrite()
         return;
     }
 
-    // add parameter to builtins: ${structName} : ${structType}
-    m_builtins.append({
-        m_structParameterName,
-        adoptRef(*new AST::NamedType(m_emptySourceSpan, m_structTypeName)),
-        AST::Attribute::List { }
-    });
-
     constructInputStruct();
     appendBuiltins();
 
+    // add parameter to builtins: ${structName} : ${structType}
+    m_functionDecl.parameters().append(makeUniqueRef<AST::Parameter>(
+        m_emptySourceSpan,
+        m_structParameterName,
+        adoptRef(*new AST::NamedType(m_emptySourceSpan, m_structTypeName)),
+        AST::Attribute::List { },
+        AST::ParameterType::StageIn
+    ));
+
     while (m_materializations.size())
         m_functionDecl.body().statements().insert(0, m_materializations.takeLast());
+
+    if (auto* maybeReturnType = m_functionDecl.maybeReturnType()) {
+        auto& returnType = getResolvedType(*maybeReturnType);
+        if (returnType.kind() == AST::Node::Kind::StructType) {
+            auto& structDecl = downcast<AST::StructType>(returnType).structDecl();
+            structDecl.setRole(AST::StructRole::VertexOutput);
+        }
+    }
 }
 
 void EntryPointRewriter::collectParameters()
@@ -138,11 +150,25 @@ void EntryPointRewriter::constructInputStruct()
         ));
     }
 
+    AST::StructRole role;
+    switch (m_stage) {
+    case AST::StageAttribute::Stage::Compute:
+        role = AST::StructRole::ComputeInput;
+        break;
+    case AST::StageAttribute::Stage::Vertex:
+        role = AST::StructRole::VertexInput;
+        break;
+    case AST::StageAttribute::Stage::Fragment:
+        role = AST::StructRole::FragmentInput;
+        break;
+    }
+
     m_shaderModule.structs().append(makeUniqueRef<AST::StructDecl>(
         m_emptySourceSpan,
         m_structTypeName,
         WTFMove(structMembers),
-        AST::Attribute::List { }
+        AST::Attribute::List { },
+        role
     ));
 }
 
@@ -247,7 +273,8 @@ void EntryPointRewriter::appendBuiltins()
             m_emptySourceSpan,
             data.m_name,
             WTFMove(data.m_type),
-            WTFMove(data.m_attributes)
+            WTFMove(data.m_attributes),
+            AST::ParameterType::UserDefined
         ));
     }
 }
@@ -255,7 +282,7 @@ void EntryPointRewriter::appendBuiltins()
 void rewriteEntryPoints(CallGraph& callGraph)
 {
     for (auto& entryPoint : callGraph.entrypoints())
-        EntryPointRewriter(callGraph.ast(), entryPoint.m_function).rewrite();
+        EntryPointRewriter(callGraph.ast(), entryPoint.m_function, entryPoint.m_stage).rewrite();
 }
 
 } // namespace WGSL

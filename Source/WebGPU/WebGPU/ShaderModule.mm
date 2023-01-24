@@ -29,6 +29,7 @@
 #import "APIConversions.h"
 #import "Device.h"
 #import "PipelineLayout.h"
+#import <wtf/DataLog.h>
 
 namespace WebGPU {
 
@@ -112,13 +113,17 @@ Ref<ShaderModule> Device::createShaderModule(const WGPUShaderModuleDescriptor& d
     if (!shaderModuleParameters)
         return ShaderModule::createInvalid(*this);
 
-    auto checkResult = WGSL::staticCheck(fromAPI(shaderModuleParameters->wgsl.code), std::nullopt);
+    String source = fromAPI(shaderModuleParameters->wgsl.code);
+    auto checkResult = WGSL::staticCheck(source, std::nullopt);
 
-    if (std::holds_alternative<WGSL::SuccessfulCheck>(checkResult) && shaderModuleParameters->hints && shaderModuleParameters->hints->hintsCount) {
+    if (std::holds_alternative<WGSL::SuccessfulCheck>(checkResult)) {
         if (auto result = earlyCompileShaderModule(*this, WTFMove(checkResult), *shaderModuleParameters->hints, fromAPI(descriptor.label)))
             return result.releaseNonNull();
     } else {
         // FIXME: remove shader library generation from MSL after compiler bringup
+        dataLogLn(">>> WGSL PARSER ERRORS <<<");
+        for (const auto& error : std::get<WGSL::FailedCheck>(checkResult).errors)
+          dataLogLn(error);
         auto library = ShaderModule::createLibrary(device(), String::fromUTF8(shaderModuleParameters->wgsl.code), fromAPI(descriptor.label));
         if (library)
             return ShaderModule::create(WTFMove(checkResult), { }, { }, library, *this);

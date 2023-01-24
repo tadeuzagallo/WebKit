@@ -89,6 +89,7 @@ enum class TokenType: uint32_t {
     ParenLeft,
     ParenRight,
     Semicolon,
+    Times,
     // FIXME: add all the other special tokens
 };
 

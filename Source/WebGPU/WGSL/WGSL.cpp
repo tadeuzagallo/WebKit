@@ -28,6 +28,7 @@
 
 #include "CallGraph.h"
 #include "EntryPointRewriter.h"
+#include "GlobalVariableRewriter.h"
 #include "Metal/MetalCodeGenerator.h"
 #include "Parser.h"
 #include "PhaseTimer.h"
@@ -98,6 +99,7 @@ PrepareResult prepare(AST::ShaderModule& ast, const HashMap<String, PipelineLayo
         RUN_PASS_WITH_RESULT(callGraph, buildCallGraph, ast);
         RUN_PASS(resolveTypeReferences, ast);
         RUN_PASS(rewriteEntryPoints, callGraph);
+        RUN_PASS(rewriteGlobalVariables, callGraph);
 
         dumpASTAtEndIfNeeded(ast);
 
