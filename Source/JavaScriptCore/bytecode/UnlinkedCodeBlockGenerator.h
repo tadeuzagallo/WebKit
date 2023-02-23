@@ -68,7 +68,7 @@ public:
 
     // Updating UnlinkedCodeBlock.
     void setHasCheckpoints() { m_codeBlock->setHasCheckpoints(); }
-    void setHasTailCalls() { m_codeBlock->setHasTailCalls(); }
+    //void setHasTailCalls() { m_codeBlock->setHasTailCalls(); }
     void setNumCalleeLocals(unsigned numCalleeLocals) { m_codeBlock->m_numCalleeLocals = numCalleeLocals; }
     void setNumVars(unsigned numVars) { m_codeBlock->m_numVars = numVars; }
     void setThisRegister(VirtualRegister thisRegister) { m_codeBlock->setThisRegister(thisRegister); }

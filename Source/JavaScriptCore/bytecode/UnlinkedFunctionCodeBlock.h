@@ -42,9 +42,9 @@ public:
         return vm.unlinkedFunctionCodeBlockSpace<mode>();
     }
 
-    static UnlinkedFunctionCodeBlock* create(VM& vm, CodeType codeType, const ExecutableInfo& info, OptionSet<CodeGenerationMode> codeGenerationMode)
+    static UnlinkedFunctionCodeBlock* create(VM& vm, CodeType codeType, const ExecutableInfo& info, OptionSet<CodeGenerationMode> codeGenerationMode, bool usesTailCalls)
     {
-        UnlinkedFunctionCodeBlock* instance = new (NotNull, allocateCell<UnlinkedFunctionCodeBlock>(vm)) UnlinkedFunctionCodeBlock(vm, vm.unlinkedFunctionCodeBlockStructure.get(), codeType, info, codeGenerationMode);
+        UnlinkedFunctionCodeBlock* instance = new (NotNull, allocateCell<UnlinkedFunctionCodeBlock>(vm)) UnlinkedFunctionCodeBlock(vm, vm.unlinkedFunctionCodeBlockStructure.get(), codeType, info, codeGenerationMode, usesTailCalls);
         instance->finishCreation(vm);
         return instance;
     }
@@ -54,8 +54,8 @@ public:
 private:
     friend CachedFunctionCodeBlock;
 
-    UnlinkedFunctionCodeBlock(VM& vm, Structure* structure, CodeType codeType, const ExecutableInfo& info, OptionSet<CodeGenerationMode> codeGenerationMode)
-        : Base(vm, structure, codeType, info, codeGenerationMode)
+    UnlinkedFunctionCodeBlock(VM& vm, Structure* structure, CodeType codeType, const ExecutableInfo& info, OptionSet<CodeGenerationMode> codeGenerationMode, bool usesTailCalls)
+        : Base(vm, structure, codeType, info, codeGenerationMode, usesTailCalls)
     {
     }
 

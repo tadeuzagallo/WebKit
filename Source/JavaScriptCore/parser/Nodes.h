@@ -1957,6 +1957,7 @@ namespace JSC {
         bool usesSuperCall() const { return m_features & SuperCallFeature; }
         bool usesSuperProperty() const { return m_features & SuperPropertyFeature; }
         bool usesNewTarget() const { return m_features & NewTargetFeature; }
+        bool usesTailCalls() const { return m_features & TailCallsFeature; }
         bool needsActivation() const { return (hasCapturedVariables()) || (m_features & (EvalFeature | WithFeature)); }
         bool hasCapturedVariables() const { return m_varDeclarations.hasCapturedVariables(); }
         bool captures(UniquedStringImpl* uid) { return m_varDeclarations.captures(uid); }

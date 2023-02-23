@@ -1315,6 +1315,9 @@ namespace JSC {
         bool m_usesNonStrictEval { false };
         bool m_inTailPosition { false };
         bool m_needsToUpdateArrowFunctionContext : 1;
+#ifndef NDEBUG
+        bool m_hasSeenTailCalls : 1;
+#endif
         ECMAMode m_ecmaMode;
         DerivedContextType m_derivedContextType { DerivedContextType::None };
 

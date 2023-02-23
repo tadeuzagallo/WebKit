@@ -322,7 +322,10 @@ ParserError BytecodeGenerator::generate(unsigned& size)
             static_cast<uint32_t>(range.tryData->target->bind()), range.tryData->handlerType);
         m_codeBlock->addExceptionHandler(info);
     }
-    
+
+#ifndef NDEBUG
+    ASSERT(m_codeBlock->hasTailCalls() == m_hasSeenTailCalls);
+#endif
 
     if (m_isAsync)
         performGeneratorification(*this, m_codeBlock.get(), m_writer, m_generatorFrameSymbolTable.get(), m_generatorFrameSymbolTableIndex);
@@ -3425,7 +3428,10 @@ RegisterID* BytecodeGenerator::emitCall(RegisterID* dst, RegisterID* func, Expec
 RegisterID* BytecodeGenerator::emitCallInTailPosition(RegisterID* dst, RegisterID* func, ExpectedFunction expectedFunction, CallArguments& callArguments, const JSTextPosition& divot, const JSTextPosition& divotStart, const JSTextPosition& divotEnd, DebuggableCall debuggableCall)
 {
     if (m_inTailPosition) {
-        m_codeBlock->setHasTailCalls();
+        ASSERT(m_codeBlock->hasTailCalls());
+#ifndef NDEBUG
+        m_hasSeenTailCalls = true;
+#endif
         return emitCall<OpTailCall>(dst, func, expectedFunction, callArguments, divot, divotStart, divotEnd, debuggableCall);
     }
     return emitCall<OpCall>(dst, func, expectedFunction, callArguments, divot, divotStart, divotEnd, debuggableCall);

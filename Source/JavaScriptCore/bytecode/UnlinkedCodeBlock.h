@@ -152,7 +152,7 @@ public:
     bool isArrowFunctionContext() const { return m_isArrowFunctionContext; }
     bool isClassContext() const { return m_isClassContext; }
     bool hasTailCalls() const { return m_hasTailCalls; }
-    void setHasTailCalls() { m_hasTailCalls = true; }
+    //void setHasTailCalls() { m_hasTailCalls = true; }
     bool allowDirectEvalCache() const { return !(m_features & NoEvalCacheFeature); }
     bool usesImportMeta() const { return m_features & ImportMetaFeature; }
 
@@ -367,7 +367,7 @@ public:
     int32_t thresholdForJIT(int32_t threshold);
 
 protected:
-    UnlinkedCodeBlock(VM&, Structure*, CodeType, const ExecutableInfo&, OptionSet<CodeGenerationMode>);
+    UnlinkedCodeBlock(VM&, Structure*, CodeType, const ExecutableInfo&, OptionSet<CodeGenerationMode>, bool usesTailCalls = false);
 
     template<typename CodeBlockType>
     UnlinkedCodeBlock(Decoder&, Structure*, const CachedCodeBlock<CodeBlockType>&);

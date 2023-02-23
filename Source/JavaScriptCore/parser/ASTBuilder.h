@@ -722,6 +722,8 @@ public:
     {
         ReturnNode* result = new (m_parserArena) ReturnNode(location, expression);
         setExceptionLocation(result, start, end, end);
+        if (expression && expression->isFunctionCall())
+            usesTailCalls();
         result->setLoc(start.line, end.line, start.offset, start.lineStartOffset);
         return result;
     }
@@ -1126,6 +1128,7 @@ private:
         m_scope.m_features |= EvalFeature;
     }
     void usesNewTarget() { m_scope.m_features |= NewTargetFeature; }
+    void usesTailCalls() { m_scope.m_features |= TailCallsFeature; }
     void usesAwait() { m_scope.m_features |= AwaitFeature; }
     ExpressionNode* createIntegerLikeNumber(const JSTokenLocation& location, double d)
     {
