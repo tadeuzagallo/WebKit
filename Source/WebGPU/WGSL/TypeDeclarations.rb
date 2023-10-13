@@ -252,6 +252,11 @@ operator :vec4, {
     [].() => vec4[abstract_int],
 }
 
+# 16.2. Bit Reinterpretation Built-in Functions (https://www.w3.org/TR/WGSL/#bitcast-builtin)
+# NOTE: Our overload resolution/constraints aren't expressive enough to support
+# the bitcast declaration that requires the type variable to be a vector, so
+# it's implemented inline in the type checker
+
 # 17.3. Logical Built-in Functions (https://www.w3.org/TR/WGSL/#logical-builtin-functions)
 
 # 17.3.1 & 17.3.2
