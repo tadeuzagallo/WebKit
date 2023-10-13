@@ -1402,6 +1402,7 @@ void FunctionDefinitionWriter::visit(const Type* type, AST::CallExpression& call
 
 void FunctionDefinitionWriter::visit(AST::UnaryExpression& unary)
 {
+    m_stringBuilder.append("(");
     switch (unary.operation()) {
     case AST::UnaryOperation::Complement:
         m_stringBuilder.append("~");
@@ -1420,6 +1421,7 @@ void FunctionDefinitionWriter::visit(AST::UnaryExpression& unary)
         break;
     }
     visit(unary.expression());
+    m_stringBuilder.append(")");
 }
 
 void FunctionDefinitionWriter::visit(AST::BinaryExpression& binary)
