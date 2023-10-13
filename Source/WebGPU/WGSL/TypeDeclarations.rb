@@ -53,6 +53,10 @@ operator :*, {
     [T < Number, N].(vec[N][T], T) => vec[N][T],
     [T < Number, N].(T, vec[N][T]) => vec[N][T],
     [T < Number, N].(vec[N][T], vec[N][T]) => vec[N][T],
+    #
+    # matrix scaling
+    [T < Number, C, R].(mat[C, R][T], T) => mat[C, R][T],
+    [T < Number, C, R].(T, mat[C, R][T]) => mat[C, R][T],
 
     # matrix-vector multiplication
     [T < Float, C, R].(mat[C,R][T], vec[C][T]) => vec[R][T],
