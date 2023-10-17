@@ -19,6 +19,9 @@ suffixes = {
 end
 
 operator :+, {
+    must_use: true,
+    const: "constantAdd",
+
     [T < Number].(T, T) => T,
 
     # vector addition
@@ -31,6 +34,9 @@ operator :+, {
 }
 
 operator :-, {
+    must_use: true,
+    const: "constantMinus",
+
     # unary
     [T < SignedNumber].(T) => T,
     [T < SignedNumber, N].(vec[N][T]) => vec[N][T],
@@ -43,7 +49,11 @@ operator :-, {
 }
 
 operator :*, {
+    must_use: true,
+    const: "constantMultiply",
+
     # unary
+    # FIXME: move this out of here
     [AS, T, AM].(ptr[AS, T, AM]) => ref[AS, T, AM],
 
     # binary
@@ -53,7 +63,7 @@ operator :*, {
     [T < Number, N].(vec[N][T], T) => vec[N][T],
     [T < Number, N].(T, vec[N][T]) => vec[N][T],
     [T < Number, N].(vec[N][T], vec[N][T]) => vec[N][T],
-    #
+
     # matrix scaling
     [T < Number, C, R].(mat[C, R][T], T) => mat[C, R][T],
     [T < Number, C, R].(T, mat[C, R][T]) => mat[C, R][T],
@@ -67,6 +77,9 @@ operator :*, {
 }
 
 operator :/, {
+    must_use: true,
+    const: "constantDivide",
+
     [T < Number].(T, T) => T,
 
     # vector scaling
@@ -87,6 +100,9 @@ operator :%, {
 # Comparison operations
 ["==", "!="].each do |op|
     operator :"#{op}", {
+        must_use: true,
+        #FIXME: add constant function
+
         [T < Scalar].(T, T) => bool,
         [T < Scalar, N].(vec[N][T], vec[N][T]) => vec[N][bool],
     }
@@ -94,6 +110,9 @@ end
 
 ["<", "<=", ">", ">="].each do |op|
     operator :"#{op}", {
+        must_use: true,
+        #FIXME: add constant function
+
         [T < Number].(T, T) => bool,
         [T < Number, N].(vec[N][T], vec[N][T]) => vec[N][bool],
     }
@@ -102,25 +121,41 @@ end
 # 8.6. Logical Expressions (https://gpuweb.github.io/gpuweb/wgsl/#logical-expr)
 
 operator :!, {
+    must_use: true,
+    #FIXME: add constant function
+
     [].(bool) => bool,
     [N].(vec[N][bool]) => vec[N][bool],
 }
 
 operator :'||', {
+    must_use: true,
+    #FIXME: add constant function
+
     [].(bool, bool) => bool,
 }
 
 operator :'&&', {
+    must_use: true,
+    #FIXME: add constant function
+
     [].(bool, bool) => bool,
 }
 
 operator :'|', {
+    must_use: true,
+    #FIXME: add constant function
+
     [].(bool, bool) => bool,
     [N].(vec[N][bool], vec[N][bool]) => vec[N][bool],
 }
 
 operator :'&', {
+    must_use: true,
+    #FIXME: add constant function
+
     # unary
+    # FIXME: move this out of here
     [AS, T, AM].(ref[AS, T, AM]) => ptr[AS, T, AM],
 
     # binary
@@ -131,12 +166,18 @@ operator :'&', {
 # 8.9. Bit Expressions (https://www.w3.org/TR/WGSL/#bit-expr)
 
 operator :~, {
+    must_use: true,
+    #FIXME: add constant function
+
     [T < Integer].(T) => T,
     [T < Integer, N].(vec[N][T]) => vec[N][T]
 }
 
 ["|", "&", "^", "<<", ">>"].each do |op|
     operator :"#{op}", {
+        must_use: true,
+        #FIXME: add constant function
+
         [T < Integer].(T, T) => T,
         [T < Integer, N].(vec[N][T], vec[N][T]) => vec[N][T]
     }
@@ -145,30 +186,61 @@ end
 # 16.1. Constructor Built-in Functions
 
 # 16.1.1. Zero Value Built-in Functions
-operator :bool, {
+constructor :bool, {
+    must_use: true,
+    #FIXME: add constant function
+
     [].() => bool,
 }
-operator :i32, {
+
+constructor :i32, {
+    must_use: true,
+    #FIXME: add constant function
+
     [].() => i32,
 }
-operator :u32, {
+
+constructor :u32, {
+    must_use: true,
+    #FIXME: add constant function
+
     [].() => u32,
 }
-operator :f32, {
+
+constructor :f32, {
+    must_use: true,
+    #FIXME: add constant function
+
     [].() => f32,
 }
-operator :vec2, {
+
+constructor :vec2, {
+    must_use: true,
+    const: true,
+
     [T < ConcreteScalar].() => vec2[T],
 }
-operator :vec3, {
+
+constructor :vec3, {
+    must_use: true,
+    const: true,
+
     [T < ConcreteScalar].() => vec3[T],
 }
-operator :vec4, {
+
+constructor :vec4, {
+    must_use: true,
+    const: true,
+
     [T < ConcreteScalar].() => vec4[T],
 }
+
 (2..4).each do |columns|
     (2..4).each do |rows|
-        operator :"mat#{columns}x#{rows}", {
+        constructor :"mat#{columns}x#{rows}", {
+            must_use: true,
+            #FIXME: add constant function
+
             [T < ConcreteFloat].() => mat[columns,rows][T],
         }
     end
@@ -180,7 +252,10 @@ end
 # Implemented inline in the type checker
 
 # 16.1.2.2.
-operator :bool, {
+constructor :bool, {
+    must_use: true,
+    #FIXME: add constant function
+
     [T < ConcreteScalar].(T) => bool,
 }
 
@@ -188,19 +263,28 @@ operator :bool, {
 # FIXME: add support for f16
 
 # 16.1.2.4.
-operator :f32, {
+constructor :f32, {
+    must_use: true,
+    #FIXME: add constant function
+
     [T < ConcreteScalar].(T) => f32,
 }
 
 # 16.1.2.5.
-operator :i32, {
+constructor :i32, {
+    must_use: true,
+    #FIXME: add constant function
+
     [T < ConcreteScalar].(T) => i32,
 }
 
 # 16.1.2.6 - 14: matCxR
 (2..4).each do |columns|
     (2..4).each do |rows|
-        operator :"mat#{columns}x#{rows}", {
+        constructor :"mat#{columns}x#{rows}", {
+            must_use: true,
+            #FIXME: add constant function
+
             [T < ConcreteFloat, S < Float].(mat[columns,rows][S]) => mat[columns,rows][T],
             [T < Float].(mat[columns,rows][T]) => mat[columns,rows][T],
             [T < Float].(*([T] * columns * rows)) => mat[columns,rows][T],
@@ -213,12 +297,18 @@ end
 # Implemented inline in the type checker
 
 # 16.1.2.16.
-operator :u32, {
+constructor :u32, {
+    must_use: true,
+    #FIXME: add constant function
+
     [T < ConcreteScalar].(T) => u32,
 }
 
 # 16.1.2.17.
-operator :vec2, {
+constructor :vec2, {
+    must_use: true,
+    const: true,
+
     [T < Scalar].(T) => vec2[T],
     [T < ConcreteScalar, S < Scalar].(vec2[S]) => vec2[T],
     [S < Scalar].(vec2[S]) => vec2[S],
@@ -227,7 +317,10 @@ operator :vec2, {
 }
 
 # 16.1.2.18.
-operator :vec3, {
+constructor :vec3, {
+    must_use: true,
+    const: true,
+
     [T < Scalar].(T) => vec3[T],
     [T < ConcreteScalar, S < Scalar].(vec3[S]) => vec3[T],
     [S < Scalar].(vec3[S]) => vec3[S],
@@ -238,7 +331,10 @@ operator :vec3, {
 }
 
 # 16.1.2.19.
-operator :vec4, {
+constructor :vec4, {
+    must_use: true,
+    const: true,
+
     [T < Scalar].(T) => vec4[T],
     [T < ConcreteScalar, S < Scalar].(vec4[S]) => vec4[T],
     [S < Scalar].(vec4[S]) => vec4[S],
@@ -261,14 +357,20 @@ operator :vec4, {
 
 # 17.3.1 & 17.3.2
 ["all", "any"].each do |op|
-    operator :"#{op}", {
+    function :"#{op}", {
+        must_use: true,
+        #FIXME: add constant function
+
         [N].(vec[N][bool]) => bool,
         [N].(bool) => bool,
     }
 end
 
 # 17.3.3
-operator :select, {
+function :select, {
+    must_use: true,
+    #FIXME: add constant function
+
     [T < Scalar].(T, T, bool) => T,
     [T < Scalar, N].(vec[N][T], vec[N][T], bool) => vec[N][T],
     [T < Scalar, N].(vec[N][T], vec[N][T], vec[N][bool]) => vec[N][T],
@@ -277,9 +379,12 @@ operator :select, {
 # 16.4. Array Built-in Functions
 
 # 16.4.1.
-operator :arrayLength, {
-  [T].(ptr[storage, array[T], read]) => u32,
-  [T].(ptr[storage, array[T], read_write]) => u32,
+function :arrayLength, {
+    must_use: true,
+    #FIXME: add constant function
+
+    [T].(ptr[storage, array[T], read]) => u32,
+    [T].(ptr[storage, array[T], read_write]) => u32,
 }
 
 # 17.5. Numeric Built-in Functions (https://www.w3.org/TR/WGSL/#numeric-builtin-functions)
@@ -287,14 +392,20 @@ operator :arrayLength, {
 # Trigonometric
 ["acos", "asin", "atan", "cos", "sin", "tan",
  "acosh", "asinh", "atanh", "cosh", "sinh", "tanh"].each do |op|
-    operator :"#{op}", {
+    function :"#{op}", {
+        must_use: true,
+        #FIXME: add constant function
+
         [T < Float].(T) => T,
         [T < Float, N].(vec[N][T]) => vec[N][T],
     }
 end
 
 # 17.5.1
-operator :abs, {
+function :abs, {
+    must_use: true,
+    #FIXME: add constant function
+
     [T < Number].(T) => T,
     [T < Number, N].(vec[N][T]) => vec[N][T],
 }
@@ -308,19 +419,28 @@ operator :abs, {
 # Defined in [Trigonometric]
 
 # 17.5.8
-operator :atan2, {
+function :atan2, {
+    must_use: true,
+    #FIXME: add constant function
+
     [T < Float].(T, T) => T,
     [T < Float, N].(vec[N][T], vec[N][T]) => vec[N][T],
 }
 
 # 17.5.9
-operator :ceil, {
+function :ceil, {
+    must_use: true,
+    #FIXME: add constant function
+
     [T < Float].(T) => T,
     [T < Float, N].(vec[N][T]) => vec[N][T],
 }
 
 # 17.5.10
-operator :clamp, {
+function :clamp, {
+    must_use: true,
+    #FIXME: add constant function
+
     [T < Number].(T, T, T) => T,
     [T < Number, N].(vec[N][T], vec[N][T], vec[N][T]) => vec[N][T],
 }
@@ -331,49 +451,73 @@ operator :clamp, {
 
 # 17.5.13-15 (Bit counting)
 ["countLeadingZeros", "countOneBits", "countTrailingZeros"].each do |op|
-    operator :"#{op}", {
+    function :"#{op}", {
+        must_use: true,
+        #FIXME: add constant function
+
         [T < ConcreteInteger].(T) => T,
         [T < ConcreteInteger, N].(vec[N][T]) => vec[N][T],
     }
 end
 
 # 17.5.16
-operator :cross, {
+function :cross, {
+    must_use: true,
+    #FIXME: add constant function
+
     [T < Float].(vec3[T], vec3[T]) => vec3[T],
 }
 
 # 17.5.17
-operator :degrees, {
+function :degrees, {
+    must_use: true,
+    #FIXME: add constant function
+
     [T < Float].(T) => T,
     [T < Float, N].(vec[N][T]) => vec[N][T],
 }
 
 # 17.5.18
-operator :determinant, {
+function :determinant, {
+    must_use: true,
+    #FIXME: add constant function
+
     [T < Float, C].(mat[C,C][T]) => T,
 }
 
 # 17.5.19
-operator :distance, {
+function :distance, {
+    must_use: true,
+    #FIXME: add constant function
+
     [T < Float].(T, T) => T,
     [T < Float, N].(vec[N][T], vec[N][T]) => T,
 }
 
 # 17.5.20
-operator :dot, {
+function :dot, {
+    must_use: true,
+    #FIXME: add constant function
+
     [T < Number, N].(vec[N][T], vec[N][T]) => T
 }
 
 # 17.5.21 & 17.5.22
 ["exp", "exp2"].each do |op|
-    operator :"#{op}", {
+    function :"#{op}", {
+        must_use: true,
+        #FIXME: add constant function
+
         [T < Float].(T) => T,
         [T < Float, N].(vec[N][T]) => vec[N][T],
     }
 end
 
 # 17.5.23 & 17.5.24
-operator :extractBits, {
+function :extractBits, {
+    must_use: true,
+    #FIXME: add constant function
+
     # signed
     [].(i32, u32, u32) => i32,
     [N].(vec[N][i32], u32, u32) => vec[N][i32],
@@ -384,12 +528,18 @@ operator :extractBits, {
 }
 
 # 17.5.25
-operator :faceForward, {
+function :faceForward, {
+    must_use: true,
+    #FIXME: add constant function
+
     [T < Float, N].(vec[N][T], vec[N][T], vec[N][T]) => vec[N][T],
 }
 
 # 17.5.26 & 17.5.27
-operator :firstLeadingBit, {
+function :firstLeadingBit, {
+    must_use: true,
+    #FIXME: add constant function
+
     # signed
     [].(i32) => i32,
     [N].(vec[N][i32]) => vec[N][i32],
@@ -400,48 +550,72 @@ operator :firstLeadingBit, {
 }
 
 # 17.5.28
-operator :firstTrailingBit, {
+function :firstTrailingBit, {
+    must_use: true,
+    #FIXME: add constant function
+
     [T < ConcreteInteger].(T) => T,
     [T < ConcreteInteger, N].(vec[N][T]) => vec[N][T],
 }
 
 # 17.5.29
-operator :floor, {
+function :floor, {
+    must_use: true,
+    #FIXME: add constant function
+
     [T < Float].(T) => T,
     [T < Float, N].(vec[N][T]) => vec[N][T],
 }
 
 # 17.5.30
-operator :fma, {
+function :fma, {
+    must_use: true,
+    #FIXME: add constant function
+
     [T < Float].(T, T, T) => T,
     [T < Float, N].(vec[N][T], vec[N][T], vec[N][T]) => vec[N][T],
 }
 
 # 17.5.31
-operator :fract, {
+function :fract, {
+    must_use: true,
+    #FIXME: add constant function
+
     [T < Float].(T) => T,
     [T < Float, N].(vec[N][T]) => vec[N][T],
 }
 
 # 17.5.32
-operator :frexp, {
+function :frexp, {
+    must_use: true,
+    #FIXME: add constant function
+
     # FIXME: this needs the special return types __frexp_result_*
 }
 
 # 17.5.33
-operator :insertBits, {
+function :insertBits, {
+    must_use: true,
+    #FIXME: add constant function
+
     [T < ConcreteInteger].(T, T, u32, u32) => T,
     [T < ConcreteInteger, N].(vec[N][T], vec[N][T], u32, u32) => vec[N][T],
 }
 
 # 17.5.34
-operator :inverseSqrt, {
+function :inverseSqrt, {
+    must_use: true,
+    #FIXME: add constant function
+
     [T < Float].(T) => T,
     [T < Float, N].(vec[N][T]) => vec[N][T],
 }
 
 # 17.5.35
-operator :ldexp, {
+function :ldexp, {
+    must_use: true,
+    #FIXME: add constant function
+
     [T < ConcreteFloat].(T, i32) => T,
     [].(abstract_float, abstract_int) => abstract_float,
     [T < ConcreteFloat, N].(vec[N][T], vec[N][i32]) => vec[N][T],
@@ -449,96 +623,144 @@ operator :ldexp, {
 }
 
 # 17.5.36
-operator :length, {
+function :length, {
+    must_use: true,
+    #FIXME: add constant function
+
     [T < Float].(T) => T,
     [T < Float, N].(vec[N][T]) => T,
 }
 
 # 17.5.37 & 17.5.38
 ["log", "log2"].each do |op|
-    operator :"#{op}", {
+    function :"#{op}", {
+        must_use: true,
+        #FIXME: add constant function
+
         [T < Float].(T) => T,
         [T < Float, N].(vec[N][T]) => vec[N][T],
     }
 end
 
 # 17.5.39
-operator :max, {
+function :max, {
+    must_use: true,
+    #FIXME: add constant function
+
     [T < Number].(T, T) => T,
     [T < Number, N].(vec[N][T], vec[N][T]) => vec[N][T],
 }
 
 # 17.5.40
-operator :min, {
+function :min, {
+    must_use: true,
+    #FIXME: add constant function
+
     [T < Number].(T, T) => T,
     [T < Number, N].(vec[N][T], vec[N][T]) => vec[N][T],
 }
 
 # 17.5.41
-operator :mix, {
+function :mix, {
+    must_use: true,
+    #FIXME: add constant function
+
     [T < Float].(T, T, T) => T,
     [T < Float, N].(vec[N][T], vec[N][T], vec[N][T]) => vec[N][T],
     [T < Float, N].(vec[N][T], vec[N][T], T) => vec[N][T],
 }
 
 # 17.5.42
-operator :modf, {
+function :modf, {
+    must_use: true,
+    #FIXME: add constant function
+
     # FIXME: this needs the special return types __modf_result_*
 }
 
 # 17.5.43
-operator :normalize, {
+function :normalize, {
+    must_use: true,
+    #FIXME: add constant function
+
     [T < Float, N].(vec[N][T]) => vec[N][T],
 }
 
 # 17.5.44
-operator :pow, {
+function :pow, {
+    must_use: true,
+    const: true,
+
     [T < Float].(T, T) => T,
     [T < Float, N].(vec[N][T], vec[N][T]) => vec[N][T],
 }
 
 # 17.5.45
-operator :quantizeToF16, {
+function :quantizeToF16, {
+    must_use: true,
+    #FIXME: add constant function
+
     [].(f32) => f32,
     [N].(vec[N][f32]) => vec[N][f32],
 }
 
 # 17.5.46
-operator :radians, {
+function :radians, {
+    must_use: true,
+    #FIXME: add constant function
+
     [T < Float].(T) => T,
     [T < Float, N].(vec[N][T]) => vec[N][T],
 }
 
 # 17.5.47
-operator :reflect, {
+function :reflect, {
+    must_use: true,
+    #FIXME: add constant function
+
     [T < Float, N].(vec[N][T], vec[N][T]) => vec[N][T],
 }
 
 # 17.5.48
-operator :refract, {
+function :refract, {
+    must_use: true,
+    #FIXME: add constant function
+
     [T < Float, N].(vec[N][T], vec[N][T], T) => vec[N][T],
 }
 
 # 17.5.49
-operator :reverseBits, {
+function :reverseBits, {
+    must_use: true,
+    #FIXME: add constant function
+
     [T < ConcreteInteger].(T) => T,
     [T < ConcreteInteger, N].(vec[N][T]) => vec[N][T],
 }
 
 # 17.5.50
-operator :round, {
+function :round, {
+    must_use: true,
+    #FIXME: add constant function
+
     [T < Float].(T) => T,
     [T < Float, N].(vec[N][T]) => vec[N][T],
 }
 
 # 17.5.51
-operator :saturate, {
+function :saturate, {
+    must_use: true,
+    #FIXME: add constant function
+
     [T < Float].(T) => T,
     [T < Float, N].(vec[N][T]) => vec[N][T],
 }
 
 # 17.5.52
-operator :sign, {
+function :sign, {
+    must_use: true,
+    #FIXME: add constant function
+
     [T < SignedNumber].(T) => T,
     [T < SignedNumber, N].(vec[N][T]) => vec[N][T],
 }
@@ -548,19 +770,28 @@ operator :sign, {
 # Defined in [Trigonometric]
 
 # 17.5.55
-operator :smoothstep, {
+function :smoothstep, {
+    must_use: true,
+    #FIXME: add constant function
+
     [T < Float].(T, T, T) => T,
     [T < Float, N].(vec[N][T], vec[N][T], vec[N][T]) => vec[N][T],
 }
 
 # 17.5.56
-operator :sqrt, {
+function :sqrt, {
+    must_use: true,
+    #FIXME: add constant function
+
     [T < Float].(T) => T,
     [T < Float, N].(vec[N][T]) => vec[N][T],
 }
 
 # 17.5.57
-operator :step, {
+function :step, {
+    must_use: true,
+    #FIXME: add constant function
+
     [T < Float].(T, T) => T,
     [T < Float, N].(vec[N][T], vec[N][T]) => vec[N][T],
 }
@@ -570,12 +801,18 @@ operator :step, {
 # Defined in [Trigonometric]
 
 # 17.5.60
-operator :transpose, {
+function :transpose, {
+    must_use: true,
+    #FIXME: add constant function
+
     [T < Float, C, R].(mat[C,R][T]) => mat[R,C][T],
 }
 
 # 17.5.61
-operator :trunc, {
+function :trunc, {
+    must_use: true,
+    #FIXME: add constant function
+
     [T < Float].(T) => T,
     [T < Float, N].(vec[N][T]) => vec[N][T],
 }
@@ -601,7 +838,10 @@ operator :trunc, {
     # 16.6.9
     :fwidthFine,
 ]. each do |op|
-    operator op, {
+    function op, {
+        must_use: true,
+        stage: :fragment,
+
         [].(f32) => f32,
         [N].(vec[N][f32]) => vec[N][f32],
     }
@@ -610,7 +850,9 @@ end
 # 16.7. Texture Built-in Functions (https://gpuweb.github.io/gpuweb/wgsl/#texture-builtin-functions)
 
 # 16.7.1
-operator :textureDimensions, {
+function :textureDimensions, {
+    must_use: true,
+
     # ST is i32, u32, or f32
     # F is a texel format
     # A is an access mode
@@ -673,7 +915,9 @@ operator :textureDimensions, {
 }
 
 # 16.7.2
-operator :textureGather, {
+function :textureGather, {
+    must_use: true,
+
     [T < ConcreteInteger, S < Concrete32BitNumber].(T, texture_2d[S], sampler, vec2[f32]) => vec4[S],
 
     [T < ConcreteInteger, S < Concrete32BitNumber].(T, texture_2d[S], sampler, vec2[f32], vec2[i32]) => vec4[S],
@@ -709,7 +953,9 @@ operator :textureGather, {
 }
 
 # 16.7.3
-operator :textureGatherCompare, {
+function :textureGatherCompare, {
+    must_use: true,
+
     # @must_use fn textureGatherCompare(t: texture_depth_2d, s: sampler_comparison, coords: vec2<f32>, depth_ref: f32) -> vec4<f32>
     [].(texture_depth_2d, sampler_comparison, vec2[f32], f32) => vec4[f32],
 
@@ -733,7 +979,9 @@ operator :textureGatherCompare, {
 }
 
 # 16.7.4
-operator :textureLoad, {
+function :textureLoad, {
+    must_use: true,
+
     [T < ConcreteInteger, U < ConcreteInteger, S < Concrete32BitNumber].(texture_1d[S], T, U) => vec4[S],
     [T < ConcreteInteger, U < ConcreteInteger, S < Concrete32BitNumber].(texture_2d[S], vec2[T], U) => vec4[S],
     [T < ConcreteInteger, V < ConcreteInteger, U < ConcreteInteger, S < Concrete32BitNumber].(texture_2d_array[S], vec2[T], V, U) => vec4[S],
@@ -761,7 +1009,9 @@ operator :textureLoad, {
 }
 
 # 16.7.5
-operator :textureNumLayers, {
+function :textureNumLayers, {
+    must_use: true,
+
     # F is a texel format
     # A is an access mode
     # ST is i32, u32, or f32
@@ -775,7 +1025,9 @@ operator :textureNumLayers, {
 }
 
 # 16.7.6
-operator :textureNumLevels, {
+function :textureNumLevels, {
+    must_use: true,
+
     # ST is i32, u32, or f32
     # T is texture_1d<ST>, texture_2d<ST>, texture_2d_array<ST>, texture_3d<ST>, texture_cube<ST>, texture_cube_array<ST>, texture_depth_2d, texture_depth_2d_array, texture_depth_cube, or texture_depth_cube_array
     # @must_use fn textureNumLevels(t: T) -> u32
@@ -792,7 +1044,9 @@ operator :textureNumLevels, {
 }
 
 # 16.7.7
-operator :textureNumSamples, {
+function :textureNumSamples, {
+    must_use: true,
+
     # ST is i32, u32, or f32
     # T is texture_multisampled_2d<ST> or texture_depth_multisampled_2d
     # @must_use fn textureNumSamples(t: T) -> u32
@@ -801,7 +1055,10 @@ operator :textureNumSamples, {
 }
 
 # 16.7.8
-operator :textureSample, {
+function :textureSample, {
+    must_use: true,
+    stage: :fragment,
+
     [].(texture_1d[f32], sampler, f32) => vec4[f32],
 
     [].(texture_2d[f32], sampler, vec2[f32]) => vec4[f32],
@@ -842,7 +1099,10 @@ operator :textureSample, {
 }
 
 # 16.7.9
-operator :textureSampleBias, {
+function :textureSampleBias, {
+    must_use: true,
+    stage: :fragment,
+
     [].(texture_2d[f32], sampler, vec2[f32], f32) => vec4[f32],
 
     [].(texture_2d[f32], sampler, vec2[f32], f32, vec2[i32]) => vec4[f32],
@@ -860,7 +1120,10 @@ operator :textureSampleBias, {
 }
 
 # 16.7.10
-operator :textureSampleCompare, {
+function :textureSampleCompare, {
+    must_use: true,
+    stage: :fragment,
+
     # @must_use fn textureSampleCompare(t: texture_depth_2d, s: sampler_comparison, coords: vec2<f32>, depth_ref: f32) -> f32
     [].(texture_depth_2d, sampler_comparison, vec2[f32], f32) => f32,
 
@@ -884,7 +1147,9 @@ operator :textureSampleCompare, {
 }
 
 # 16.7.11
-operator :textureSampleCompareLevel, {
+function :textureSampleCompareLevel, {
+    must_use: true,
+
     # @must_use fn textureSampleCompareLevel(t: texture_depth_2d, s: sampler_comparison, coords: vec2<f32>, depth_ref: f32) -> f32
     [].(texture_depth_2d, sampler_comparison, vec2[f32], f32) => f32,
 
@@ -908,7 +1173,9 @@ operator :textureSampleCompareLevel, {
 }
 
 # 16.7.12
-operator :textureSampleGrad, {
+function :textureSampleGrad, {
+    must_use: true,
+
     [].(texture_2d[f32], sampler, vec2[f32], vec2[f32], vec2[f32]) => vec4[f32],
 
     [].(texture_2d[f32], sampler, vec2[f32], vec2[f32], vec2[f32], vec2[i32]) => vec4[f32],
@@ -926,7 +1193,9 @@ operator :textureSampleGrad, {
 }
 
 # 16.7.13
-operator :textureSampleLevel, {
+function :textureSampleLevel, {
+    must_use: true,
+
     [].(texture_2d[f32], sampler, vec2[f32], f32) => vec4[f32],
 
     [].(texture_2d[f32], sampler, vec2[f32], f32, vec2[i32]) => vec4[f32],
@@ -971,13 +1240,15 @@ operator :textureSampleLevel, {
 }
 
 # 16.7.14
-operator :textureSampleBaseClampToEdge, {
+function :textureSampleBaseClampToEdge, {
+    must_use: true,
+
     [].(texture_external, sampler, vec2[f32]) => vec4[f32],
     [].(texture_2d[f32], sampler, vec2[f32]) => vec4[f32],
 }
 
 # 16.7.15 textureStore
-operator :textureStore, {
+function :textureStore, {
     # F is a texel format
     # C is i32, or u32
     # CF depends on the storage texel format F. See the texel format table for the mapping of texel format to channel format.
@@ -1007,14 +1278,18 @@ operator :textureStore, {
 # 16.8. Atomic Built-in Functions (https://www.w3.org/TR/WGSL/#atomic-builtin-functions)
 
 # 16.8.1
-operator :atomicLoad, {
+function :atomicLoad, {
+    stage: [:fragment, :compute],
+
     # fn atomicLoad(atomic_ptr: ptr<AS, atomic<T>, read_write>) -> T
     [AS, T].(ptr[AS, atomic[T], read_write]) => T,
 }
 
 
 # 16.8.2
-operator :atomicStore, {
+function :atomicStore, {
+    stage: [:fragment, :compute],
+
     # fn atomicStore(atomic_ptr: ptr<AS, atomic<T>, read_write>, v: T)
     [AS, T].(ptr[AS, atomic[T], read_write], T) => void,
 }
@@ -1029,7 +1304,9 @@ operator :atomicStore, {
     :atomicXor,
     :atomicExchange,
 ].each do |op|
-    operator op, {
+    function op, {
+        stage: [:fragment, :compute],
+
         # fn #{op}(atomic_ptr: ptr<AS, atomic<T>, read_write>, v: T) -> T
         [AS, T].(ptr[AS, atomic[T], read_write], T) => T,
     }
@@ -1041,19 +1318,26 @@ end
 # 16.11. Synchronization Built-in Functions (https://www.w3.org/TR/WGSL/#sync-builtin-functions)
 
 # 16.11.1.
-operator :storageBarrier, {
+function :storageBarrier, {
+    stage: :compute,
+
     # fn storageBarrier()
     [].() => void,
 }
 
 # 16.11.2.
-operator :workgroupBarrier, {
+function :workgroupBarrier, {
+    stage: :compute,
+
     # fn workgroupBarrier()
     [].() => void,
 }
 
 # 16.11.3.
-operator :workgroupUniformLoad, {
+function :workgroupUniformLoad, {
+    must_use: true,
+    stage: :compute,
+
     # @must_use fn workgroupUniformLoad(p : ptr<workgroup, T>) -> T
     [T].(ptr[workgroup, T]) => void,
 }
