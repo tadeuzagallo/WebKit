@@ -512,7 +512,7 @@ static ConstantValue constantAll(const Type*, const FixedVector<ConstantValue>& 
 
     ASSERT(arg.isVector());
     for (auto element : arg.toVector().elements) {
-        if (!arg.toBool())
+        if (!element.toBool())
             return false;
     }
     return true;
@@ -527,7 +527,7 @@ static ConstantValue constantAny(const Type*, const FixedVector<ConstantValue>& 
 
     ASSERT(arg.isVector());
     for (auto element : arg.toVector().elements) {
-        if (arg.toBool())
+        if (element.toBool())
             return true;
     }
     return false;
