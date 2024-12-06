@@ -44,3 +44,44 @@ extension WebGPU.Buffer {
 public func Buffer_copyFrom_thunk(_ buffer: WebGPU.Buffer, from data: SpanConstUInt8, offset: Int) {
     buffer.copy(from: data, offset: offset)
 }
+
+public func getMappedRange(buffer: WebGPU.Buffer, offset: UInt64, size: UInt64) -> SpanUInt8
+{
+    return buffer.getMappedRange(offset: offset, size: size)
+}
+
+internal func computeRangeSize(size: UInt64, offset: UInt64) -> UInt64
+{
+    let result = checkedDifferenceUInt64(Int(size), Int(offset))
+    if result.hasOverflowed() {
+        return 0
+    }
+    return result.value()
+}
+
+extension WebGPU.Buffer {
+    public func getMappedRange(offset: UInt64, size: UInt64) -> SpanUInt8
+    {
+        if !isValid() {
+            return SpanUInt8()
+        }
+
+        var rangeSize = size
+        if size == WGPU_WHOLE_MAP_SIZE {
+            rangeSize = computeRangeSize(size: currentSize(), offset: offset)
+        }
+
+        if !validateGetMappedRange(Int(offset), Int(rangeSize)) {
+            return SpanUInt8()
+        }
+
+        m_mappedRanges.add(WTFRangeUInt64(UInt(offset), UInt(offset + rangeSize)))
+        m_mappedRanges.compact()
+
+        if m_buffer.contents() == nil { // TODO
+            return SpanUInt8()
+        }
+
+        return getBufferContents().subspan(Int(offset), stdDynamicExtent)
+    }
+}

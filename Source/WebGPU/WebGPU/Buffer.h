@@ -147,7 +147,9 @@ private:
     // [[mapping]] is unnecessary; we can just use m_device.contents.
     MappingRange m_mappingRange { 0, 0 };
     using MappedRanges = RangeSet<Range<size_t>>;
+private PUBLIC_IN_WEBGPU_SWIFT:
     MappedRanges m_mappedRanges;
+private:
     WGPUMapModeFlags m_mapMode { WGPUMapMode_None };
     struct IndirectArgsCache {
         uint64_t indirectOffset { UINT64_MAX };

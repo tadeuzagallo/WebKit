@@ -258,6 +258,7 @@ static size_t computeRangeSize(uint64_t size, size_t offset)
 std::span<uint8_t> Buffer::getMappedRange(size_t offset, size_t size)
 {
     // https://gpuweb.github.io/gpuweb/#dom-gpubuffer-getmappedrange
+#if !ENABLE(WEBGPU_SWIFT)
     if (!isValid())
         return std::span<uint8_t> { };
 
@@ -274,6 +275,9 @@ std::span<uint8_t> Buffer::getMappedRange(size_t offset, size_t size)
     if (!m_buffer.contents)
         return { };
     return getBufferContents().subspan(offset);
+#else
+    return WebGPU::getMappedRange(this, offset, size);
+#endif
 }
 
 std::span<uint8_t> Buffer::getBufferContents()
