@@ -725,6 +725,9 @@ final public class WebPage {
     }
 }
 
+@available(WK_IOS_TBA, WK_MAC_TBA, WK_XROS_TBA, *)
+@available(watchOS, unavailable)
+@available(tvOS, unavailable)
 extension WebPage.FullscreenState {
     init(_ wrapped: WKWebView.FullscreenState) {
         self = switch wrapped {
@@ -738,6 +741,9 @@ extension WebPage.FullscreenState {
     }
 }
 
+@available(WK_IOS_TBA, WK_MAC_TBA, WK_XROS_TBA, *)
+@available(watchOS, unavailable)
+@available(tvOS, unavailable)
 extension WebPage {
     private struct KeyValueObservations: ~Copyable {
         var contents: [PartialKeyPath<WebPage> : NSKeyValueObservation] = [:]

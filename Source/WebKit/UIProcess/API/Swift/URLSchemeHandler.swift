@@ -112,6 +112,9 @@ public protocol URLSchemeHandler {
 
 // MARK: Adapters
 
+@available(WK_IOS_TBA, WK_MAC_TBA, WK_XROS_TBA, *)
+@available(watchOS, unavailable)
+@available(tvOS, unavailable)
 final class WKURLSchemeHandlerAdapter: NSObject, WKURLSchemeHandler {
     init(_ wrapped: any URLSchemeHandler) {
         self.wrapped = wrapped

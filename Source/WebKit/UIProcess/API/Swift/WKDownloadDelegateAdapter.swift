@@ -29,6 +29,9 @@ private struct DefaultDownloadCoordinator: DownloadCoordinator {
 }
 
 @MainActor
+@available(WK_IOS_TBA, WK_MAC_TBA, WK_XROS_TBA, *)
+@available(watchOS, unavailable)
+@available(tvOS, unavailable)
 final class WKDownloadDelegateAdapter: NSObject, WKDownloadDelegate {
     init(downloadProgressContinuation: AsyncStream<WebPage.DownloadEvent>.Continuation, downloadCoordinator: (any DownloadCoordinator)?) {
         self.downloadProgressContinuation = downloadProgressContinuation

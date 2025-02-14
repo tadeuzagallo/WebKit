@@ -25,6 +25,9 @@
 
 import Foundation
 
+@available(WK_IOS_TBA, WK_MAC_TBA, WK_XROS_TBA, *)
+@available(watchOS, unavailable)
+@available(tvOS, unavailable)
 extension WebPage {
     @MainActor
     @_spi(Private)
@@ -70,6 +73,9 @@ extension WebPage {
     }
 }
 
+@available(WK_IOS_TBA, WK_MAC_TBA, WK_XROS_TBA, *)
+@available(watchOS, unavailable)
+@available(tvOS, unavailable)
 extension WebPage {
     @_spi(Private)
     public struct DownloadID: Sendable, Hashable, Equatable {
@@ -125,6 +131,9 @@ extension WebPage {
     }
 }
 
+@available(WK_IOS_TBA, WK_MAC_TBA, WK_XROS_TBA, *)
+@available(watchOS, unavailable)
+@available(tvOS, unavailable)
 extension WebPage.Downloads {
     public struct Iterator: AsyncIteratorProtocol {
         public typealias Element = WebPage.DownloadEvent

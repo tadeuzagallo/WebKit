@@ -27,6 +27,9 @@ import Foundation
 
 // MARK: Supporting types
 
+@available(WK_IOS_TBA, WK_MAC_TBA, WK_XROS_TBA, *)
+@available(watchOS, unavailable)
+@available(tvOS, unavailable)
 extension WebPage {
     @_spi(Private)
     public enum JavaScriptConfirmResult: Hashable, Sendable {
@@ -50,6 +53,9 @@ extension WebPage {
 // MARK: DialogPresenting protocol
 
 @_spi(Private)
+@available(WK_IOS_TBA, WK_MAC_TBA, WK_XROS_TBA, *)
+@available(watchOS, unavailable)
+@available(tvOS, unavailable)
 public protocol DialogPresenting {
     @MainActor
     func handleJavaScriptAlert(message: String, initiatedBy frame: WebPage.FrameInfo) async
@@ -66,6 +72,9 @@ public protocol DialogPresenting {
 
 // MARK: Default implementation
 
+@available(WK_IOS_TBA, WK_MAC_TBA, WK_XROS_TBA, *)
+@available(watchOS, unavailable)
+@available(tvOS, unavailable)
 public extension DialogPresenting {
     @MainActor
     func handleJavaScriptAlert(message: String, initiatedBy frame: WebPage.FrameInfo) async {

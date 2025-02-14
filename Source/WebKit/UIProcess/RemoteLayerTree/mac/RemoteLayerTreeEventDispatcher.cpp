@@ -379,11 +379,13 @@ void RemoteLayerTreeEventDispatcher::startOrStopDisplayLinkOnMainThread()
         if (m_wheelEventActivityHysteresis.state() == PAL::HysteresisState::Started)
             return true;
 
+#if ENABLE(THREADED_ANIMATION_RESOLUTION)
         {
             Locker lock { m_effectStacksLock };
             if (!m_effectStacks.isEmpty())
                 return true;
         }
+#endif
 
         auto scrollingTree = this->scrollingTree();
         return scrollingTree && scrollingTree->hasNodeWithActiveScrollAnimations();
@@ -465,7 +467,9 @@ void RemoteLayerTreeEventDispatcher::didRefreshDisplay(PlatformDisplayID display
 
     if (m_state != SynchronizationState::Idle) {
         scrollingTree->tryToApplyLayerPositions();
+#if ENABLE(THREADED_ANIMATION_RESOLUTION)
         updateAnimations();
+#endif
     }
 
     switch (m_state) {
@@ -502,7 +506,9 @@ void RemoteLayerTreeEventDispatcher::delayedRenderingUpdateDetectionTimerFired()
 
     if (auto scrollingTree = this->scrollingTree())
         scrollingTree->tryToApplyLayerPositions();
+#if ENABLE(THREADED_ANIMATION_RESOLUTION)
     updateAnimations();
+#endif
 }
 
 void RemoteLayerTreeEventDispatcher::waitForRenderingUpdateCompletionOrTimeout()
@@ -541,7 +547,9 @@ void RemoteLayerTreeEventDispatcher::waitForRenderingUpdateCompletionOrTimeout()
         ScrollingThread::dispatch([protectedThis = Ref { *this }]() {
             if (auto scrollingTree = protectedThis->scrollingTree())
                 scrollingTree->tryToApplyLayerPositions();
+#if ENABLE(THREADED_ANIMATION_RESOLUTION)
             protectedThis->updateAnimations();
+#endif
         });
         tracePoint(ScrollingThreadRenderUpdateSyncEnd, 1);
     } else
@@ -557,8 +565,12 @@ bool RemoteLayerTreeEventDispatcher::scrollingTreeWasRecentlyActive()
     if (scrollingTree->hasRecentActivity())
         return true;
 
+#if ENABLE(THREADED_ANIMATION_RESOLUTION)
     Locker lock { m_effectStacksLock };
     return !m_effectStacks.isEmpty();
+#else
+    return false;
+#endif
 }
 
 void RemoteLayerTreeEventDispatcher::mainThreadDisplayDidRefresh(PlatformDisplayID)

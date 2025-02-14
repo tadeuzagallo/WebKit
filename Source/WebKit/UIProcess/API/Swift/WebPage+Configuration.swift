@@ -26,6 +26,9 @@
 import Foundation
 internal import WebKit_Internal
 
+@available(WK_IOS_TBA, WK_MAC_TBA, WK_XROS_TBA, *)
+@available(watchOS, unavailable)
+@available(tvOS, unavailable)
 extension WebPage {
     @MainActor
     @available(WK_IOS_TBA, WK_MAC_TBA, WK_XROS_TBA, *)
@@ -129,6 +132,9 @@ extension WebPage {
     }
 }
 
+@available(WK_IOS_TBA, WK_MAC_TBA, WK_XROS_TBA, *)
+@available(watchOS, unavailable)
+@available(tvOS, unavailable)
 extension WebPage {
     /// A type that describes the authorization permissions policy for the device's sensors a web resource may access.
     @available(WK_IOS_TBA, WK_MAC_TBA, WK_XROS_TBA, *)
@@ -161,6 +167,9 @@ extension WebPage {
     }
 }
 
+@available(WK_IOS_TBA, WK_MAC_TBA, WK_XROS_TBA, *)
+@available(watchOS, unavailable)
+@available(tvOS, unavailable)
 extension WebPage.Configuration {
     /// The behavior used when playing HTML video within a page.
     @available(WK_IOS_TBA, WK_XROS_TBA, *)
@@ -181,6 +190,9 @@ extension WebPage.Configuration {
 
 // MARK: Adapters
 
+@available(WK_IOS_TBA, WK_MAC_TBA, WK_XROS_TBA, *)
+@available(watchOS, unavailable)
+@available(tvOS, unavailable)
 extension WKWebViewConfiguration {
     convenience init(_ wrapped: WebPage.Configuration) {
         self.init()

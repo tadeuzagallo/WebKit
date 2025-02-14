@@ -26,6 +26,9 @@
 import Foundation
 internal import WebKit_Internal
 
+@available(WK_IOS_TBA, WK_MAC_TBA, WK_XROS_TBA, *)
+@available(watchOS, unavailable)
+@available(tvOS, unavailable)
 extension WebPage {
     /// A type that specifies the behaviors to use when loading and rendering page content.
     ///
@@ -101,6 +104,9 @@ extension WebPage {
 
 // MARK: Adapters
 
+@available(WK_IOS_TBA, WK_MAC_TBA, WK_XROS_TBA, *)
+@available(watchOS, unavailable)
+@available(tvOS, unavailable)
 extension WKWebpagePreferences.ContentMode {
     init(_ wrapped: WebPage.NavigationPreferences.ContentMode) {
         self = switch wrapped {
@@ -111,6 +117,9 @@ extension WKWebpagePreferences.ContentMode {
     }
 }
 
+@available(WK_IOS_TBA, WK_MAC_TBA, WK_XROS_TBA, *)
+@available(watchOS, unavailable)
+@available(tvOS, unavailable)
 extension WKWebpagePreferences.UpgradeToHTTPSPolicy {
     init(_ wrapped: WebPage.NavigationPreferences.UpgradeToHTTPSPolicy) {
         self = switch wrapped {
@@ -122,6 +131,9 @@ extension WKWebpagePreferences.UpgradeToHTTPSPolicy {
     }
 }
 
+@available(WK_IOS_TBA, WK_MAC_TBA, WK_XROS_TBA, *)
+@available(watchOS, unavailable)
+@available(tvOS, unavailable)
 extension WKWebpagePreferences {
     convenience init(_ wrapped: WebPage.NavigationPreferences) {
         self.init()
@@ -136,6 +148,9 @@ extension WKWebpagePreferences {
     }
 }
 
+@available(WK_IOS_TBA, WK_MAC_TBA, WK_XROS_TBA, *)
+@available(watchOS, unavailable)
+@available(tvOS, unavailable)
 extension WebPage.NavigationPreferences.ContentMode {
     init(_ wrapped: WKWebpagePreferences.ContentMode) {
         self = switch wrapped {
@@ -148,6 +163,9 @@ extension WebPage.NavigationPreferences.ContentMode {
     }
 }
 
+@available(WK_IOS_TBA, WK_MAC_TBA, WK_XROS_TBA, *)
+@available(watchOS, unavailable)
+@available(tvOS, unavailable)
 extension WebPage.NavigationPreferences.UpgradeToHTTPSPolicy {
     init(_ wrapped: WKWebpagePreferences.UpgradeToHTTPSPolicy) {
         self = switch wrapped {
@@ -161,6 +179,9 @@ extension WebPage.NavigationPreferences.UpgradeToHTTPSPolicy {
     }
 }
 
+@available(WK_IOS_TBA, WK_MAC_TBA, WK_XROS_TBA, *)
+@available(watchOS, unavailable)
+@available(tvOS, unavailable)
 extension WebPage.NavigationPreferences {
     @MainActor
     init(_ wrapped: WKWebpagePreferences) {

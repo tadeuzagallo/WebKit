@@ -36,6 +36,9 @@ private struct DefaultDialogPresenting: DialogPresenting {
 }
 
 @MainActor
+@available(WK_IOS_TBA, WK_MAC_TBA, WK_XROS_TBA, *)
+@available(watchOS, unavailable)
+@available(tvOS, unavailable)
 final class WKUIDelegateAdapter: NSObject, WKUIDelegatePrivate {
     init(dialogPresenter: (any DialogPresenting)?) {
         self.dialogPresenter = dialogPresenter ?? DefaultDialogPresenting()
