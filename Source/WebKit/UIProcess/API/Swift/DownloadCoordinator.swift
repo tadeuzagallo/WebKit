@@ -28,6 +28,9 @@ import Foundation
 // MARK: DownloadCoordinator protocol
 
 @_spi(Private)
+@available(WK_IOS_TBA, WK_MAC_TBA, WK_XROS_TBA, *)
+@available(watchOS, unavailable)
+@available(tvOS, unavailable)
 public protocol DownloadCoordinator {
     @MainActor
     func destination(forDownload download: WebPage.DownloadID, response: URLResponse, suggestedFilename: String) async -> URL?
@@ -45,6 +48,9 @@ public protocol DownloadCoordinator {
 // MARK: Default implementation
 
 @_spi(Private)
+@available(WK_IOS_TBA, WK_MAC_TBA, WK_XROS_TBA, *)
+@available(watchOS, unavailable)
+@available(tvOS, unavailable)
 public extension DownloadCoordinator {
     @MainActor
     func destination(forDownload download: WebPage.DownloadID, response: URLResponse, suggestedFilename: String) async -> URL? {

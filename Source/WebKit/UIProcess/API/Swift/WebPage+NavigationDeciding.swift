@@ -27,6 +27,9 @@ import Foundation
 
 // MARK: Supporting types
 
+@available(WK_IOS_TBA, WK_MAC_TBA, WK_XROS_TBA, *)
+@available(watchOS, unavailable)
+@available(tvOS, unavailable)
 extension WebPage {
     /// An object that contains information about an action that causes navigation to occur.
     ///
@@ -96,6 +99,9 @@ extension WebPage {
 
 // MARK: NavigationDeciding protocol
 
+@available(WK_IOS_TBA, WK_MAC_TBA, WK_XROS_TBA, *)
+@available(watchOS, unavailable)
+@available(tvOS, unavailable)
 extension WebPage {
     /// Allows providing custom behavior to handle navigation changes and to coordinate these changes for the web page's main page.
     ///

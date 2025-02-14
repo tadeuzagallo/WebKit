@@ -26,10 +26,16 @@
 import Foundation
 internal import WebKit_Private
 
+@available(WK_IOS_TBA, WK_MAC_TBA, WK_XROS_TBA, *)
+@available(watchOS, unavailable)
+@available(tvOS, unavailable)
 fileprivate struct DefaultNavigationDecider: WebPage.NavigationDeciding {
 }
 
 @MainActor
+@available(WK_IOS_TBA, WK_MAC_TBA, WK_XROS_TBA, *)
+@available(watchOS, unavailable)
+@available(tvOS, unavailable)
 final class WKNavigationDelegateAdapter: NSObject, WKNavigationDelegate {
     init(
         downloadProgressContinuation: AsyncStream<WebPage.DownloadEvent>.Continuation,

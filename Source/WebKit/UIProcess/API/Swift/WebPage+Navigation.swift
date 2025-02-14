@@ -25,6 +25,9 @@
 
 import Foundation
 
+@available(WK_IOS_TBA, WK_MAC_TBA, WK_XROS_TBA, *)
+@available(watchOS, unavailable)
+@available(tvOS, unavailable)
 extension WebPage {
     /// An opaque identifier which can be used to uniquely identify a load request for a web page.
     @available(WK_IOS_TBA, WK_MAC_TBA, WK_XROS_TBA, *)

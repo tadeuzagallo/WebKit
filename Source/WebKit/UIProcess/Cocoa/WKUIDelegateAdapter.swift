@@ -36,6 +36,9 @@ private struct DefaultDialogPresenting: WebPage.DialogPresenting {
 }
 
 @MainActor
+@available(WK_IOS_TBA, WK_MAC_TBA, WK_XROS_TBA, *)
+@available(watchOS, unavailable)
+@available(tvOS, unavailable)
 final class WKUIDelegateAdapter: NSObject, WKUIDelegatePrivate {
     init(dialogPresenter: (any WebPage.DialogPresenting)?) {
         self.dialogPresenter = dialogPresenter ?? DefaultDialogPresenting()

@@ -26,6 +26,9 @@
 import Foundation
 internal import WebKit_Internal
 
+@available(WK_IOS_TBA, WK_MAC_TBA, WK_XROS_TBA, *)
+@available(watchOS, unavailable)
+@available(tvOS, unavailable)
 extension WebPage {
     /// A type that contains information about a frame on a webpage.
     @MainActor

@@ -27,6 +27,9 @@ import Foundation
 
 // MARK: Supporting types
 
+@available(WK_IOS_TBA, WK_MAC_TBA, WK_XROS_TBA, *)
+@available(watchOS, unavailable)
+@available(tvOS, unavailable)
 extension WebPage {
     /// The result of handling a JavaScript confirm invocation.
     @available(WK_IOS_TBA, WK_MAC_TBA, WK_XROS_TBA, *)
@@ -67,6 +70,9 @@ extension WebPage {
 
 // MARK: DialogPresenting protocol
 
+@available(WK_IOS_TBA, WK_MAC_TBA, WK_XROS_TBA, *)
+@available(watchOS, unavailable)
+@available(tvOS, unavailable)
 extension WebPage {
     /// Allows providing custom behavior to handle JavaScript actions and provide a response.
     ///
