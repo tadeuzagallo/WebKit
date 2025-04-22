@@ -546,12 +546,22 @@ void Device::generateAnInternalError(String&& message)
     }
 }
 
+id<MTLBuffer> Device::newBufferWithBytes(const void* pointer, size_t length, MTLResourceOptions options) const
+{
+    return newBufferWithBytes(pointer, length, options, false);
+}
+
 id<MTLBuffer> Device::newBufferWithBytes(const void* pointer, size_t length, MTLResourceOptions options, bool skipAttribution) const
 {
     id<MTLBuffer> buffer = [m_device newBufferWithBytes:pointer length:length options:options];
     if (!skipAttribution)
         setOwnerWithIdentity(buffer);
     return buffer;
+}
+
+id<MTLBuffer> Device::newBufferWithBytesNoCopy(void* pointer, size_t length, MTLResourceOptions options) const
+{
+    return newBufferWithBytesNoCopy(pointer, length, options, false);
 }
 
 id<MTLBuffer> Device::newBufferWithBytesNoCopy(void* pointer, size_t length, MTLResourceOptions options, bool skipAttribution) const

@@ -134,6 +134,11 @@ id<MTLBuffer> Device::safeCreateBuffer(NSUInteger length, bool skipAttribution) 
     return safeCreateBuffer(length, MTLStorageModeShared, skipAttribution);
 }
 
+id<MTLBuffer> Device::safeCreateBuffer(NSUInteger length) const
+{
+    return safeCreateBuffer(length, MTLStorageModeShared, false);
+}
+
 Ref<Buffer> Device::createBuffer(const WGPUBufferDescriptor& descriptor)
 {
     if (descriptor.nextInChain || !isValid())
