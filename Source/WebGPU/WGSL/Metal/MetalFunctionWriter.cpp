@@ -121,6 +121,23 @@ DEFINE_VOLATILE_HELPER(pack_float_to_unorm2x16, PackFloatToUnorm2x16)
 DEFINE_VOLATILE_HELPER(pack_float_to_snorm4x8, PackFloatToSnorm4x8)
 DEFINE_VOLATILE_HELPER(pack_float_to_unorm4x8, PackFloatToUnorm4x8)
 
+DEFINE_HELPER(TextureSampleBaseClampToEdge, \
+    float4 __wgslTextureSampleBaseClampToEdge(texture2d<float> __texture, sampler __sampler, float2 __coords)\n \
+    {\n \
+        float2 const __bounds = (float2(0.5f) / float2(uint2(__texture.get_width(), __texture.get_height()))); \
+        return __texture.sample(__sampler, clamp(__coords, __bounds, float2(1.0f) - __bounds)); \
+    }\n)
+
+DEFINE_HELPER(TextureExternalSampleBaseClampToEdge, \
+    float4 __wgslTextureSampleBaseClampToEdge(texture_external __texture, sampler __sampler, float2 __inputCoords)\n \
+    {\n \
+        auto __coords = (__texture.UVRemapMatrix * float3(__inputCoords, 1)).xy; \
+        auto __y = __texture.FirstPlane.sample(__sampler, __coords).r; \
+        auto __cbcr = __texture.SecondPlane.sample(__sampler, __coords).rg; \
+        auto __ycbcr = float3(__y, __cbcr); \
+        return float4(__texture.ColorSpaceConversionMatrix * float4(__ycbcr, 1), 1); \
+    }\n)
+
 };
 
 #undef DEFINE_TRIG_HELPER
@@ -1777,55 +1794,6 @@ static void emitTextureSampleLevel(FunctionDefinitionWriter* writer, AST::CallEx
     writer->stringBuilder().append(')');
 }
 
-static void emitTextureSampleBaseClampToEdge(FunctionDefinitionWriter* writer, AST::CallExpression& call)
-{
-    auto& texture = call.arguments()[0];
-    auto* textureType = std::get_if<Types::Texture>(texture.inferredType());
-
-    if (textureType) {
-        // FIXME: <rdar://150364488> this needs to clamp the coordinates
-        writer->visit(texture);
-        writer->stringBuilder().append(".sample"_s);
-        visitArguments(writer, call, 1);
-        return;
-    }
-
-    auto& sampler = call.arguments()[1];
-    auto& coordinates = call.arguments()[2];
-    writer->stringBuilder().append("({\n"_s);
-    {
-        IndentationScope scope(writer->indent());
-        {
-            writer->stringBuilder().append(writer->indent(), "auto __coords = ("_s);
-            writer->visit(texture);
-            writer->stringBuilder().append(".UVRemapMatrix * float3("_s);
-            writer->visit(coordinates);
-            writer->stringBuilder().append(", 1)).xy;\n"_s);
-        }
-        {
-            writer->stringBuilder().append(writer->indent(), "auto __y = float("_s);
-            writer->visit(texture);
-            writer->stringBuilder().append(".FirstPlane.sample("_s);
-            writer->visit(sampler);
-            writer->stringBuilder().append(", __coords).r);\n"_s);
-        }
-        {
-            writer->stringBuilder().append(writer->indent(), "auto __cbcr = float2("_s);
-            writer->visit(texture);
-            writer->stringBuilder().append(".SecondPlane.sample("_s);
-            writer->visit(sampler);
-            writer->stringBuilder().append(", __coords).rg);\n"_s);
-        }
-        writer->stringBuilder().append(writer->indent(), "auto __ycbcr = float3(__y, __cbcr);\n"_s);
-        {
-            writer->stringBuilder().append(writer->indent(), "float4("_s);
-            writer->visit(texture);
-            writer->stringBuilder().append(".ColorSpaceConversionMatrix * float4(__ycbcr, 1), 1);\n"_s);
-        }
-    }
-    writer->stringBuilder().append(writer->indent(), "})"_s);
-}
-
 static void emitTextureSampleBias(FunctionDefinitionWriter* writer, AST::CallExpression& call)
 {
     auto& texture = call.arguments()[0];
@@ -2223,7 +2191,6 @@ void FunctionDefinitionWriter::visit(const Type* type, AST::CallExpression& call
             { "textureNumLevels"_s, emitTextureNumLevels },
             { "textureNumSamples"_s, emitTextureNumSamples },
             { "textureSample"_s, emitTextureSample },
-            { "textureSampleBaseClampToEdge"_s, emitTextureSampleBaseClampToEdge },
             { "textureSampleBias"_s, emitTextureSampleBias },
             { "textureSampleCompare"_s, emitTextureSampleCompare },
             { "textureSampleCompareLevel"_s, emitTextureSampleCompare },
@@ -2243,16 +2210,16 @@ void FunctionDefinitionWriter::visit(const Type* type, AST::CallExpression& call
         }
 
 #define EMIT_HELPER(name) \
-    [](HelperGenerator& helperGenerator) { \
+    [](HelperGenerator& helperGenerator, AST::CallExpression&) { \
         if (!std::exchange(helperGenerator.didEmit##name, true)) \
             helperGenerator.emit##name(); \
         return "__wgsl"#name##_s;\
     }
 
 #define NOOP_HELPER(name) \
-    [](HelperGenerator&) { return #name##_s; }
+    [](HelperGenerator&, AST::CallExpression&) { return #name##_s; }
 
-        static constexpr SortedArrayMap mappedNames { std::to_array<std::pair<ComparableASCIILiteral, ASCIILiteral(*)(HelperGenerator&)>>({
+        static constexpr SortedArrayMap mappedNames { std::to_array<std::pair<ComparableASCIILiteral, ASCIILiteral(*)(HelperGenerator&, AST::CallExpression&)>>({
             { "acos"_s, EMIT_HELPER(Acos) },
             { "acosh"_s, EMIT_HELPER(Acosh) },
             { "asin"_s, EMIT_HELPER(Asin) },
@@ -2290,6 +2257,17 @@ void FunctionDefinitionWriter::visit(const Type* type, AST::CallExpression& call
             { "round"_s, NOOP_HELPER(rint) },
             { "sign"_s, NOOP_HELPER(__wgslSign) },
             { "sqrt"_s, EMIT_HELPER(Sqrt) },
+            { "textureSampleBaseClampToEdge"_s, [](HelperGenerator& helperGenerator, AST::CallExpression& call) {
+                auto& texture = call.arguments()[0];
+                if (std::holds_alternative<Types::Texture>(*texture.inferredType())) {
+                    if (!std::exchange(helperGenerator.didEmitTextureSampleBaseClampToEdge, true))
+                        helperGenerator.emitTextureSampleBaseClampToEdge();
+                } else {
+                    if (!std::exchange(helperGenerator.didEmitTextureExternalSampleBaseClampToEdge, true))
+                        helperGenerator.emitTextureExternalSampleBaseClampToEdge();
+                }
+                return "__wgslTextureSampleBaseClampToEdge"_s;
+            } },
             { "unpack2x16snorm"_s, NOOP_HELPER(unpack_snorm2x16_to_float) },
             { "unpack2x16unorm"_s, NOOP_HELPER(unpack_unorm2x16_to_float) },
             { "unpack4x8snorm"_s, NOOP_HELPER(unpack_snorm4x8_to_float) },
@@ -2306,7 +2284,7 @@ void FunctionDefinitionWriter::visit(const Type* type, AST::CallExpression& call
             } else
                 visit(type);
         } else if (auto mappedName = mappedNames.get(targetName))
-            m_body.append(mappedName(m_helperGenerator));
+            m_body.append(mappedName(m_helperGenerator, call));
         else
             m_body.append(targetName);
         visitArguments(this, call);

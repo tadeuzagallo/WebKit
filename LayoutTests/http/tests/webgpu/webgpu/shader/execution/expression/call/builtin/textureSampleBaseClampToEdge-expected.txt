@@ -1,486 +1,22 @@
 
 PASS :2d_coords:stage="c";textureType="texture_2d%3Cf32%3E";filt="nearest";modeU="c";modeV="c"
-FAIL :2d_coords:stage="c";textureType="texture_2d%3Cf32%3E";filt="nearest";modeU="c";modeV="r" assert_unreached:
-  - (in subcase: samplePoints="texel-centre") INFO: subcase ran
-  - (in subcase: samplePoints="spiral") EXPECTATION FAILED: result was not as expected:
-       physical size: [8, 8, 1]
-        baseMipLevel: 0
-       mipLevelCount: 3
-    baseMipLevelSize: [8, 8, 1]
-      baseArrayLayer: 0
-     arrayLayerCount: 1
-    physicalMipCount: 3
-
-         lodMinClamp: 0 (effective)
-         lodMaxClamp: 2 (effective)
-                call: textureSampleBaseClampToEdge(texture: T, sampler: S, coords: vec2f(0.4375, -0.0625))  // #18
-              : as texel coord @ mip level[0]: (3.500, -0.500)
-              : as texel coord @ mip level[1]: (1.750, -0.250)
-              : as texel coord @ mip level[2]: (0.875, -0.125)
-           got: 0.24706, 0.93725, 0.81176, 0.28235
-      expected: 0.52941, 0.87059, 0.76471, 0.24706
-      max diff: 0
-     abs diffs: 0.28235, 0.06667, 0.04706, 0.03529
-     rel diffs: 53.33%, 7.11%, 5.80%, 12.50%
-     ulp diffs: 72, 17, 12, 9
-
-    ### turn on debugging to see sample points ###
-    checkCallResults@http://127.0.0.1:8000/webgpu/webgpu/shader/execution/expression/call/builtin/texture_utils.js:2742:37
-    checkCallResults@http://127.0.0.1:8000/webgpu/webgpu/shader/execution/expression/call/builtin/texture_utils.js:2331:40
-    @http://127.0.0.1:8000/webgpu/webgpu/shader/execution/expression/call/builtin/textureSampleBaseClampToEdge.spec.js:125:39
-  - (in subcase: samplePoints="spiral") INFO: subcase ran
- Reached unreachable code
-FAIL :2d_coords:stage="c";textureType="texture_2d%3Cf32%3E";filt="nearest";modeU="c";modeV="m" assert_unreached:
-  - (in subcase: samplePoints="texel-centre") INFO: subcase ran
-  - (in subcase: samplePoints="spiral") EXPECTATION FAILED: result was not as expected:
-       physical size: [8, 8, 1]
-        baseMipLevel: 0
-       mipLevelCount: 3
-    baseMipLevelSize: [8, 8, 1]
-      baseArrayLayer: 0
-     arrayLayerCount: 1
-    physicalMipCount: 3
-
-         lodMinClamp: 0 (effective)
-         lodMaxClamp: 2 (effective)
-                call: textureSampleBaseClampToEdge(texture: T, sampler: S, coords: vec2f(1.03125, 1.15625))  // #28
-              : as texel coord @ mip level[0]: (8.250, 9.250)
-              : as texel coord @ mip level[1]: (4.125, 4.625)
-              : as texel coord @ mip level[2]: (2.063, 2.313)
-           got: 0.85098, 0.41569, 0.45490, 0.02353
-      expected: 0.11373, 0.04314, 0.78824, 0.33725
-      max diff: 0
-     abs diffs: 0.73725, 0.37255, 0.33333, 0.31373
-     rel diffs: 86.64%, 89.62%, 42.29%, 93.02%
-     ulp diffs: 188, 95, 85, 80
-
-    ### turn on debugging to see sample points ###
-    checkCallResults@http://127.0.0.1:8000/webgpu/webgpu/shader/execution/expression/call/builtin/texture_utils.js:2742:37
-    checkCallResults@http://127.0.0.1:8000/webgpu/webgpu/shader/execution/expression/call/builtin/texture_utils.js:2331:40
-    @http://127.0.0.1:8000/webgpu/webgpu/shader/execution/expression/call/builtin/textureSampleBaseClampToEdge.spec.js:125:39
-  - (in subcase: samplePoints="spiral") INFO: subcase ran
- Reached unreachable code
-FAIL :2d_coords:stage="c";textureType="texture_2d%3Cf32%3E";filt="nearest";modeU="r";modeV="c" assert_unreached:
-  - (in subcase: samplePoints="texel-centre") INFO: subcase ran
-  - (in subcase: samplePoints="spiral") EXPECTATION FAILED: result was not as expected:
-       physical size: [8, 8, 1]
-        baseMipLevel: 0
-       mipLevelCount: 3
-    baseMipLevelSize: [8, 8, 1]
-      baseArrayLayer: 0
-     arrayLayerCount: 1
-    physicalMipCount: 3
-
-         lodMinClamp: 0 (effective)
-         lodMaxClamp: 2 (effective)
-                call: textureSampleBaseClampToEdge(texture: T, sampler: S, coords: vec2f(1.03125, 0.09375))  // #22
-              : as texel coord @ mip level[0]: (8.250, 0.750)
-              : as texel coord @ mip level[1]: (4.125, 0.375)
-              : as texel coord @ mip level[2]: (2.063, 0.188)
-           got: 1.00000, 0.80000, 0.29804, 0.27059
-      expected: 0.58431, 0.53333, 0.20000, 0.13725
-      max diff: 0
-     abs diffs: 0.41569, 0.26667, 0.09804, 0.13333
-     rel diffs: 41.57%, 33.33%, 32.89%, 49.28%
-     ulp diffs: 106, 68, 25, 34
-
-    ### turn on debugging to see sample points ###
-    checkCallResults@http://127.0.0.1:8000/webgpu/webgpu/shader/execution/expression/call/builtin/texture_utils.js:2742:37
-    checkCallResults@http://127.0.0.1:8000/webgpu/webgpu/shader/execution/expression/call/builtin/texture_utils.js:2331:40
-    @http://127.0.0.1:8000/webgpu/webgpu/shader/execution/expression/call/builtin/textureSampleBaseClampToEdge.spec.js:125:39
-  - (in subcase: samplePoints="spiral") INFO: subcase ran
- Reached unreachable code
-FAIL :2d_coords:stage="c";textureType="texture_2d%3Cf32%3E";filt="nearest";modeU="r";modeV="r" assert_unreached:
-  - (in subcase: samplePoints="texel-centre") INFO: subcase ran
-  - (in subcase: samplePoints="spiral") EXPECTATION FAILED: result was not as expected:
-       physical size: [8, 8, 1]
-        baseMipLevel: 0
-       mipLevelCount: 3
-    baseMipLevelSize: [8, 8, 1]
-      baseArrayLayer: 0
-     arrayLayerCount: 1
-    physicalMipCount: 3
-
-         lodMinClamp: 0 (effective)
-         lodMaxClamp: 2 (effective)
-                call: textureSampleBaseClampToEdge(texture: T, sampler: S, coords: vec2f(0.4375, -0.0625))  // #18
-              : as texel coord @ mip level[0]: (3.500, -0.500)
-              : as texel coord @ mip level[1]: (1.750, -0.250)
-              : as texel coord @ mip level[2]: (0.875, -0.125)
-           got: 0.24706, 0.93725, 0.81176, 0.28235
-      expected: 0.52941, 0.87059, 0.76471, 0.24706
-      max diff: 0
-     abs diffs: 0.28235, 0.06667, 0.04706, 0.03529
-     rel diffs: 53.33%, 7.11%, 5.80%, 12.50%
-     ulp diffs: 72, 17, 12, 9
-
-    ### turn on debugging to see sample points ###
-    checkCallResults@http://127.0.0.1:8000/webgpu/webgpu/shader/execution/expression/call/builtin/texture_utils.js:2742:37
-    checkCallResults@http://127.0.0.1:8000/webgpu/webgpu/shader/execution/expression/call/builtin/texture_utils.js:2331:40
-    @http://127.0.0.1:8000/webgpu/webgpu/shader/execution/expression/call/builtin/textureSampleBaseClampToEdge.spec.js:125:39
-  - (in subcase: samplePoints="spiral") INFO: subcase ran
- Reached unreachable code
-FAIL :2d_coords:stage="c";textureType="texture_2d%3Cf32%3E";filt="nearest";modeU="r";modeV="m" assert_unreached:
-  - (in subcase: samplePoints="texel-centre") INFO: subcase ran
-  - (in subcase: samplePoints="spiral") EXPECTATION FAILED: result was not as expected:
-       physical size: [8, 8, 1]
-        baseMipLevel: 0
-       mipLevelCount: 3
-    baseMipLevelSize: [8, 8, 1]
-      baseArrayLayer: 0
-     arrayLayerCount: 1
-    physicalMipCount: 3
-
-         lodMinClamp: 0 (effective)
-         lodMaxClamp: 2 (effective)
-                call: textureSampleBaseClampToEdge(texture: T, sampler: S, coords: vec2f(1.03125, 0.09375))  // #22
-              : as texel coord @ mip level[0]: (8.250, 0.750)
-              : as texel coord @ mip level[1]: (4.125, 0.375)
-              : as texel coord @ mip level[2]: (2.063, 0.188)
-           got: 1.00000, 0.80000, 0.29804, 0.27059
-      expected: 0.58431, 0.53333, 0.20000, 0.13725
-      max diff: 0
-     abs diffs: 0.41569, 0.26667, 0.09804, 0.13333
-     rel diffs: 41.57%, 33.33%, 32.89%, 49.28%
-     ulp diffs: 106, 68, 25, 34
-
-    ### turn on debugging to see sample points ###
-    checkCallResults@http://127.0.0.1:8000/webgpu/webgpu/shader/execution/expression/call/builtin/texture_utils.js:2742:37
-    checkCallResults@http://127.0.0.1:8000/webgpu/webgpu/shader/execution/expression/call/builtin/texture_utils.js:2331:40
-    @http://127.0.0.1:8000/webgpu/webgpu/shader/execution/expression/call/builtin/textureSampleBaseClampToEdge.spec.js:125:39
-  - (in subcase: samplePoints="spiral") INFO: subcase ran
- Reached unreachable code
-FAIL :2d_coords:stage="c";textureType="texture_2d%3Cf32%3E";filt="nearest";modeU="m";modeV="c" assert_unreached:
-  - (in subcase: samplePoints="texel-centre") INFO: subcase ran
-  - (in subcase: samplePoints="spiral") EXPECTATION FAILED: result was not as expected:
-       physical size: [8, 8, 1]
-        baseMipLevel: 0
-       mipLevelCount: 3
-    baseMipLevelSize: [8, 8, 1]
-      baseArrayLayer: 0
-     arrayLayerCount: 1
-    physicalMipCount: 3
-
-         lodMinClamp: 0 (effective)
-         lodMaxClamp: 2 (effective)
-                call: textureSampleBaseClampToEdge(texture: T, sampler: S, coords: vec2f(1.15625, 0.21875))  // #23
-              : as texel coord @ mip level[0]: (9.250, 1.750)
-              : as texel coord @ mip level[1]: (4.625, 0.875)
-              : as texel coord @ mip level[2]: (2.313, 0.438)
-           got: 0.67059, 0.76863, 0.85490, 0.25098
-      expected: 0.18431, 0.16471, 0.60000, 0.45098
-      max diff: 0
-     abs diffs: 0.48627, 0.60392, 0.25490, 0.20000
-     rel diffs: 72.51%, 78.57%, 29.82%, 44.35%
-     ulp diffs: 124, 154, 65, 51
-
-    ### turn on debugging to see sample points ###
-    checkCallResults@http://127.0.0.1:8000/webgpu/webgpu/shader/execution/expression/call/builtin/texture_utils.js:2742:37
-    checkCallResults@http://127.0.0.1:8000/webgpu/webgpu/shader/execution/expression/call/builtin/texture_utils.js:2331:40
-    @http://127.0.0.1:8000/webgpu/webgpu/shader/execution/expression/call/builtin/textureSampleBaseClampToEdge.spec.js:125:39
-  - (in subcase: samplePoints="spiral") INFO: subcase ran
- Reached unreachable code
-FAIL :2d_coords:stage="c";textureType="texture_2d%3Cf32%3E";filt="nearest";modeU="m";modeV="r" assert_unreached:
-  - (in subcase: samplePoints="texel-centre") INFO: subcase ran
-  - (in subcase: samplePoints="spiral") EXPECTATION FAILED: result was not as expected:
-       physical size: [8, 8, 1]
-        baseMipLevel: 0
-       mipLevelCount: 3
-    baseMipLevelSize: [8, 8, 1]
-      baseArrayLayer: 0
-     arrayLayerCount: 1
-    physicalMipCount: 3
-
-         lodMinClamp: 0 (effective)
-         lodMaxClamp: 2 (effective)
-                call: textureSampleBaseClampToEdge(texture: T, sampler: S, coords: vec2f(0.4375, -0.0625))  // #18
-              : as texel coord @ mip level[0]: (3.500, -0.500)
-              : as texel coord @ mip level[1]: (1.750, -0.250)
-              : as texel coord @ mip level[2]: (0.875, -0.125)
-           got: 0.24706, 0.93725, 0.81176, 0.28235
-      expected: 0.52941, 0.87059, 0.76471, 0.24706
-      max diff: 0
-     abs diffs: 0.28235, 0.06667, 0.04706, 0.03529
-     rel diffs: 53.33%, 7.11%, 5.80%, 12.50%
-     ulp diffs: 72, 17, 12, 9
-
-    ### turn on debugging to see sample points ###
-    checkCallResults@http://127.0.0.1:8000/webgpu/webgpu/shader/execution/expression/call/builtin/texture_utils.js:2742:37
-    checkCallResults@http://127.0.0.1:8000/webgpu/webgpu/shader/execution/expression/call/builtin/texture_utils.js:2331:40
-    @http://127.0.0.1:8000/webgpu/webgpu/shader/execution/expression/call/builtin/textureSampleBaseClampToEdge.spec.js:125:39
-  - (in subcase: samplePoints="spiral") INFO: subcase ran
- Reached unreachable code
-FAIL :2d_coords:stage="c";textureType="texture_2d%3Cf32%3E";filt="nearest";modeU="m";modeV="m" assert_unreached:
-  - (in subcase: samplePoints="texel-centre") INFO: subcase ran
-  - (in subcase: samplePoints="spiral") EXPECTATION FAILED: result was not as expected:
-       physical size: [8, 8, 1]
-        baseMipLevel: 0
-       mipLevelCount: 3
-    baseMipLevelSize: [8, 8, 1]
-      baseArrayLayer: 0
-     arrayLayerCount: 1
-    physicalMipCount: 3
-
-         lodMinClamp: 0 (effective)
-         lodMaxClamp: 2 (effective)
-                call: textureSampleBaseClampToEdge(texture: T, sampler: S, coords: vec2f(1.15625, 0.21875))  // #23
-              : as texel coord @ mip level[0]: (9.250, 1.750)
-              : as texel coord @ mip level[1]: (4.625, 0.875)
-              : as texel coord @ mip level[2]: (2.313, 0.438)
-           got: 0.67059, 0.76863, 0.85490, 0.25098
-      expected: 0.18431, 0.16471, 0.60000, 0.45098
-      max diff: 0
-     abs diffs: 0.48627, 0.60392, 0.25490, 0.20000
-     rel diffs: 72.51%, 78.57%, 29.82%, 44.35%
-     ulp diffs: 124, 154, 65, 51
-
-    ### turn on debugging to see sample points ###
-    checkCallResults@http://127.0.0.1:8000/webgpu/webgpu/shader/execution/expression/call/builtin/texture_utils.js:2742:37
-    checkCallResults@http://127.0.0.1:8000/webgpu/webgpu/shader/execution/expression/call/builtin/texture_utils.js:2331:40
-    @http://127.0.0.1:8000/webgpu/webgpu/shader/execution/expression/call/builtin/textureSampleBaseClampToEdge.spec.js:125:39
-  - (in subcase: samplePoints="spiral") INFO: subcase ran
- Reached unreachable code
+PASS :2d_coords:stage="c";textureType="texture_2d%3Cf32%3E";filt="nearest";modeU="c";modeV="r"
+PASS :2d_coords:stage="c";textureType="texture_2d%3Cf32%3E";filt="nearest";modeU="c";modeV="m"
+PASS :2d_coords:stage="c";textureType="texture_2d%3Cf32%3E";filt="nearest";modeU="r";modeV="c"
+PASS :2d_coords:stage="c";textureType="texture_2d%3Cf32%3E";filt="nearest";modeU="r";modeV="r"
+PASS :2d_coords:stage="c";textureType="texture_2d%3Cf32%3E";filt="nearest";modeU="r";modeV="m"
+PASS :2d_coords:stage="c";textureType="texture_2d%3Cf32%3E";filt="nearest";modeU="m";modeV="c"
+PASS :2d_coords:stage="c";textureType="texture_2d%3Cf32%3E";filt="nearest";modeU="m";modeV="r"
+PASS :2d_coords:stage="c";textureType="texture_2d%3Cf32%3E";filt="nearest";modeU="m";modeV="m"
 PASS :2d_coords:stage="c";textureType="texture_2d%3Cf32%3E";filt="linear";modeU="c";modeV="c"
-FAIL :2d_coords:stage="c";textureType="texture_2d%3Cf32%3E";filt="linear";modeU="c";modeV="r" assert_unreached:
-  - (in subcase: samplePoints="texel-centre") INFO: subcase ran
-  - (in subcase: samplePoints="spiral") EXPECTATION FAILED: result was not as expected:
-       physical size: [8, 8, 1]
-        baseMipLevel: 0
-       mipLevelCount: 3
-    baseMipLevelSize: [8, 8, 1]
-      baseArrayLayer: 0
-     arrayLayerCount: 1
-    physicalMipCount: 3
-
-         lodMinClamp: 0 (effective)
-         lodMaxClamp: 2 (effective)
-                call: textureSampleBaseClampToEdge(texture: T, sampler: S, coords: vec2f(0.3125, 0))  // #17
-              : as texel coord @ mip level[0]: (2.500, 0.000)
-              : as texel coord @ mip level[1]: (1.250, 0.000)
-              : as texel coord @ mip level[2]: (0.625, 0.000)
-           got: 0.37647, 0.45490, 0.43725, 0.31765
-      expected: 0.56078, 0.21569, 0.40000, 0.42353
-      max diff: 0.027450980392156862
-     abs diffs: 0.18431, 0.23922, 0.03725, 0.10588
-     rel diffs: 32.87%, 52.59%, 8.52%, 25.00%
-     ulp diffs: 47, 61, 10, 27
-
-    ### turn on debugging to see sample points ###
-    checkCallResults@http://127.0.0.1:8000/webgpu/webgpu/shader/execution/expression/call/builtin/texture_utils.js:2742:37
-    checkCallResults@http://127.0.0.1:8000/webgpu/webgpu/shader/execution/expression/call/builtin/texture_utils.js:2331:40
-    @http://127.0.0.1:8000/webgpu/webgpu/shader/execution/expression/call/builtin/textureSampleBaseClampToEdge.spec.js:125:39
-  - (in subcase: samplePoints="spiral") INFO: subcase ran
- Reached unreachable code
-FAIL :2d_coords:stage="c";textureType="texture_2d%3Cf32%3E";filt="linear";modeU="c";modeV="m" assert_unreached:
-  - (in subcase: samplePoints="texel-centre") INFO: subcase ran
-  - (in subcase: samplePoints="spiral") EXPECTATION FAILED: result was not as expected:
-       physical size: [8, 8, 1]
-        baseMipLevel: 0
-       mipLevelCount: 3
-    baseMipLevelSize: [8, 8, 1]
-      baseArrayLayer: 0
-     arrayLayerCount: 1
-    physicalMipCount: 3
-
-         lodMinClamp: 0 (effective)
-         lodMaxClamp: 2 (effective)
-                call: textureSampleBaseClampToEdge(texture: T, sampler: S, coords: vec2f(0.5625, -0.09375))  // #19
-              : as texel coord @ mip level[0]: (4.500, -0.750)
-              : as texel coord @ mip level[1]: (2.250, -0.375)
-              : as texel coord @ mip level[2]: (1.125, -0.188)
-           got: 0.67157, 0.75490, 0.40000, 0.12843
-      expected: 0.74510, 0.94510, 0.38431, 0.03529
-      max diff: 0.027450980392156862
-     abs diffs: 0.07353, 0.19020, 0.01569, 0.09314
-     rel diffs: 9.87%, 20.12%, 3.92%, 72.52%
-     ulp diffs: 19, 49, 4, 24
-
-    ### turn on debugging to see sample points ###
-    checkCallResults@http://127.0.0.1:8000/webgpu/webgpu/shader/execution/expression/call/builtin/texture_utils.js:2742:37
-    checkCallResults@http://127.0.0.1:8000/webgpu/webgpu/shader/execution/expression/call/builtin/texture_utils.js:2331:40
-    @http://127.0.0.1:8000/webgpu/webgpu/shader/execution/expression/call/builtin/textureSampleBaseClampToEdge.spec.js:125:39
-  - (in subcase: samplePoints="spiral") INFO: subcase ran
- Reached unreachable code
-FAIL :2d_coords:stage="c";textureType="texture_2d%3Cf32%3E";filt="linear";modeU="r";modeV="c" assert_unreached:
-  - (in subcase: samplePoints="texel-centre") INFO: subcase ran
-  - (in subcase: samplePoints="spiral") EXPECTATION FAILED: result was not as expected:
-       physical size: [8, 8, 1]
-        baseMipLevel: 0
-       mipLevelCount: 3
-    baseMipLevelSize: [8, 8, 1]
-      baseArrayLayer: 0
-     arrayLayerCount: 1
-    physicalMipCount: 3
-
-         lodMinClamp: 0 (effective)
-         lodMaxClamp: 2 (effective)
-                call: textureSampleBaseClampToEdge(texture: T, sampler: S, coords: vec2f(1.03125, 0.09375))  // #22
-              : as texel coord @ mip level[0]: (8.250, 0.750)
-              : as texel coord @ mip level[1]: (4.125, 0.375)
-              : as texel coord @ mip level[2]: (2.063, 0.188)
-           got: 0.82843, 0.68824, 0.29559, 0.33995
-      expected: 0.48431, 0.44118, 0.30000, 0.21569
-      max diff: 0.027450980392156862
-     abs diffs: 0.34412, 0.24706, 0.00441, 0.12426
-     rel diffs: 41.54%, 35.90%, 1.47%, 36.55%
-     ulp diffs: 87, 62, 2, 32
-
-    ### turn on debugging to see sample points ###
-    checkCallResults@http://127.0.0.1:8000/webgpu/webgpu/shader/execution/expression/call/builtin/texture_utils.js:2742:37
-    checkCallResults@http://127.0.0.1:8000/webgpu/webgpu/shader/execution/expression/call/builtin/texture_utils.js:2331:40
-    @http://127.0.0.1:8000/webgpu/webgpu/shader/execution/expression/call/builtin/textureSampleBaseClampToEdge.spec.js:125:39
-  - (in subcase: samplePoints="spiral") INFO: subcase ran
- Reached unreachable code
-FAIL :2d_coords:stage="c";textureType="texture_2d%3Cf32%3E";filt="linear";modeU="r";modeV="r" assert_unreached:
-  - (in subcase: samplePoints="texel-centre") INFO: subcase ran
-  - (in subcase: samplePoints="spiral") EXPECTATION FAILED: result was not as expected:
-       physical size: [8, 8, 1]
-        baseMipLevel: 0
-       mipLevelCount: 3
-    baseMipLevelSize: [8, 8, 1]
-      baseArrayLayer: 0
-     arrayLayerCount: 1
-    physicalMipCount: 3
-
-         lodMinClamp: 0 (effective)
-         lodMaxClamp: 2 (effective)
-                call: textureSampleBaseClampToEdge(texture: T, sampler: S, coords: vec2f(0.3125, 0))  // #17
-              : as texel coord @ mip level[0]: (2.500, 0.000)
-              : as texel coord @ mip level[1]: (1.250, 0.000)
-              : as texel coord @ mip level[2]: (0.625, 0.000)
-           got: 0.37647, 0.45490, 0.43725, 0.31765
-      expected: 0.56078, 0.21569, 0.40000, 0.42353
-      max diff: 0.027450980392156862
-     abs diffs: 0.18431, 0.23922, 0.03725, 0.10588
-     rel diffs: 32.87%, 52.59%, 8.52%, 25.00%
-     ulp diffs: 47, 61, 10, 27
-
-    ### turn on debugging to see sample points ###
-    checkCallResults@http://127.0.0.1:8000/webgpu/webgpu/shader/execution/expression/call/builtin/texture_utils.js:2742:37
-    checkCallResults@http://127.0.0.1:8000/webgpu/webgpu/shader/execution/expression/call/builtin/texture_utils.js:2331:40
-    @http://127.0.0.1:8000/webgpu/webgpu/shader/execution/expression/call/builtin/textureSampleBaseClampToEdge.spec.js:125:39
-  - (in subcase: samplePoints="spiral") INFO: subcase ran
- Reached unreachable code
-FAIL :2d_coords:stage="c";textureType="texture_2d%3Cf32%3E";filt="linear";modeU="r";modeV="m" assert_unreached:
-  - (in subcase: samplePoints="texel-centre") INFO: subcase ran
-  - (in subcase: samplePoints="spiral") EXPECTATION FAILED: result was not as expected:
-       physical size: [8, 8, 1]
-        baseMipLevel: 0
-       mipLevelCount: 3
-    baseMipLevelSize: [8, 8, 1]
-      baseArrayLayer: 0
-     arrayLayerCount: 1
-    physicalMipCount: 3
-
-         lodMinClamp: 0 (effective)
-         lodMaxClamp: 2 (effective)
-                call: textureSampleBaseClampToEdge(texture: T, sampler: S, coords: vec2f(0.5625, -0.09375))  // #19
-              : as texel coord @ mip level[0]: (4.500, -0.750)
-              : as texel coord @ mip level[1]: (2.250, -0.375)
-              : as texel coord @ mip level[2]: (1.125, -0.188)
-           got: 0.67157, 0.75490, 0.40000, 0.12843
-      expected: 0.74510, 0.94510, 0.38431, 0.03529
-      max diff: 0.027450980392156862
-     abs diffs: 0.07353, 0.19020, 0.01569, 0.09314
-     rel diffs: 9.87%, 20.12%, 3.92%, 72.52%
-     ulp diffs: 19, 49, 4, 24
-
-    ### turn on debugging to see sample points ###
-    checkCallResults@http://127.0.0.1:8000/webgpu/webgpu/shader/execution/expression/call/builtin/texture_utils.js:2742:37
-    checkCallResults@http://127.0.0.1:8000/webgpu/webgpu/shader/execution/expression/call/builtin/texture_utils.js:2331:40
-    @http://127.0.0.1:8000/webgpu/webgpu/shader/execution/expression/call/builtin/textureSampleBaseClampToEdge.spec.js:125:39
-  - (in subcase: samplePoints="spiral") INFO: subcase ran
- Reached unreachable code
-FAIL :2d_coords:stage="c";textureType="texture_2d%3Cf32%3E";filt="linear";modeU="m";modeV="c" assert_unreached:
-  - (in subcase: samplePoints="texel-centre") INFO: subcase ran
-  - (in subcase: samplePoints="spiral") EXPECTATION FAILED: result was not as expected:
-       physical size: [8, 8, 1]
-        baseMipLevel: 0
-       mipLevelCount: 3
-    baseMipLevelSize: [8, 8, 1]
-      baseArrayLayer: 0
-     arrayLayerCount: 1
-    physicalMipCount: 3
-
-         lodMinClamp: 0 (effective)
-         lodMaxClamp: 2 (effective)
-                call: textureSampleBaseClampToEdge(texture: T, sampler: S, coords: vec2f(1.125, 0.21875))  // #23
-              : as texel coord @ mip level[0]: (9.000, 1.750)
-              : as texel coord @ mip level[1]: (4.500, 0.875)
-              : as texel coord @ mip level[2]: (2.250, 0.438)
-           got: 0.42892, 0.53971, 0.68676, 0.41225
-      expected: 0.30686, 0.29314, 0.61667, 0.43922
-      max diff: 0.027450980392156862
-     abs diffs: 0.12206, 0.24657, 0.07010, 0.02696
-     rel diffs: 28.46%, 45.69%, 10.21%, 6.14%
-     ulp diffs: 31, 63, 18, 7
-
-    ### turn on debugging to see sample points ###
-    checkCallResults@http://127.0.0.1:8000/webgpu/webgpu/shader/execution/expression/call/builtin/texture_utils.js:2742:37
-    checkCallResults@http://127.0.0.1:8000/webgpu/webgpu/shader/execution/expression/call/builtin/texture_utils.js:2331:40
-    @http://127.0.0.1:8000/webgpu/webgpu/shader/execution/expression/call/builtin/textureSampleBaseClampToEdge.spec.js:125:39
-  - (in subcase: samplePoints="spiral") INFO: subcase ran
- Reached unreachable code
-FAIL :2d_coords:stage="c";textureType="texture_2d%3Cf32%3E";filt="linear";modeU="m";modeV="r" assert_unreached:
-  - (in subcase: samplePoints="texel-centre") INFO: subcase ran
-  - (in subcase: samplePoints="spiral") EXPECTATION FAILED: result was not as expected:
-       physical size: [8, 8, 1]
-        baseMipLevel: 0
-       mipLevelCount: 3
-    baseMipLevelSize: [8, 8, 1]
-      baseArrayLayer: 0
-     arrayLayerCount: 1
-    physicalMipCount: 3
-
-         lodMinClamp: 0 (effective)
-         lodMaxClamp: 2 (effective)
-                call: textureSampleBaseClampToEdge(texture: T, sampler: S, coords: vec2f(0.3125, 0))  // #17
-              : as texel coord @ mip level[0]: (2.500, 0.000)
-              : as texel coord @ mip level[1]: (1.250, 0.000)
-              : as texel coord @ mip level[2]: (0.625, 0.000)
-           got: 0.37647, 0.45490, 0.43725, 0.31765
-      expected: 0.56078, 0.21569, 0.40000, 0.42353
-      max diff: 0.027450980392156862
-     abs diffs: 0.18431, 0.23922, 0.03725, 0.10588
-     rel diffs: 32.87%, 52.59%, 8.52%, 25.00%
-     ulp diffs: 47, 61, 10, 27
-
-    ### turn on debugging to see sample points ###
-    checkCallResults@http://127.0.0.1:8000/webgpu/webgpu/shader/execution/expression/call/builtin/texture_utils.js:2742:37
-    checkCallResults@http://127.0.0.1:8000/webgpu/webgpu/shader/execution/expression/call/builtin/texture_utils.js:2331:40
-    @http://127.0.0.1:8000/webgpu/webgpu/shader/execution/expression/call/builtin/textureSampleBaseClampToEdge.spec.js:125:39
-  - (in subcase: samplePoints="spiral") INFO: subcase ran
- Reached unreachable code
-FAIL :2d_coords:stage="c";textureType="texture_2d%3Cf32%3E";filt="linear";modeU="m";modeV="m" assert_unreached:
-  - (in subcase: samplePoints="texel-centre") INFO: subcase ran
-  - (in subcase: samplePoints="spiral") EXPECTATION FAILED: result was not as expected:
-       physical size: [8, 8, 1]
-        baseMipLevel: 0
-       mipLevelCount: 3
-    baseMipLevelSize: [8, 8, 1]
-      baseArrayLayer: 0
-     arrayLayerCount: 1
-    physicalMipCount: 3
-
-         lodMinClamp: 0 (effective)
-         lodMaxClamp: 2 (effective)
-                call: textureSampleBaseClampToEdge(texture: T, sampler: S, coords: vec2f(0.5625, -0.09375))  // #19
-              : as texel coord @ mip level[0]: (4.500, -0.750)
-              : as texel coord @ mip level[1]: (2.250, -0.375)
-              : as texel coord @ mip level[2]: (1.125, -0.188)
-           got: 0.67157, 0.75490, 0.40000, 0.12843
-      expected: 0.74510, 0.94510, 0.38431, 0.03529
-      max diff: 0.027450980392156862
-     abs diffs: 0.07353, 0.19020, 0.01569, 0.09314
-     rel diffs: 9.87%, 20.12%, 3.92%, 72.52%
-     ulp diffs: 19, 49, 4, 24
-
-    ### turn on debugging to see sample points ###
-    checkCallResults@http://127.0.0.1:8000/webgpu/webgpu/shader/execution/expression/call/builtin/texture_utils.js:2742:37
-    checkCallResults@http://127.0.0.1:8000/webgpu/webgpu/shader/execution/expression/call/builtin/texture_utils.js:2331:40
-    @http://127.0.0.1:8000/webgpu/webgpu/shader/execution/expression/call/builtin/textureSampleBaseClampToEdge.spec.js:125:39
-  - (in subcase: samplePoints="spiral") INFO: subcase ran
- Reached unreachable code
+PASS :2d_coords:stage="c";textureType="texture_2d%3Cf32%3E";filt="linear";modeU="c";modeV="r"
+PASS :2d_coords:stage="c";textureType="texture_2d%3Cf32%3E";filt="linear";modeU="c";modeV="m"
+PASS :2d_coords:stage="c";textureType="texture_2d%3Cf32%3E";filt="linear";modeU="r";modeV="c"
+PASS :2d_coords:stage="c";textureType="texture_2d%3Cf32%3E";filt="linear";modeU="r";modeV="r"
+PASS :2d_coords:stage="c";textureType="texture_2d%3Cf32%3E";filt="linear";modeU="r";modeV="m"
+PASS :2d_coords:stage="c";textureType="texture_2d%3Cf32%3E";filt="linear";modeU="m";modeV="c"
+PASS :2d_coords:stage="c";textureType="texture_2d%3Cf32%3E";filt="linear";modeU="m";modeV="r"
+PASS :2d_coords:stage="c";textureType="texture_2d%3Cf32%3E";filt="linear";modeU="m";modeV="m"
 FAIL :2d_coords:stage="c";textureType="texture_external";filt="nearest";modeU="c";modeV="c" assert_unreached:
   - (in subcase: samplePoints="texel-centre") EXPECTATION FAILED: result was not as expected:
        physical size: [8, 8, 1]
@@ -506,7 +42,6 @@ FAIL :2d_coords:stage="c";textureType="texture_external";filt="nearest";modeU="c
 
     ### turn on debugging to see sample points ###
     checkCallResults@http://127.0.0.1:8000/webgpu/webgpu/shader/execution/expression/call/builtin/texture_utils.js:2742:37
-    checkCallResults@http://127.0.0.1:8000/webgpu/webgpu/shader/execution/expression/call/builtin/texture_utils.js:2331:40
     @http://127.0.0.1:8000/webgpu/webgpu/shader/execution/expression/call/builtin/textureSampleBaseClampToEdge.spec.js:125:39
   - (in subcase: samplePoints="texel-centre") INFO: subcase ran
   - (in subcase: samplePoints="spiral") EXPECTATION FAILED: result was not as expected:
@@ -533,7 +68,6 @@ FAIL :2d_coords:stage="c";textureType="texture_external";filt="nearest";modeU="c
 
     ### turn on debugging to see sample points ###
     checkCallResults@http://127.0.0.1:8000/webgpu/webgpu/shader/execution/expression/call/builtin/texture_utils.js:2742:37
-    checkCallResults@http://127.0.0.1:8000/webgpu/webgpu/shader/execution/expression/call/builtin/texture_utils.js:2331:40
     @http://127.0.0.1:8000/webgpu/webgpu/shader/execution/expression/call/builtin/textureSampleBaseClampToEdge.spec.js:125:39
   - (in subcase: samplePoints="spiral") INFO: subcase ran
  Reached unreachable code
@@ -562,7 +96,6 @@ FAIL :2d_coords:stage="c";textureType="texture_external";filt="nearest";modeU="c
 
     ### turn on debugging to see sample points ###
     checkCallResults@http://127.0.0.1:8000/webgpu/webgpu/shader/execution/expression/call/builtin/texture_utils.js:2742:37
-    checkCallResults@http://127.0.0.1:8000/webgpu/webgpu/shader/execution/expression/call/builtin/texture_utils.js:2331:40
     @http://127.0.0.1:8000/webgpu/webgpu/shader/execution/expression/call/builtin/textureSampleBaseClampToEdge.spec.js:125:39
   - (in subcase: samplePoints="texel-centre") INFO: subcase ran
   - (in subcase: samplePoints="spiral") EXPECTATION FAILED: result was not as expected:
@@ -589,7 +122,6 @@ FAIL :2d_coords:stage="c";textureType="texture_external";filt="nearest";modeU="c
 
     ### turn on debugging to see sample points ###
     checkCallResults@http://127.0.0.1:8000/webgpu/webgpu/shader/execution/expression/call/builtin/texture_utils.js:2742:37
-    checkCallResults@http://127.0.0.1:8000/webgpu/webgpu/shader/execution/expression/call/builtin/texture_utils.js:2331:40
     @http://127.0.0.1:8000/webgpu/webgpu/shader/execution/expression/call/builtin/textureSampleBaseClampToEdge.spec.js:125:39
   - (in subcase: samplePoints="spiral") INFO: subcase ran
  Reached unreachable code
@@ -618,7 +150,6 @@ FAIL :2d_coords:stage="c";textureType="texture_external";filt="nearest";modeU="c
 
     ### turn on debugging to see sample points ###
     checkCallResults@http://127.0.0.1:8000/webgpu/webgpu/shader/execution/expression/call/builtin/texture_utils.js:2742:37
-    checkCallResults@http://127.0.0.1:8000/webgpu/webgpu/shader/execution/expression/call/builtin/texture_utils.js:2331:40
     @http://127.0.0.1:8000/webgpu/webgpu/shader/execution/expression/call/builtin/textureSampleBaseClampToEdge.spec.js:125:39
   - (in subcase: samplePoints="texel-centre") INFO: subcase ran
   - (in subcase: samplePoints="spiral") EXPECTATION FAILED: result was not as expected:
@@ -645,7 +176,6 @@ FAIL :2d_coords:stage="c";textureType="texture_external";filt="nearest";modeU="c
 
     ### turn on debugging to see sample points ###
     checkCallResults@http://127.0.0.1:8000/webgpu/webgpu/shader/execution/expression/call/builtin/texture_utils.js:2742:37
-    checkCallResults@http://127.0.0.1:8000/webgpu/webgpu/shader/execution/expression/call/builtin/texture_utils.js:2331:40
     @http://127.0.0.1:8000/webgpu/webgpu/shader/execution/expression/call/builtin/textureSampleBaseClampToEdge.spec.js:125:39
   - (in subcase: samplePoints="spiral") INFO: subcase ran
  Reached unreachable code
@@ -674,7 +204,6 @@ FAIL :2d_coords:stage="c";textureType="texture_external";filt="nearest";modeU="r
 
     ### turn on debugging to see sample points ###
     checkCallResults@http://127.0.0.1:8000/webgpu/webgpu/shader/execution/expression/call/builtin/texture_utils.js:2742:37
-    checkCallResults@http://127.0.0.1:8000/webgpu/webgpu/shader/execution/expression/call/builtin/texture_utils.js:2331:40
     @http://127.0.0.1:8000/webgpu/webgpu/shader/execution/expression/call/builtin/textureSampleBaseClampToEdge.spec.js:125:39
   - (in subcase: samplePoints="texel-centre") INFO: subcase ran
   - (in subcase: samplePoints="spiral") EXPECTATION FAILED: result was not as expected:
@@ -701,7 +230,6 @@ FAIL :2d_coords:stage="c";textureType="texture_external";filt="nearest";modeU="r
 
     ### turn on debugging to see sample points ###
     checkCallResults@http://127.0.0.1:8000/webgpu/webgpu/shader/execution/expression/call/builtin/texture_utils.js:2742:37
-    checkCallResults@http://127.0.0.1:8000/webgpu/webgpu/shader/execution/expression/call/builtin/texture_utils.js:2331:40
     @http://127.0.0.1:8000/webgpu/webgpu/shader/execution/expression/call/builtin/textureSampleBaseClampToEdge.spec.js:125:39
   - (in subcase: samplePoints="spiral") INFO: subcase ran
  Reached unreachable code
@@ -730,7 +258,6 @@ FAIL :2d_coords:stage="c";textureType="texture_external";filt="nearest";modeU="r
 
     ### turn on debugging to see sample points ###
     checkCallResults@http://127.0.0.1:8000/webgpu/webgpu/shader/execution/expression/call/builtin/texture_utils.js:2742:37
-    checkCallResults@http://127.0.0.1:8000/webgpu/webgpu/shader/execution/expression/call/builtin/texture_utils.js:2331:40
     @http://127.0.0.1:8000/webgpu/webgpu/shader/execution/expression/call/builtin/textureSampleBaseClampToEdge.spec.js:125:39
   - (in subcase: samplePoints="texel-centre") INFO: subcase ran
   - (in subcase: samplePoints="spiral") EXPECTATION FAILED: result was not as expected:
@@ -757,7 +284,6 @@ FAIL :2d_coords:stage="c";textureType="texture_external";filt="nearest";modeU="r
 
     ### turn on debugging to see sample points ###
     checkCallResults@http://127.0.0.1:8000/webgpu/webgpu/shader/execution/expression/call/builtin/texture_utils.js:2742:37
-    checkCallResults@http://127.0.0.1:8000/webgpu/webgpu/shader/execution/expression/call/builtin/texture_utils.js:2331:40
     @http://127.0.0.1:8000/webgpu/webgpu/shader/execution/expression/call/builtin/textureSampleBaseClampToEdge.spec.js:125:39
   - (in subcase: samplePoints="spiral") INFO: subcase ran
  Reached unreachable code
@@ -786,7 +312,6 @@ FAIL :2d_coords:stage="c";textureType="texture_external";filt="nearest";modeU="r
 
     ### turn on debugging to see sample points ###
     checkCallResults@http://127.0.0.1:8000/webgpu/webgpu/shader/execution/expression/call/builtin/texture_utils.js:2742:37
-    checkCallResults@http://127.0.0.1:8000/webgpu/webgpu/shader/execution/expression/call/builtin/texture_utils.js:2331:40
     @http://127.0.0.1:8000/webgpu/webgpu/shader/execution/expression/call/builtin/textureSampleBaseClampToEdge.spec.js:125:39
   - (in subcase: samplePoints="texel-centre") INFO: subcase ran
   - (in subcase: samplePoints="spiral") EXPECTATION FAILED: result was not as expected:
@@ -813,7 +338,6 @@ FAIL :2d_coords:stage="c";textureType="texture_external";filt="nearest";modeU="r
 
     ### turn on debugging to see sample points ###
     checkCallResults@http://127.0.0.1:8000/webgpu/webgpu/shader/execution/expression/call/builtin/texture_utils.js:2742:37
-    checkCallResults@http://127.0.0.1:8000/webgpu/webgpu/shader/execution/expression/call/builtin/texture_utils.js:2331:40
     @http://127.0.0.1:8000/webgpu/webgpu/shader/execution/expression/call/builtin/textureSampleBaseClampToEdge.spec.js:125:39
   - (in subcase: samplePoints="spiral") INFO: subcase ran
  Reached unreachable code
@@ -842,7 +366,6 @@ FAIL :2d_coords:stage="c";textureType="texture_external";filt="nearest";modeU="m
 
     ### turn on debugging to see sample points ###
     checkCallResults@http://127.0.0.1:8000/webgpu/webgpu/shader/execution/expression/call/builtin/texture_utils.js:2742:37
-    checkCallResults@http://127.0.0.1:8000/webgpu/webgpu/shader/execution/expression/call/builtin/texture_utils.js:2331:40
     @http://127.0.0.1:8000/webgpu/webgpu/shader/execution/expression/call/builtin/textureSampleBaseClampToEdge.spec.js:125:39
   - (in subcase: samplePoints="texel-centre") INFO: subcase ran
   - (in subcase: samplePoints="spiral") EXPECTATION FAILED: result was not as expected:
@@ -869,7 +392,6 @@ FAIL :2d_coords:stage="c";textureType="texture_external";filt="nearest";modeU="m
 
     ### turn on debugging to see sample points ###
     checkCallResults@http://127.0.0.1:8000/webgpu/webgpu/shader/execution/expression/call/builtin/texture_utils.js:2742:37
-    checkCallResults@http://127.0.0.1:8000/webgpu/webgpu/shader/execution/expression/call/builtin/texture_utils.js:2331:40
     @http://127.0.0.1:8000/webgpu/webgpu/shader/execution/expression/call/builtin/textureSampleBaseClampToEdge.spec.js:125:39
   - (in subcase: samplePoints="spiral") INFO: subcase ran
  Reached unreachable code
@@ -898,7 +420,6 @@ FAIL :2d_coords:stage="c";textureType="texture_external";filt="nearest";modeU="m
 
     ### turn on debugging to see sample points ###
     checkCallResults@http://127.0.0.1:8000/webgpu/webgpu/shader/execution/expression/call/builtin/texture_utils.js:2742:37
-    checkCallResults@http://127.0.0.1:8000/webgpu/webgpu/shader/execution/expression/call/builtin/texture_utils.js:2331:40
     @http://127.0.0.1:8000/webgpu/webgpu/shader/execution/expression/call/builtin/textureSampleBaseClampToEdge.spec.js:125:39
   - (in subcase: samplePoints="texel-centre") INFO: subcase ran
   - (in subcase: samplePoints="spiral") EXPECTATION FAILED: result was not as expected:
@@ -925,7 +446,6 @@ FAIL :2d_coords:stage="c";textureType="texture_external";filt="nearest";modeU="m
 
     ### turn on debugging to see sample points ###
     checkCallResults@http://127.0.0.1:8000/webgpu/webgpu/shader/execution/expression/call/builtin/texture_utils.js:2742:37
-    checkCallResults@http://127.0.0.1:8000/webgpu/webgpu/shader/execution/expression/call/builtin/texture_utils.js:2331:40
     @http://127.0.0.1:8000/webgpu/webgpu/shader/execution/expression/call/builtin/textureSampleBaseClampToEdge.spec.js:125:39
   - (in subcase: samplePoints="spiral") INFO: subcase ran
  Reached unreachable code
@@ -954,7 +474,6 @@ FAIL :2d_coords:stage="c";textureType="texture_external";filt="nearest";modeU="m
 
     ### turn on debugging to see sample points ###
     checkCallResults@http://127.0.0.1:8000/webgpu/webgpu/shader/execution/expression/call/builtin/texture_utils.js:2742:37
-    checkCallResults@http://127.0.0.1:8000/webgpu/webgpu/shader/execution/expression/call/builtin/texture_utils.js:2331:40
     @http://127.0.0.1:8000/webgpu/webgpu/shader/execution/expression/call/builtin/textureSampleBaseClampToEdge.spec.js:125:39
   - (in subcase: samplePoints="texel-centre") INFO: subcase ran
   - (in subcase: samplePoints="spiral") EXPECTATION FAILED: result was not as expected:
@@ -981,7 +500,6 @@ FAIL :2d_coords:stage="c";textureType="texture_external";filt="nearest";modeU="m
 
     ### turn on debugging to see sample points ###
     checkCallResults@http://127.0.0.1:8000/webgpu/webgpu/shader/execution/expression/call/builtin/texture_utils.js:2742:37
-    checkCallResults@http://127.0.0.1:8000/webgpu/webgpu/shader/execution/expression/call/builtin/texture_utils.js:2331:40
     @http://127.0.0.1:8000/webgpu/webgpu/shader/execution/expression/call/builtin/textureSampleBaseClampToEdge.spec.js:125:39
   - (in subcase: samplePoints="spiral") INFO: subcase ran
  Reached unreachable code
@@ -1010,7 +528,6 @@ FAIL :2d_coords:stage="c";textureType="texture_external";filt="linear";modeU="c"
 
     ### turn on debugging to see sample points ###
     checkCallResults@http://127.0.0.1:8000/webgpu/webgpu/shader/execution/expression/call/builtin/texture_utils.js:2742:37
-    checkCallResults@http://127.0.0.1:8000/webgpu/webgpu/shader/execution/expression/call/builtin/texture_utils.js:2331:40
     @http://127.0.0.1:8000/webgpu/webgpu/shader/execution/expression/call/builtin/textureSampleBaseClampToEdge.spec.js:125:39
   - (in subcase: samplePoints="texel-centre") INFO: subcase ran
   - (in subcase: samplePoints="spiral") EXPECTATION FAILED: result was not as expected:
@@ -1037,7 +554,6 @@ FAIL :2d_coords:stage="c";textureType="texture_external";filt="linear";modeU="c"
 
     ### turn on debugging to see sample points ###
     checkCallResults@http://127.0.0.1:8000/webgpu/webgpu/shader/execution/expression/call/builtin/texture_utils.js:2742:37
-    checkCallResults@http://127.0.0.1:8000/webgpu/webgpu/shader/execution/expression/call/builtin/texture_utils.js:2331:40
     @http://127.0.0.1:8000/webgpu/webgpu/shader/execution/expression/call/builtin/textureSampleBaseClampToEdge.spec.js:125:39
   - (in subcase: samplePoints="spiral") INFO: subcase ran
  Reached unreachable code
@@ -1066,7 +582,6 @@ FAIL :2d_coords:stage="c";textureType="texture_external";filt="linear";modeU="c"
 
     ### turn on debugging to see sample points ###
     checkCallResults@http://127.0.0.1:8000/webgpu/webgpu/shader/execution/expression/call/builtin/texture_utils.js:2742:37
-    checkCallResults@http://127.0.0.1:8000/webgpu/webgpu/shader/execution/expression/call/builtin/texture_utils.js:2331:40
     @http://127.0.0.1:8000/webgpu/webgpu/shader/execution/expression/call/builtin/textureSampleBaseClampToEdge.spec.js:125:39
   - (in subcase: samplePoints="texel-centre") INFO: subcase ran
   - (in subcase: samplePoints="spiral") EXPECTATION FAILED: result was not as expected:
@@ -1093,7 +608,6 @@ FAIL :2d_coords:stage="c";textureType="texture_external";filt="linear";modeU="c"
 
     ### turn on debugging to see sample points ###
     checkCallResults@http://127.0.0.1:8000/webgpu/webgpu/shader/execution/expression/call/builtin/texture_utils.js:2742:37
-    checkCallResults@http://127.0.0.1:8000/webgpu/webgpu/shader/execution/expression/call/builtin/texture_utils.js:2331:40
     @http://127.0.0.1:8000/webgpu/webgpu/shader/execution/expression/call/builtin/textureSampleBaseClampToEdge.spec.js:125:39
   - (in subcase: samplePoints="spiral") INFO: subcase ran
  Reached unreachable code
@@ -1122,7 +636,6 @@ FAIL :2d_coords:stage="c";textureType="texture_external";filt="linear";modeU="c"
 
     ### turn on debugging to see sample points ###
     checkCallResults@http://127.0.0.1:8000/webgpu/webgpu/shader/execution/expression/call/builtin/texture_utils.js:2742:37
-    checkCallResults@http://127.0.0.1:8000/webgpu/webgpu/shader/execution/expression/call/builtin/texture_utils.js:2331:40
     @http://127.0.0.1:8000/webgpu/webgpu/shader/execution/expression/call/builtin/textureSampleBaseClampToEdge.spec.js:125:39
   - (in subcase: samplePoints="texel-centre") INFO: subcase ran
   - (in subcase: samplePoints="spiral") EXPECTATION FAILED: result was not as expected:
@@ -1149,7 +662,6 @@ FAIL :2d_coords:stage="c";textureType="texture_external";filt="linear";modeU="c"
 
     ### turn on debugging to see sample points ###
     checkCallResults@http://127.0.0.1:8000/webgpu/webgpu/shader/execution/expression/call/builtin/texture_utils.js:2742:37
-    checkCallResults@http://127.0.0.1:8000/webgpu/webgpu/shader/execution/expression/call/builtin/texture_utils.js:2331:40
     @http://127.0.0.1:8000/webgpu/webgpu/shader/execution/expression/call/builtin/textureSampleBaseClampToEdge.spec.js:125:39
   - (in subcase: samplePoints="spiral") INFO: subcase ran
  Reached unreachable code
@@ -1178,7 +690,6 @@ FAIL :2d_coords:stage="c";textureType="texture_external";filt="linear";modeU="r"
 
     ### turn on debugging to see sample points ###
     checkCallResults@http://127.0.0.1:8000/webgpu/webgpu/shader/execution/expression/call/builtin/texture_utils.js:2742:37
-    checkCallResults@http://127.0.0.1:8000/webgpu/webgpu/shader/execution/expression/call/builtin/texture_utils.js:2331:40
     @http://127.0.0.1:8000/webgpu/webgpu/shader/execution/expression/call/builtin/textureSampleBaseClampToEdge.spec.js:125:39
   - (in subcase: samplePoints="texel-centre") INFO: subcase ran
   - (in subcase: samplePoints="spiral") EXPECTATION FAILED: result was not as expected:
@@ -1205,7 +716,6 @@ FAIL :2d_coords:stage="c";textureType="texture_external";filt="linear";modeU="r"
 
     ### turn on debugging to see sample points ###
     checkCallResults@http://127.0.0.1:8000/webgpu/webgpu/shader/execution/expression/call/builtin/texture_utils.js:2742:37
-    checkCallResults@http://127.0.0.1:8000/webgpu/webgpu/shader/execution/expression/call/builtin/texture_utils.js:2331:40
     @http://127.0.0.1:8000/webgpu/webgpu/shader/execution/expression/call/builtin/textureSampleBaseClampToEdge.spec.js:125:39
   - (in subcase: samplePoints="spiral") INFO: subcase ran
  Reached unreachable code
@@ -1234,7 +744,6 @@ FAIL :2d_coords:stage="c";textureType="texture_external";filt="linear";modeU="r"
 
     ### turn on debugging to see sample points ###
     checkCallResults@http://127.0.0.1:8000/webgpu/webgpu/shader/execution/expression/call/builtin/texture_utils.js:2742:37
-    checkCallResults@http://127.0.0.1:8000/webgpu/webgpu/shader/execution/expression/call/builtin/texture_utils.js:2331:40
     @http://127.0.0.1:8000/webgpu/webgpu/shader/execution/expression/call/builtin/textureSampleBaseClampToEdge.spec.js:125:39
   - (in subcase: samplePoints="texel-centre") INFO: subcase ran
   - (in subcase: samplePoints="spiral") EXPECTATION FAILED: result was not as expected:
@@ -1261,7 +770,6 @@ FAIL :2d_coords:stage="c";textureType="texture_external";filt="linear";modeU="r"
 
     ### turn on debugging to see sample points ###
     checkCallResults@http://127.0.0.1:8000/webgpu/webgpu/shader/execution/expression/call/builtin/texture_utils.js:2742:37
-    checkCallResults@http://127.0.0.1:8000/webgpu/webgpu/shader/execution/expression/call/builtin/texture_utils.js:2331:40
     @http://127.0.0.1:8000/webgpu/webgpu/shader/execution/expression/call/builtin/textureSampleBaseClampToEdge.spec.js:125:39
   - (in subcase: samplePoints="spiral") INFO: subcase ran
  Reached unreachable code
@@ -1290,7 +798,6 @@ FAIL :2d_coords:stage="c";textureType="texture_external";filt="linear";modeU="r"
 
     ### turn on debugging to see sample points ###
     checkCallResults@http://127.0.0.1:8000/webgpu/webgpu/shader/execution/expression/call/builtin/texture_utils.js:2742:37
-    checkCallResults@http://127.0.0.1:8000/webgpu/webgpu/shader/execution/expression/call/builtin/texture_utils.js:2331:40
     @http://127.0.0.1:8000/webgpu/webgpu/shader/execution/expression/call/builtin/textureSampleBaseClampToEdge.spec.js:125:39
   - (in subcase: samplePoints="texel-centre") INFO: subcase ran
   - (in subcase: samplePoints="spiral") EXPECTATION FAILED: result was not as expected:
@@ -1317,7 +824,6 @@ FAIL :2d_coords:stage="c";textureType="texture_external";filt="linear";modeU="r"
 
     ### turn on debugging to see sample points ###
     checkCallResults@http://127.0.0.1:8000/webgpu/webgpu/shader/execution/expression/call/builtin/texture_utils.js:2742:37
-    checkCallResults@http://127.0.0.1:8000/webgpu/webgpu/shader/execution/expression/call/builtin/texture_utils.js:2331:40
     @http://127.0.0.1:8000/webgpu/webgpu/shader/execution/expression/call/builtin/textureSampleBaseClampToEdge.spec.js:125:39
   - (in subcase: samplePoints="spiral") INFO: subcase ran
  Reached unreachable code
@@ -1346,7 +852,6 @@ FAIL :2d_coords:stage="c";textureType="texture_external";filt="linear";modeU="m"
 
     ### turn on debugging to see sample points ###
     checkCallResults@http://127.0.0.1:8000/webgpu/webgpu/shader/execution/expression/call/builtin/texture_utils.js:2742:37
-    checkCallResults@http://127.0.0.1:8000/webgpu/webgpu/shader/execution/expression/call/builtin/texture_utils.js:2331:40
     @http://127.0.0.1:8000/webgpu/webgpu/shader/execution/expression/call/builtin/textureSampleBaseClampToEdge.spec.js:125:39
   - (in subcase: samplePoints="texel-centre") INFO: subcase ran
   - (in subcase: samplePoints="spiral") EXPECTATION FAILED: result was not as expected:
@@ -1373,7 +878,6 @@ FAIL :2d_coords:stage="c";textureType="texture_external";filt="linear";modeU="m"
 
     ### turn on debugging to see sample points ###
     checkCallResults@http://127.0.0.1:8000/webgpu/webgpu/shader/execution/expression/call/builtin/texture_utils.js:2742:37
-    checkCallResults@http://127.0.0.1:8000/webgpu/webgpu/shader/execution/expression/call/builtin/texture_utils.js:2331:40
     @http://127.0.0.1:8000/webgpu/webgpu/shader/execution/expression/call/builtin/textureSampleBaseClampToEdge.spec.js:125:39
   - (in subcase: samplePoints="spiral") INFO: subcase ran
  Reached unreachable code
@@ -1402,7 +906,6 @@ FAIL :2d_coords:stage="c";textureType="texture_external";filt="linear";modeU="m"
 
     ### turn on debugging to see sample points ###
     checkCallResults@http://127.0.0.1:8000/webgpu/webgpu/shader/execution/expression/call/builtin/texture_utils.js:2742:37
-    checkCallResults@http://127.0.0.1:8000/webgpu/webgpu/shader/execution/expression/call/builtin/texture_utils.js:2331:40
     @http://127.0.0.1:8000/webgpu/webgpu/shader/execution/expression/call/builtin/textureSampleBaseClampToEdge.spec.js:125:39
   - (in subcase: samplePoints="texel-centre") INFO: subcase ran
   - (in subcase: samplePoints="spiral") EXPECTATION FAILED: result was not as expected:
@@ -1429,7 +932,6 @@ FAIL :2d_coords:stage="c";textureType="texture_external";filt="linear";modeU="m"
 
     ### turn on debugging to see sample points ###
     checkCallResults@http://127.0.0.1:8000/webgpu/webgpu/shader/execution/expression/call/builtin/texture_utils.js:2742:37
-    checkCallResults@http://127.0.0.1:8000/webgpu/webgpu/shader/execution/expression/call/builtin/texture_utils.js:2331:40
     @http://127.0.0.1:8000/webgpu/webgpu/shader/execution/expression/call/builtin/textureSampleBaseClampToEdge.spec.js:125:39
   - (in subcase: samplePoints="spiral") INFO: subcase ran
  Reached unreachable code
@@ -1458,7 +960,6 @@ FAIL :2d_coords:stage="c";textureType="texture_external";filt="linear";modeU="m"
 
     ### turn on debugging to see sample points ###
     checkCallResults@http://127.0.0.1:8000/webgpu/webgpu/shader/execution/expression/call/builtin/texture_utils.js:2742:37
-    checkCallResults@http://127.0.0.1:8000/webgpu/webgpu/shader/execution/expression/call/builtin/texture_utils.js:2331:40
     @http://127.0.0.1:8000/webgpu/webgpu/shader/execution/expression/call/builtin/textureSampleBaseClampToEdge.spec.js:125:39
   - (in subcase: samplePoints="texel-centre") INFO: subcase ran
   - (in subcase: samplePoints="spiral") EXPECTATION FAILED: result was not as expected:
@@ -1485,492 +986,27 @@ FAIL :2d_coords:stage="c";textureType="texture_external";filt="linear";modeU="m"
 
     ### turn on debugging to see sample points ###
     checkCallResults@http://127.0.0.1:8000/webgpu/webgpu/shader/execution/expression/call/builtin/texture_utils.js:2742:37
-    checkCallResults@http://127.0.0.1:8000/webgpu/webgpu/shader/execution/expression/call/builtin/texture_utils.js:2331:40
     @http://127.0.0.1:8000/webgpu/webgpu/shader/execution/expression/call/builtin/textureSampleBaseClampToEdge.spec.js:125:39
   - (in subcase: samplePoints="spiral") INFO: subcase ran
  Reached unreachable code
 PASS :2d_coords:stage="f";textureType="texture_2d%3Cf32%3E";filt="nearest";modeU="c";modeV="c"
-FAIL :2d_coords:stage="f";textureType="texture_2d%3Cf32%3E";filt="nearest";modeU="c";modeV="r" assert_unreached:
-  - (in subcase: samplePoints="texel-centre") INFO: subcase ran
-  - (in subcase: samplePoints="spiral") EXPECTATION FAILED: result was not as expected:
-       physical size: [8, 8, 1]
-        baseMipLevel: 0
-       mipLevelCount: 3
-    baseMipLevelSize: [8, 8, 1]
-      baseArrayLayer: 0
-     arrayLayerCount: 1
-    physicalMipCount: 3
-
-         lodMinClamp: 0 (effective)
-         lodMaxClamp: 2 (effective)
-                call: textureSampleBaseClampToEdge(texture: T, sampler: S, coords: vec2f(0.4375, -0.0625))  // #18
-              : as texel coord @ mip level[0]: (3.500, -0.500)
-              : as texel coord @ mip level[1]: (1.750, -0.250)
-              : as texel coord @ mip level[2]: (0.875, -0.125)
-           got: 0.24706, 0.93725, 0.81176, 0.28235
-      expected: 0.52941, 0.87059, 0.76471, 0.24706
-      max diff: 0
-     abs diffs: 0.28235, 0.06667, 0.04706, 0.03529
-     rel diffs: 53.33%, 7.11%, 5.80%, 12.50%
-     ulp diffs: 72, 17, 12, 9
-
-    ### turn on debugging to see sample points ###
-    checkCallResults@http://127.0.0.1:8000/webgpu/webgpu/shader/execution/expression/call/builtin/texture_utils.js:2742:37
-    checkCallResults@http://127.0.0.1:8000/webgpu/webgpu/shader/execution/expression/call/builtin/texture_utils.js:2331:40
-    @http://127.0.0.1:8000/webgpu/webgpu/shader/execution/expression/call/builtin/textureSampleBaseClampToEdge.spec.js:125:39
-  - (in subcase: samplePoints="spiral") INFO: subcase ran
- Reached unreachable code
-FAIL :2d_coords:stage="f";textureType="texture_2d%3Cf32%3E";filt="nearest";modeU="c";modeV="m" assert_unreached:
-  - (in subcase: samplePoints="texel-centre") INFO: subcase ran
-  - (in subcase: samplePoints="spiral") EXPECTATION FAILED: result was not as expected:
-       physical size: [8, 8, 1]
-        baseMipLevel: 0
-       mipLevelCount: 3
-    baseMipLevelSize: [8, 8, 1]
-      baseArrayLayer: 0
-     arrayLayerCount: 1
-    physicalMipCount: 3
-
-         lodMinClamp: 0 (effective)
-         lodMaxClamp: 2 (effective)
-                call: textureSampleBaseClampToEdge(texture: T, sampler: S, coords: vec2f(1.03125, 1.15625))  // #28
-              : as texel coord @ mip level[0]: (8.250, 9.250)
-              : as texel coord @ mip level[1]: (4.125, 4.625)
-              : as texel coord @ mip level[2]: (2.063, 2.313)
-           got: 0.85098, 0.41569, 0.45490, 0.02353
-      expected: 0.11373, 0.04314, 0.78824, 0.33725
-      max diff: 0
-     abs diffs: 0.73725, 0.37255, 0.33333, 0.31373
-     rel diffs: 86.64%, 89.62%, 42.29%, 93.02%
-     ulp diffs: 188, 95, 85, 80
-
-    ### turn on debugging to see sample points ###
-    checkCallResults@http://127.0.0.1:8000/webgpu/webgpu/shader/execution/expression/call/builtin/texture_utils.js:2742:37
-    checkCallResults@http://127.0.0.1:8000/webgpu/webgpu/shader/execution/expression/call/builtin/texture_utils.js:2331:40
-    @http://127.0.0.1:8000/webgpu/webgpu/shader/execution/expression/call/builtin/textureSampleBaseClampToEdge.spec.js:125:39
-  - (in subcase: samplePoints="spiral") INFO: subcase ran
- Reached unreachable code
-FAIL :2d_coords:stage="f";textureType="texture_2d%3Cf32%3E";filt="nearest";modeU="r";modeV="c" assert_unreached:
-  - (in subcase: samplePoints="texel-centre") INFO: subcase ran
-  - (in subcase: samplePoints="spiral") EXPECTATION FAILED: result was not as expected:
-       physical size: [8, 8, 1]
-        baseMipLevel: 0
-       mipLevelCount: 3
-    baseMipLevelSize: [8, 8, 1]
-      baseArrayLayer: 0
-     arrayLayerCount: 1
-    physicalMipCount: 3
-
-         lodMinClamp: 0 (effective)
-         lodMaxClamp: 2 (effective)
-                call: textureSampleBaseClampToEdge(texture: T, sampler: S, coords: vec2f(1.03125, 0.09375))  // #22
-              : as texel coord @ mip level[0]: (8.250, 0.750)
-              : as texel coord @ mip level[1]: (4.125, 0.375)
-              : as texel coord @ mip level[2]: (2.063, 0.188)
-           got: 1.00000, 0.80000, 0.29804, 0.27059
-      expected: 0.58431, 0.53333, 0.20000, 0.13725
-      max diff: 0
-     abs diffs: 0.41569, 0.26667, 0.09804, 0.13333
-     rel diffs: 41.57%, 33.33%, 32.89%, 49.28%
-     ulp diffs: 106, 68, 25, 34
-
-    ### turn on debugging to see sample points ###
-    checkCallResults@http://127.0.0.1:8000/webgpu/webgpu/shader/execution/expression/call/builtin/texture_utils.js:2742:37
-    checkCallResults@http://127.0.0.1:8000/webgpu/webgpu/shader/execution/expression/call/builtin/texture_utils.js:2331:40
-    @http://127.0.0.1:8000/webgpu/webgpu/shader/execution/expression/call/builtin/textureSampleBaseClampToEdge.spec.js:125:39
-  - (in subcase: samplePoints="spiral") INFO: subcase ran
- Reached unreachable code
-FAIL :2d_coords:stage="f";textureType="texture_2d%3Cf32%3E";filt="nearest";modeU="r";modeV="r" assert_unreached:
-  - (in subcase: samplePoints="texel-centre") INFO: subcase ran
-  - (in subcase: samplePoints="spiral") EXPECTATION FAILED: result was not as expected:
-       physical size: [8, 8, 1]
-        baseMipLevel: 0
-       mipLevelCount: 3
-    baseMipLevelSize: [8, 8, 1]
-      baseArrayLayer: 0
-     arrayLayerCount: 1
-    physicalMipCount: 3
-
-         lodMinClamp: 0 (effective)
-         lodMaxClamp: 2 (effective)
-                call: textureSampleBaseClampToEdge(texture: T, sampler: S, coords: vec2f(0.4375, -0.0625))  // #18
-              : as texel coord @ mip level[0]: (3.500, -0.500)
-              : as texel coord @ mip level[1]: (1.750, -0.250)
-              : as texel coord @ mip level[2]: (0.875, -0.125)
-           got: 0.24706, 0.93725, 0.81176, 0.28235
-      expected: 0.52941, 0.87059, 0.76471, 0.24706
-      max diff: 0
-     abs diffs: 0.28235, 0.06667, 0.04706, 0.03529
-     rel diffs: 53.33%, 7.11%, 5.80%, 12.50%
-     ulp diffs: 72, 17, 12, 9
-
-    ### turn on debugging to see sample points ###
-    checkCallResults@http://127.0.0.1:8000/webgpu/webgpu/shader/execution/expression/call/builtin/texture_utils.js:2742:37
-    checkCallResults@http://127.0.0.1:8000/webgpu/webgpu/shader/execution/expression/call/builtin/texture_utils.js:2331:40
-    @http://127.0.0.1:8000/webgpu/webgpu/shader/execution/expression/call/builtin/textureSampleBaseClampToEdge.spec.js:125:39
-  - (in subcase: samplePoints="spiral") INFO: subcase ran
- Reached unreachable code
-FAIL :2d_coords:stage="f";textureType="texture_2d%3Cf32%3E";filt="nearest";modeU="r";modeV="m" assert_unreached:
-  - (in subcase: samplePoints="texel-centre") INFO: subcase ran
-  - (in subcase: samplePoints="spiral") EXPECTATION FAILED: result was not as expected:
-       physical size: [8, 8, 1]
-        baseMipLevel: 0
-       mipLevelCount: 3
-    baseMipLevelSize: [8, 8, 1]
-      baseArrayLayer: 0
-     arrayLayerCount: 1
-    physicalMipCount: 3
-
-         lodMinClamp: 0 (effective)
-         lodMaxClamp: 2 (effective)
-                call: textureSampleBaseClampToEdge(texture: T, sampler: S, coords: vec2f(1.03125, 0.09375))  // #22
-              : as texel coord @ mip level[0]: (8.250, 0.750)
-              : as texel coord @ mip level[1]: (4.125, 0.375)
-              : as texel coord @ mip level[2]: (2.063, 0.188)
-           got: 1.00000, 0.80000, 0.29804, 0.27059
-      expected: 0.58431, 0.53333, 0.20000, 0.13725
-      max diff: 0
-     abs diffs: 0.41569, 0.26667, 0.09804, 0.13333
-     rel diffs: 41.57%, 33.33%, 32.89%, 49.28%
-     ulp diffs: 106, 68, 25, 34
-
-    ### turn on debugging to see sample points ###
-    checkCallResults@http://127.0.0.1:8000/webgpu/webgpu/shader/execution/expression/call/builtin/texture_utils.js:2742:37
-    checkCallResults@http://127.0.0.1:8000/webgpu/webgpu/shader/execution/expression/call/builtin/texture_utils.js:2331:40
-    @http://127.0.0.1:8000/webgpu/webgpu/shader/execution/expression/call/builtin/textureSampleBaseClampToEdge.spec.js:125:39
-  - (in subcase: samplePoints="spiral") INFO: subcase ran
- Reached unreachable code
-FAIL :2d_coords:stage="f";textureType="texture_2d%3Cf32%3E";filt="nearest";modeU="m";modeV="c" assert_unreached:
-  - (in subcase: samplePoints="texel-centre") INFO: subcase ran
-  - (in subcase: samplePoints="spiral") EXPECTATION FAILED: result was not as expected:
-       physical size: [8, 8, 1]
-        baseMipLevel: 0
-       mipLevelCount: 3
-    baseMipLevelSize: [8, 8, 1]
-      baseArrayLayer: 0
-     arrayLayerCount: 1
-    physicalMipCount: 3
-
-         lodMinClamp: 0 (effective)
-         lodMaxClamp: 2 (effective)
-                call: textureSampleBaseClampToEdge(texture: T, sampler: S, coords: vec2f(1.15625, 0.21875))  // #23
-              : as texel coord @ mip level[0]: (9.250, 1.750)
-              : as texel coord @ mip level[1]: (4.625, 0.875)
-              : as texel coord @ mip level[2]: (2.313, 0.438)
-           got: 0.67059, 0.76863, 0.85490, 0.25098
-      expected: 0.18431, 0.16471, 0.60000, 0.45098
-      max diff: 0
-     abs diffs: 0.48627, 0.60392, 0.25490, 0.20000
-     rel diffs: 72.51%, 78.57%, 29.82%, 44.35%
-     ulp diffs: 124, 154, 65, 51
-
-    ### turn on debugging to see sample points ###
-    checkCallResults@http://127.0.0.1:8000/webgpu/webgpu/shader/execution/expression/call/builtin/texture_utils.js:2742:37
-    checkCallResults@http://127.0.0.1:8000/webgpu/webgpu/shader/execution/expression/call/builtin/texture_utils.js:2331:40
-    @http://127.0.0.1:8000/webgpu/webgpu/shader/execution/expression/call/builtin/textureSampleBaseClampToEdge.spec.js:125:39
-  - (in subcase: samplePoints="spiral") INFO: subcase ran
- Reached unreachable code
-FAIL :2d_coords:stage="f";textureType="texture_2d%3Cf32%3E";filt="nearest";modeU="m";modeV="r" assert_unreached:
-  - (in subcase: samplePoints="texel-centre") INFO: subcase ran
-  - (in subcase: samplePoints="spiral") EXPECTATION FAILED: result was not as expected:
-       physical size: [8, 8, 1]
-        baseMipLevel: 0
-       mipLevelCount: 3
-    baseMipLevelSize: [8, 8, 1]
-      baseArrayLayer: 0
-     arrayLayerCount: 1
-    physicalMipCount: 3
-
-         lodMinClamp: 0 (effective)
-         lodMaxClamp: 2 (effective)
-                call: textureSampleBaseClampToEdge(texture: T, sampler: S, coords: vec2f(0.4375, -0.0625))  // #18
-              : as texel coord @ mip level[0]: (3.500, -0.500)
-              : as texel coord @ mip level[1]: (1.750, -0.250)
-              : as texel coord @ mip level[2]: (0.875, -0.125)
-           got: 0.24706, 0.93725, 0.81176, 0.28235
-      expected: 0.52941, 0.87059, 0.76471, 0.24706
-      max diff: 0
-     abs diffs: 0.28235, 0.06667, 0.04706, 0.03529
-     rel diffs: 53.33%, 7.11%, 5.80%, 12.50%
-     ulp diffs: 72, 17, 12, 9
-
-    ### turn on debugging to see sample points ###
-    checkCallResults@http://127.0.0.1:8000/webgpu/webgpu/shader/execution/expression/call/builtin/texture_utils.js:2742:37
-    checkCallResults@http://127.0.0.1:8000/webgpu/webgpu/shader/execution/expression/call/builtin/texture_utils.js:2331:40
-    @http://127.0.0.1:8000/webgpu/webgpu/shader/execution/expression/call/builtin/textureSampleBaseClampToEdge.spec.js:125:39
-  - (in subcase: samplePoints="spiral") INFO: subcase ran
- Reached unreachable code
-FAIL :2d_coords:stage="f";textureType="texture_2d%3Cf32%3E";filt="nearest";modeU="m";modeV="m" assert_unreached:
-  - (in subcase: samplePoints="texel-centre") INFO: subcase ran
-  - (in subcase: samplePoints="spiral") EXPECTATION FAILED: result was not as expected:
-       physical size: [8, 8, 1]
-        baseMipLevel: 0
-       mipLevelCount: 3
-    baseMipLevelSize: [8, 8, 1]
-      baseArrayLayer: 0
-     arrayLayerCount: 1
-    physicalMipCount: 3
-
-         lodMinClamp: 0 (effective)
-         lodMaxClamp: 2 (effective)
-                call: textureSampleBaseClampToEdge(texture: T, sampler: S, coords: vec2f(1.15625, 0.21875))  // #23
-              : as texel coord @ mip level[0]: (9.250, 1.750)
-              : as texel coord @ mip level[1]: (4.625, 0.875)
-              : as texel coord @ mip level[2]: (2.313, 0.438)
-           got: 0.67059, 0.76863, 0.85490, 0.25098
-      expected: 0.18431, 0.16471, 0.60000, 0.45098
-      max diff: 0
-     abs diffs: 0.48627, 0.60392, 0.25490, 0.20000
-     rel diffs: 72.51%, 78.57%, 29.82%, 44.35%
-     ulp diffs: 124, 154, 65, 51
-
-    ### turn on debugging to see sample points ###
-    checkCallResults@http://127.0.0.1:8000/webgpu/webgpu/shader/execution/expression/call/builtin/texture_utils.js:2742:37
-    checkCallResults@http://127.0.0.1:8000/webgpu/webgpu/shader/execution/expression/call/builtin/texture_utils.js:2331:40
-    @http://127.0.0.1:8000/webgpu/webgpu/shader/execution/expression/call/builtin/textureSampleBaseClampToEdge.spec.js:125:39
-  - (in subcase: samplePoints="spiral") INFO: subcase ran
- Reached unreachable code
+PASS :2d_coords:stage="f";textureType="texture_2d%3Cf32%3E";filt="nearest";modeU="c";modeV="r"
+PASS :2d_coords:stage="f";textureType="texture_2d%3Cf32%3E";filt="nearest";modeU="c";modeV="m"
+PASS :2d_coords:stage="f";textureType="texture_2d%3Cf32%3E";filt="nearest";modeU="r";modeV="c"
+PASS :2d_coords:stage="f";textureType="texture_2d%3Cf32%3E";filt="nearest";modeU="r";modeV="r"
+PASS :2d_coords:stage="f";textureType="texture_2d%3Cf32%3E";filt="nearest";modeU="r";modeV="m"
+PASS :2d_coords:stage="f";textureType="texture_2d%3Cf32%3E";filt="nearest";modeU="m";modeV="c"
+PASS :2d_coords:stage="f";textureType="texture_2d%3Cf32%3E";filt="nearest";modeU="m";modeV="r"
+PASS :2d_coords:stage="f";textureType="texture_2d%3Cf32%3E";filt="nearest";modeU="m";modeV="m"
 PASS :2d_coords:stage="f";textureType="texture_2d%3Cf32%3E";filt="linear";modeU="c";modeV="c"
-FAIL :2d_coords:stage="f";textureType="texture_2d%3Cf32%3E";filt="linear";modeU="c";modeV="r" assert_unreached:
-  - (in subcase: samplePoints="texel-centre") INFO: subcase ran
-  - (in subcase: samplePoints="spiral") EXPECTATION FAILED: result was not as expected:
-       physical size: [8, 8, 1]
-        baseMipLevel: 0
-       mipLevelCount: 3
-    baseMipLevelSize: [8, 8, 1]
-      baseArrayLayer: 0
-     arrayLayerCount: 1
-    physicalMipCount: 3
-
-         lodMinClamp: 0 (effective)
-         lodMaxClamp: 2 (effective)
-                call: textureSampleBaseClampToEdge(texture: T, sampler: S, coords: vec2f(0.3125, 0))  // #17
-              : as texel coord @ mip level[0]: (2.500, 0.000)
-              : as texel coord @ mip level[1]: (1.250, 0.000)
-              : as texel coord @ mip level[2]: (0.625, 0.000)
-           got: 0.37647, 0.45490, 0.43725, 0.31765
-      expected: 0.56078, 0.21569, 0.40000, 0.42353
-      max diff: 0.027450980392156862
-     abs diffs: 0.18431, 0.23922, 0.03725, 0.10588
-     rel diffs: 32.87%, 52.59%, 8.52%, 25.00%
-     ulp diffs: 47, 61, 10, 27
-
-    ### turn on debugging to see sample points ###
-    checkCallResults@http://127.0.0.1:8000/webgpu/webgpu/shader/execution/expression/call/builtin/texture_utils.js:2742:37
-    checkCallResults@http://127.0.0.1:8000/webgpu/webgpu/shader/execution/expression/call/builtin/texture_utils.js:2331:40
-    @http://127.0.0.1:8000/webgpu/webgpu/shader/execution/expression/call/builtin/textureSampleBaseClampToEdge.spec.js:125:39
-  - (in subcase: samplePoints="spiral") INFO: subcase ran
- Reached unreachable code
-FAIL :2d_coords:stage="f";textureType="texture_2d%3Cf32%3E";filt="linear";modeU="c";modeV="m" assert_unreached:
-  - (in subcase: samplePoints="texel-centre") INFO: subcase ran
-  - (in subcase: samplePoints="spiral") EXPECTATION FAILED: result was not as expected:
-       physical size: [8, 8, 1]
-        baseMipLevel: 0
-       mipLevelCount: 3
-    baseMipLevelSize: [8, 8, 1]
-      baseArrayLayer: 0
-     arrayLayerCount: 1
-    physicalMipCount: 3
-
-         lodMinClamp: 0 (effective)
-         lodMaxClamp: 2 (effective)
-                call: textureSampleBaseClampToEdge(texture: T, sampler: S, coords: vec2f(0.5625, -0.09375))  // #19
-              : as texel coord @ mip level[0]: (4.500, -0.750)
-              : as texel coord @ mip level[1]: (2.250, -0.375)
-              : as texel coord @ mip level[2]: (1.125, -0.188)
-           got: 0.67157, 0.75490, 0.40000, 0.12843
-      expected: 0.74510, 0.94510, 0.38431, 0.03529
-      max diff: 0.027450980392156862
-     abs diffs: 0.07353, 0.19020, 0.01569, 0.09314
-     rel diffs: 9.87%, 20.12%, 3.92%, 72.52%
-     ulp diffs: 19, 49, 4, 24
-
-    ### turn on debugging to see sample points ###
-    checkCallResults@http://127.0.0.1:8000/webgpu/webgpu/shader/execution/expression/call/builtin/texture_utils.js:2742:37
-    checkCallResults@http://127.0.0.1:8000/webgpu/webgpu/shader/execution/expression/call/builtin/texture_utils.js:2331:40
-    @http://127.0.0.1:8000/webgpu/webgpu/shader/execution/expression/call/builtin/textureSampleBaseClampToEdge.spec.js:125:39
-  - (in subcase: samplePoints="spiral") INFO: subcase ran
- Reached unreachable code
-FAIL :2d_coords:stage="f";textureType="texture_2d%3Cf32%3E";filt="linear";modeU="r";modeV="c" assert_unreached:
-  - (in subcase: samplePoints="texel-centre") INFO: subcase ran
-  - (in subcase: samplePoints="spiral") EXPECTATION FAILED: result was not as expected:
-       physical size: [8, 8, 1]
-        baseMipLevel: 0
-       mipLevelCount: 3
-    baseMipLevelSize: [8, 8, 1]
-      baseArrayLayer: 0
-     arrayLayerCount: 1
-    physicalMipCount: 3
-
-         lodMinClamp: 0 (effective)
-         lodMaxClamp: 2 (effective)
-                call: textureSampleBaseClampToEdge(texture: T, sampler: S, coords: vec2f(1.03125, 0.09375))  // #22
-              : as texel coord @ mip level[0]: (8.250, 0.750)
-              : as texel coord @ mip level[1]: (4.125, 0.375)
-              : as texel coord @ mip level[2]: (2.063, 0.188)
-           got: 0.82843, 0.68824, 0.29559, 0.33995
-      expected: 0.48431, 0.44118, 0.30000, 0.21569
-      max diff: 0.027450980392156862
-     abs diffs: 0.34412, 0.24706, 0.00441, 0.12426
-     rel diffs: 41.54%, 35.90%, 1.47%, 36.55%
-     ulp diffs: 87, 62, 2, 32
-
-    ### turn on debugging to see sample points ###
-    checkCallResults@http://127.0.0.1:8000/webgpu/webgpu/shader/execution/expression/call/builtin/texture_utils.js:2742:37
-    checkCallResults@http://127.0.0.1:8000/webgpu/webgpu/shader/execution/expression/call/builtin/texture_utils.js:2331:40
-    @http://127.0.0.1:8000/webgpu/webgpu/shader/execution/expression/call/builtin/textureSampleBaseClampToEdge.spec.js:125:39
-  - (in subcase: samplePoints="spiral") INFO: subcase ran
- Reached unreachable code
-FAIL :2d_coords:stage="f";textureType="texture_2d%3Cf32%3E";filt="linear";modeU="r";modeV="r" assert_unreached:
-  - (in subcase: samplePoints="texel-centre") INFO: subcase ran
-  - (in subcase: samplePoints="spiral") EXPECTATION FAILED: result was not as expected:
-       physical size: [8, 8, 1]
-        baseMipLevel: 0
-       mipLevelCount: 3
-    baseMipLevelSize: [8, 8, 1]
-      baseArrayLayer: 0
-     arrayLayerCount: 1
-    physicalMipCount: 3
-
-         lodMinClamp: 0 (effective)
-         lodMaxClamp: 2 (effective)
-                call: textureSampleBaseClampToEdge(texture: T, sampler: S, coords: vec2f(0.3125, 0))  // #17
-              : as texel coord @ mip level[0]: (2.500, 0.000)
-              : as texel coord @ mip level[1]: (1.250, 0.000)
-              : as texel coord @ mip level[2]: (0.625, 0.000)
-           got: 0.37647, 0.45490, 0.43725, 0.31765
-      expected: 0.56078, 0.21569, 0.40000, 0.42353
-      max diff: 0.027450980392156862
-     abs diffs: 0.18431, 0.23922, 0.03725, 0.10588
-     rel diffs: 32.87%, 52.59%, 8.52%, 25.00%
-     ulp diffs: 47, 61, 10, 27
-
-    ### turn on debugging to see sample points ###
-    checkCallResults@http://127.0.0.1:8000/webgpu/webgpu/shader/execution/expression/call/builtin/texture_utils.js:2742:37
-    checkCallResults@http://127.0.0.1:8000/webgpu/webgpu/shader/execution/expression/call/builtin/texture_utils.js:2331:40
-    @http://127.0.0.1:8000/webgpu/webgpu/shader/execution/expression/call/builtin/textureSampleBaseClampToEdge.spec.js:125:39
-  - (in subcase: samplePoints="spiral") INFO: subcase ran
- Reached unreachable code
-FAIL :2d_coords:stage="f";textureType="texture_2d%3Cf32%3E";filt="linear";modeU="r";modeV="m" assert_unreached:
-  - (in subcase: samplePoints="texel-centre") INFO: subcase ran
-  - (in subcase: samplePoints="spiral") EXPECTATION FAILED: result was not as expected:
-       physical size: [8, 8, 1]
-        baseMipLevel: 0
-       mipLevelCount: 3
-    baseMipLevelSize: [8, 8, 1]
-      baseArrayLayer: 0
-     arrayLayerCount: 1
-    physicalMipCount: 3
-
-         lodMinClamp: 0 (effective)
-         lodMaxClamp: 2 (effective)
-                call: textureSampleBaseClampToEdge(texture: T, sampler: S, coords: vec2f(0.5625, -0.09375))  // #19
-              : as texel coord @ mip level[0]: (4.500, -0.750)
-              : as texel coord @ mip level[1]: (2.250, -0.375)
-              : as texel coord @ mip level[2]: (1.125, -0.188)
-           got: 0.67157, 0.75490, 0.40000, 0.12843
-      expected: 0.74510, 0.94510, 0.38431, 0.03529
-      max diff: 0.027450980392156862
-     abs diffs: 0.07353, 0.19020, 0.01569, 0.09314
-     rel diffs: 9.87%, 20.12%, 3.92%, 72.52%
-     ulp diffs: 19, 49, 4, 24
-
-    ### turn on debugging to see sample points ###
-    checkCallResults@http://127.0.0.1:8000/webgpu/webgpu/shader/execution/expression/call/builtin/texture_utils.js:2742:37
-    checkCallResults@http://127.0.0.1:8000/webgpu/webgpu/shader/execution/expression/call/builtin/texture_utils.js:2331:40
-    @http://127.0.0.1:8000/webgpu/webgpu/shader/execution/expression/call/builtin/textureSampleBaseClampToEdge.spec.js:125:39
-  - (in subcase: samplePoints="spiral") INFO: subcase ran
- Reached unreachable code
-FAIL :2d_coords:stage="f";textureType="texture_2d%3Cf32%3E";filt="linear";modeU="m";modeV="c" assert_unreached:
-  - (in subcase: samplePoints="texel-centre") INFO: subcase ran
-  - (in subcase: samplePoints="spiral") EXPECTATION FAILED: result was not as expected:
-       physical size: [8, 8, 1]
-        baseMipLevel: 0
-       mipLevelCount: 3
-    baseMipLevelSize: [8, 8, 1]
-      baseArrayLayer: 0
-     arrayLayerCount: 1
-    physicalMipCount: 3
-
-         lodMinClamp: 0 (effective)
-         lodMaxClamp: 2 (effective)
-                call: textureSampleBaseClampToEdge(texture: T, sampler: S, coords: vec2f(1.125, 0.21875))  // #23
-              : as texel coord @ mip level[0]: (9.000, 1.750)
-              : as texel coord @ mip level[1]: (4.500, 0.875)
-              : as texel coord @ mip level[2]: (2.250, 0.438)
-           got: 0.42892, 0.53971, 0.68676, 0.41225
-      expected: 0.30686, 0.29314, 0.61667, 0.43922
-      max diff: 0.027450980392156862
-     abs diffs: 0.12206, 0.24657, 0.07010, 0.02696
-     rel diffs: 28.46%, 45.69%, 10.21%, 6.14%
-     ulp diffs: 31, 63, 18, 7
-
-    ### turn on debugging to see sample points ###
-    checkCallResults@http://127.0.0.1:8000/webgpu/webgpu/shader/execution/expression/call/builtin/texture_utils.js:2742:37
-    checkCallResults@http://127.0.0.1:8000/webgpu/webgpu/shader/execution/expression/call/builtin/texture_utils.js:2331:40
-    @http://127.0.0.1:8000/webgpu/webgpu/shader/execution/expression/call/builtin/textureSampleBaseClampToEdge.spec.js:125:39
-  - (in subcase: samplePoints="spiral") INFO: subcase ran
- Reached unreachable code
-FAIL :2d_coords:stage="f";textureType="texture_2d%3Cf32%3E";filt="linear";modeU="m";modeV="r" assert_unreached:
-  - (in subcase: samplePoints="texel-centre") INFO: subcase ran
-  - (in subcase: samplePoints="spiral") EXPECTATION FAILED: result was not as expected:
-       physical size: [8, 8, 1]
-        baseMipLevel: 0
-       mipLevelCount: 3
-    baseMipLevelSize: [8, 8, 1]
-      baseArrayLayer: 0
-     arrayLayerCount: 1
-    physicalMipCount: 3
-
-         lodMinClamp: 0 (effective)
-         lodMaxClamp: 2 (effective)
-                call: textureSampleBaseClampToEdge(texture: T, sampler: S, coords: vec2f(0.3125, 0))  // #17
-              : as texel coord @ mip level[0]: (2.500, 0.000)
-              : as texel coord @ mip level[1]: (1.250, 0.000)
-              : as texel coord @ mip level[2]: (0.625, 0.000)
-           got: 0.37647, 0.45490, 0.43725, 0.31765
-      expected: 0.56078, 0.21569, 0.40000, 0.42353
-      max diff: 0.027450980392156862
-     abs diffs: 0.18431, 0.23922, 0.03725, 0.10588
-     rel diffs: 32.87%, 52.59%, 8.52%, 25.00%
-     ulp diffs: 47, 61, 10, 27
-
-    ### turn on debugging to see sample points ###
-    checkCallResults@http://127.0.0.1:8000/webgpu/webgpu/shader/execution/expression/call/builtin/texture_utils.js:2742:37
-    checkCallResults@http://127.0.0.1:8000/webgpu/webgpu/shader/execution/expression/call/builtin/texture_utils.js:2331:40
-    @http://127.0.0.1:8000/webgpu/webgpu/shader/execution/expression/call/builtin/textureSampleBaseClampToEdge.spec.js:125:39
-  - (in subcase: samplePoints="spiral") INFO: subcase ran
- Reached unreachable code
-FAIL :2d_coords:stage="f";textureType="texture_2d%3Cf32%3E";filt="linear";modeU="m";modeV="m" assert_unreached:
-  - (in subcase: samplePoints="texel-centre") INFO: subcase ran
-  - (in subcase: samplePoints="spiral") EXPECTATION FAILED: result was not as expected:
-       physical size: [8, 8, 1]
-        baseMipLevel: 0
-       mipLevelCount: 3
-    baseMipLevelSize: [8, 8, 1]
-      baseArrayLayer: 0
-     arrayLayerCount: 1
-    physicalMipCount: 3
-
-         lodMinClamp: 0 (effective)
-         lodMaxClamp: 2 (effective)
-                call: textureSampleBaseClampToEdge(texture: T, sampler: S, coords: vec2f(0.5625, -0.09375))  // #19
-              : as texel coord @ mip level[0]: (4.500, -0.750)
-              : as texel coord @ mip level[1]: (2.250, -0.375)
-              : as texel coord @ mip level[2]: (1.125, -0.188)
-           got: 0.67157, 0.75490, 0.40000, 0.12843
-      expected: 0.74510, 0.94510, 0.38431, 0.03529
-      max diff: 0.027450980392156862
-     abs diffs: 0.07353, 0.19020, 0.01569, 0.09314
-     rel diffs: 9.87%, 20.12%, 3.92%, 72.52%
-     ulp diffs: 19, 49, 4, 24
-
-    ### turn on debugging to see sample points ###
-    checkCallResults@http://127.0.0.1:8000/webgpu/webgpu/shader/execution/expression/call/builtin/texture_utils.js:2742:37
-    checkCallResults@http://127.0.0.1:8000/webgpu/webgpu/shader/execution/expression/call/builtin/texture_utils.js:2331:40
-    @http://127.0.0.1:8000/webgpu/webgpu/shader/execution/expression/call/builtin/textureSampleBaseClampToEdge.spec.js:125:39
-  - (in subcase: samplePoints="spiral") INFO: subcase ran
- Reached unreachable code
+PASS :2d_coords:stage="f";textureType="texture_2d%3Cf32%3E";filt="linear";modeU="c";modeV="r"
+PASS :2d_coords:stage="f";textureType="texture_2d%3Cf32%3E";filt="linear";modeU="c";modeV="m"
+PASS :2d_coords:stage="f";textureType="texture_2d%3Cf32%3E";filt="linear";modeU="r";modeV="c"
+PASS :2d_coords:stage="f";textureType="texture_2d%3Cf32%3E";filt="linear";modeU="r";modeV="r"
+PASS :2d_coords:stage="f";textureType="texture_2d%3Cf32%3E";filt="linear";modeU="r";modeV="m"
+PASS :2d_coords:stage="f";textureType="texture_2d%3Cf32%3E";filt="linear";modeU="m";modeV="c"
+PASS :2d_coords:stage="f";textureType="texture_2d%3Cf32%3E";filt="linear";modeU="m";modeV="r"
+PASS :2d_coords:stage="f";textureType="texture_2d%3Cf32%3E";filt="linear";modeU="m";modeV="m"
 FAIL :2d_coords:stage="f";textureType="texture_external";filt="nearest";modeU="c";modeV="c" assert_unreached:
   - (in subcase: samplePoints="texel-centre") EXPECTATION FAILED: result was not as expected:
        physical size: [8, 8, 1]
@@ -1996,7 +1032,6 @@ FAIL :2d_coords:stage="f";textureType="texture_external";filt="nearest";modeU="c
 
     ### turn on debugging to see sample points ###
     checkCallResults@http://127.0.0.1:8000/webgpu/webgpu/shader/execution/expression/call/builtin/texture_utils.js:2742:37
-    checkCallResults@http://127.0.0.1:8000/webgpu/webgpu/shader/execution/expression/call/builtin/texture_utils.js:2331:40
     @http://127.0.0.1:8000/webgpu/webgpu/shader/execution/expression/call/builtin/textureSampleBaseClampToEdge.spec.js:125:39
   - (in subcase: samplePoints="texel-centre") INFO: subcase ran
   - (in subcase: samplePoints="spiral") EXPECTATION FAILED: result was not as expected:
@@ -2023,7 +1058,6 @@ FAIL :2d_coords:stage="f";textureType="texture_external";filt="nearest";modeU="c
 
     ### turn on debugging to see sample points ###
     checkCallResults@http://127.0.0.1:8000/webgpu/webgpu/shader/execution/expression/call/builtin/texture_utils.js:2742:37
-    checkCallResults@http://127.0.0.1:8000/webgpu/webgpu/shader/execution/expression/call/builtin/texture_utils.js:2331:40
     @http://127.0.0.1:8000/webgpu/webgpu/shader/execution/expression/call/builtin/textureSampleBaseClampToEdge.spec.js:125:39
   - (in subcase: samplePoints="spiral") INFO: subcase ran
  Reached unreachable code
@@ -2052,7 +1086,6 @@ FAIL :2d_coords:stage="f";textureType="texture_external";filt="nearest";modeU="c
 
     ### turn on debugging to see sample points ###
     checkCallResults@http://127.0.0.1:8000/webgpu/webgpu/shader/execution/expression/call/builtin/texture_utils.js:2742:37
-    checkCallResults@http://127.0.0.1:8000/webgpu/webgpu/shader/execution/expression/call/builtin/texture_utils.js:2331:40
     @http://127.0.0.1:8000/webgpu/webgpu/shader/execution/expression/call/builtin/textureSampleBaseClampToEdge.spec.js:125:39
   - (in subcase: samplePoints="texel-centre") INFO: subcase ran
   - (in subcase: samplePoints="spiral") EXPECTATION FAILED: result was not as expected:
@@ -2079,7 +1112,6 @@ FAIL :2d_coords:stage="f";textureType="texture_external";filt="nearest";modeU="c
 
     ### turn on debugging to see sample points ###
     checkCallResults@http://127.0.0.1:8000/webgpu/webgpu/shader/execution/expression/call/builtin/texture_utils.js:2742:37
-    checkCallResults@http://127.0.0.1:8000/webgpu/webgpu/shader/execution/expression/call/builtin/texture_utils.js:2331:40
     @http://127.0.0.1:8000/webgpu/webgpu/shader/execution/expression/call/builtin/textureSampleBaseClampToEdge.spec.js:125:39
   - (in subcase: samplePoints="spiral") INFO: subcase ran
  Reached unreachable code
@@ -2108,7 +1140,6 @@ FAIL :2d_coords:stage="f";textureType="texture_external";filt="nearest";modeU="c
 
     ### turn on debugging to see sample points ###
     checkCallResults@http://127.0.0.1:8000/webgpu/webgpu/shader/execution/expression/call/builtin/texture_utils.js:2742:37
-    checkCallResults@http://127.0.0.1:8000/webgpu/webgpu/shader/execution/expression/call/builtin/texture_utils.js:2331:40
     @http://127.0.0.1:8000/webgpu/webgpu/shader/execution/expression/call/builtin/textureSampleBaseClampToEdge.spec.js:125:39
   - (in subcase: samplePoints="texel-centre") INFO: subcase ran
   - (in subcase: samplePoints="spiral") EXPECTATION FAILED: result was not as expected:
@@ -2135,7 +1166,6 @@ FAIL :2d_coords:stage="f";textureType="texture_external";filt="nearest";modeU="c
 
     ### turn on debugging to see sample points ###
     checkCallResults@http://127.0.0.1:8000/webgpu/webgpu/shader/execution/expression/call/builtin/texture_utils.js:2742:37
-    checkCallResults@http://127.0.0.1:8000/webgpu/webgpu/shader/execution/expression/call/builtin/texture_utils.js:2331:40
     @http://127.0.0.1:8000/webgpu/webgpu/shader/execution/expression/call/builtin/textureSampleBaseClampToEdge.spec.js:125:39
   - (in subcase: samplePoints="spiral") INFO: subcase ran
  Reached unreachable code
@@ -2164,7 +1194,6 @@ FAIL :2d_coords:stage="f";textureType="texture_external";filt="nearest";modeU="r
 
     ### turn on debugging to see sample points ###
     checkCallResults@http://127.0.0.1:8000/webgpu/webgpu/shader/execution/expression/call/builtin/texture_utils.js:2742:37
-    checkCallResults@http://127.0.0.1:8000/webgpu/webgpu/shader/execution/expression/call/builtin/texture_utils.js:2331:40
     @http://127.0.0.1:8000/webgpu/webgpu/shader/execution/expression/call/builtin/textureSampleBaseClampToEdge.spec.js:125:39
   - (in subcase: samplePoints="texel-centre") INFO: subcase ran
   - (in subcase: samplePoints="spiral") EXPECTATION FAILED: result was not as expected:
@@ -2191,7 +1220,6 @@ FAIL :2d_coords:stage="f";textureType="texture_external";filt="nearest";modeU="r
 
     ### turn on debugging to see sample points ###
     checkCallResults@http://127.0.0.1:8000/webgpu/webgpu/shader/execution/expression/call/builtin/texture_utils.js:2742:37
-    checkCallResults@http://127.0.0.1:8000/webgpu/webgpu/shader/execution/expression/call/builtin/texture_utils.js:2331:40
     @http://127.0.0.1:8000/webgpu/webgpu/shader/execution/expression/call/builtin/textureSampleBaseClampToEdge.spec.js:125:39
   - (in subcase: samplePoints="spiral") INFO: subcase ran
  Reached unreachable code
@@ -2220,7 +1248,6 @@ FAIL :2d_coords:stage="f";textureType="texture_external";filt="nearest";modeU="r
 
     ### turn on debugging to see sample points ###
     checkCallResults@http://127.0.0.1:8000/webgpu/webgpu/shader/execution/expression/call/builtin/texture_utils.js:2742:37
-    checkCallResults@http://127.0.0.1:8000/webgpu/webgpu/shader/execution/expression/call/builtin/texture_utils.js:2331:40
     @http://127.0.0.1:8000/webgpu/webgpu/shader/execution/expression/call/builtin/textureSampleBaseClampToEdge.spec.js:125:39
   - (in subcase: samplePoints="texel-centre") INFO: subcase ran
   - (in subcase: samplePoints="spiral") EXPECTATION FAILED: result was not as expected:
@@ -2247,7 +1274,6 @@ FAIL :2d_coords:stage="f";textureType="texture_external";filt="nearest";modeU="r
 
     ### turn on debugging to see sample points ###
     checkCallResults@http://127.0.0.1:8000/webgpu/webgpu/shader/execution/expression/call/builtin/texture_utils.js:2742:37
-    checkCallResults@http://127.0.0.1:8000/webgpu/webgpu/shader/execution/expression/call/builtin/texture_utils.js:2331:40
     @http://127.0.0.1:8000/webgpu/webgpu/shader/execution/expression/call/builtin/textureSampleBaseClampToEdge.spec.js:125:39
   - (in subcase: samplePoints="spiral") INFO: subcase ran
  Reached unreachable code
@@ -2276,7 +1302,6 @@ FAIL :2d_coords:stage="f";textureType="texture_external";filt="nearest";modeU="r
 
     ### turn on debugging to see sample points ###
     checkCallResults@http://127.0.0.1:8000/webgpu/webgpu/shader/execution/expression/call/builtin/texture_utils.js:2742:37
-    checkCallResults@http://127.0.0.1:8000/webgpu/webgpu/shader/execution/expression/call/builtin/texture_utils.js:2331:40
     @http://127.0.0.1:8000/webgpu/webgpu/shader/execution/expression/call/builtin/textureSampleBaseClampToEdge.spec.js:125:39
   - (in subcase: samplePoints="texel-centre") INFO: subcase ran
   - (in subcase: samplePoints="spiral") EXPECTATION FAILED: result was not as expected:
@@ -2303,7 +1328,6 @@ FAIL :2d_coords:stage="f";textureType="texture_external";filt="nearest";modeU="r
 
     ### turn on debugging to see sample points ###
     checkCallResults@http://127.0.0.1:8000/webgpu/webgpu/shader/execution/expression/call/builtin/texture_utils.js:2742:37
-    checkCallResults@http://127.0.0.1:8000/webgpu/webgpu/shader/execution/expression/call/builtin/texture_utils.js:2331:40
     @http://127.0.0.1:8000/webgpu/webgpu/shader/execution/expression/call/builtin/textureSampleBaseClampToEdge.spec.js:125:39
   - (in subcase: samplePoints="spiral") INFO: subcase ran
  Reached unreachable code
@@ -2332,7 +1356,6 @@ FAIL :2d_coords:stage="f";textureType="texture_external";filt="nearest";modeU="m
 
     ### turn on debugging to see sample points ###
     checkCallResults@http://127.0.0.1:8000/webgpu/webgpu/shader/execution/expression/call/builtin/texture_utils.js:2742:37
-    checkCallResults@http://127.0.0.1:8000/webgpu/webgpu/shader/execution/expression/call/builtin/texture_utils.js:2331:40
     @http://127.0.0.1:8000/webgpu/webgpu/shader/execution/expression/call/builtin/textureSampleBaseClampToEdge.spec.js:125:39
   - (in subcase: samplePoints="texel-centre") INFO: subcase ran
   - (in subcase: samplePoints="spiral") EXPECTATION FAILED: result was not as expected:
@@ -2359,7 +1382,6 @@ FAIL :2d_coords:stage="f";textureType="texture_external";filt="nearest";modeU="m
 
     ### turn on debugging to see sample points ###
     checkCallResults@http://127.0.0.1:8000/webgpu/webgpu/shader/execution/expression/call/builtin/texture_utils.js:2742:37
-    checkCallResults@http://127.0.0.1:8000/webgpu/webgpu/shader/execution/expression/call/builtin/texture_utils.js:2331:40
     @http://127.0.0.1:8000/webgpu/webgpu/shader/execution/expression/call/builtin/textureSampleBaseClampToEdge.spec.js:125:39
   - (in subcase: samplePoints="spiral") INFO: subcase ran
  Reached unreachable code
@@ -2388,7 +1410,6 @@ FAIL :2d_coords:stage="f";textureType="texture_external";filt="nearest";modeU="m
 
     ### turn on debugging to see sample points ###
     checkCallResults@http://127.0.0.1:8000/webgpu/webgpu/shader/execution/expression/call/builtin/texture_utils.js:2742:37
-    checkCallResults@http://127.0.0.1:8000/webgpu/webgpu/shader/execution/expression/call/builtin/texture_utils.js:2331:40
     @http://127.0.0.1:8000/webgpu/webgpu/shader/execution/expression/call/builtin/textureSampleBaseClampToEdge.spec.js:125:39
   - (in subcase: samplePoints="texel-centre") INFO: subcase ran
   - (in subcase: samplePoints="spiral") EXPECTATION FAILED: result was not as expected:
@@ -2415,7 +1436,6 @@ FAIL :2d_coords:stage="f";textureType="texture_external";filt="nearest";modeU="m
 
     ### turn on debugging to see sample points ###
     checkCallResults@http://127.0.0.1:8000/webgpu/webgpu/shader/execution/expression/call/builtin/texture_utils.js:2742:37
-    checkCallResults@http://127.0.0.1:8000/webgpu/webgpu/shader/execution/expression/call/builtin/texture_utils.js:2331:40
     @http://127.0.0.1:8000/webgpu/webgpu/shader/execution/expression/call/builtin/textureSampleBaseClampToEdge.spec.js:125:39
   - (in subcase: samplePoints="spiral") INFO: subcase ran
  Reached unreachable code
@@ -2444,7 +1464,6 @@ FAIL :2d_coords:stage="f";textureType="texture_external";filt="nearest";modeU="m
 
     ### turn on debugging to see sample points ###
     checkCallResults@http://127.0.0.1:8000/webgpu/webgpu/shader/execution/expression/call/builtin/texture_utils.js:2742:37
-    checkCallResults@http://127.0.0.1:8000/webgpu/webgpu/shader/execution/expression/call/builtin/texture_utils.js:2331:40
     @http://127.0.0.1:8000/webgpu/webgpu/shader/execution/expression/call/builtin/textureSampleBaseClampToEdge.spec.js:125:39
   - (in subcase: samplePoints="texel-centre") INFO: subcase ran
   - (in subcase: samplePoints="spiral") EXPECTATION FAILED: result was not as expected:
@@ -2471,7 +1490,6 @@ FAIL :2d_coords:stage="f";textureType="texture_external";filt="nearest";modeU="m
 
     ### turn on debugging to see sample points ###
     checkCallResults@http://127.0.0.1:8000/webgpu/webgpu/shader/execution/expression/call/builtin/texture_utils.js:2742:37
-    checkCallResults@http://127.0.0.1:8000/webgpu/webgpu/shader/execution/expression/call/builtin/texture_utils.js:2331:40
     @http://127.0.0.1:8000/webgpu/webgpu/shader/execution/expression/call/builtin/textureSampleBaseClampToEdge.spec.js:125:39
   - (in subcase: samplePoints="spiral") INFO: subcase ran
  Reached unreachable code
@@ -2500,7 +1518,6 @@ FAIL :2d_coords:stage="f";textureType="texture_external";filt="linear";modeU="c"
 
     ### turn on debugging to see sample points ###
     checkCallResults@http://127.0.0.1:8000/webgpu/webgpu/shader/execution/expression/call/builtin/texture_utils.js:2742:37
-    checkCallResults@http://127.0.0.1:8000/webgpu/webgpu/shader/execution/expression/call/builtin/texture_utils.js:2331:40
     @http://127.0.0.1:8000/webgpu/webgpu/shader/execution/expression/call/builtin/textureSampleBaseClampToEdge.spec.js:125:39
   - (in subcase: samplePoints="texel-centre") INFO: subcase ran
   - (in subcase: samplePoints="spiral") EXPECTATION FAILED: result was not as expected:
@@ -2527,7 +1544,6 @@ FAIL :2d_coords:stage="f";textureType="texture_external";filt="linear";modeU="c"
 
     ### turn on debugging to see sample points ###
     checkCallResults@http://127.0.0.1:8000/webgpu/webgpu/shader/execution/expression/call/builtin/texture_utils.js:2742:37
-    checkCallResults@http://127.0.0.1:8000/webgpu/webgpu/shader/execution/expression/call/builtin/texture_utils.js:2331:40
     @http://127.0.0.1:8000/webgpu/webgpu/shader/execution/expression/call/builtin/textureSampleBaseClampToEdge.spec.js:125:39
   - (in subcase: samplePoints="spiral") INFO: subcase ran
  Reached unreachable code
@@ -2556,7 +1572,6 @@ FAIL :2d_coords:stage="f";textureType="texture_external";filt="linear";modeU="c"
 
     ### turn on debugging to see sample points ###
     checkCallResults@http://127.0.0.1:8000/webgpu/webgpu/shader/execution/expression/call/builtin/texture_utils.js:2742:37
-    checkCallResults@http://127.0.0.1:8000/webgpu/webgpu/shader/execution/expression/call/builtin/texture_utils.js:2331:40
     @http://127.0.0.1:8000/webgpu/webgpu/shader/execution/expression/call/builtin/textureSampleBaseClampToEdge.spec.js:125:39
   - (in subcase: samplePoints="texel-centre") INFO: subcase ran
   - (in subcase: samplePoints="spiral") EXPECTATION FAILED: result was not as expected:
@@ -2583,7 +1598,6 @@ FAIL :2d_coords:stage="f";textureType="texture_external";filt="linear";modeU="c"
 
     ### turn on debugging to see sample points ###
     checkCallResults@http://127.0.0.1:8000/webgpu/webgpu/shader/execution/expression/call/builtin/texture_utils.js:2742:37
-    checkCallResults@http://127.0.0.1:8000/webgpu/webgpu/shader/execution/expression/call/builtin/texture_utils.js:2331:40
     @http://127.0.0.1:8000/webgpu/webgpu/shader/execution/expression/call/builtin/textureSampleBaseClampToEdge.spec.js:125:39
   - (in subcase: samplePoints="spiral") INFO: subcase ran
  Reached unreachable code
@@ -2612,7 +1626,6 @@ FAIL :2d_coords:stage="f";textureType="texture_external";filt="linear";modeU="c"
 
     ### turn on debugging to see sample points ###
     checkCallResults@http://127.0.0.1:8000/webgpu/webgpu/shader/execution/expression/call/builtin/texture_utils.js:2742:37
-    checkCallResults@http://127.0.0.1:8000/webgpu/webgpu/shader/execution/expression/call/builtin/texture_utils.js:2331:40
     @http://127.0.0.1:8000/webgpu/webgpu/shader/execution/expression/call/builtin/textureSampleBaseClampToEdge.spec.js:125:39
   - (in subcase: samplePoints="texel-centre") INFO: subcase ran
   - (in subcase: samplePoints="spiral") EXPECTATION FAILED: result was not as expected:
@@ -2639,7 +1652,6 @@ FAIL :2d_coords:stage="f";textureType="texture_external";filt="linear";modeU="c"
 
     ### turn on debugging to see sample points ###
     checkCallResults@http://127.0.0.1:8000/webgpu/webgpu/shader/execution/expression/call/builtin/texture_utils.js:2742:37
-    checkCallResults@http://127.0.0.1:8000/webgpu/webgpu/shader/execution/expression/call/builtin/texture_utils.js:2331:40
     @http://127.0.0.1:8000/webgpu/webgpu/shader/execution/expression/call/builtin/textureSampleBaseClampToEdge.spec.js:125:39
   - (in subcase: samplePoints="spiral") INFO: subcase ran
  Reached unreachable code
@@ -2668,7 +1680,6 @@ FAIL :2d_coords:stage="f";textureType="texture_external";filt="linear";modeU="r"
 
     ### turn on debugging to see sample points ###
     checkCallResults@http://127.0.0.1:8000/webgpu/webgpu/shader/execution/expression/call/builtin/texture_utils.js:2742:37
-    checkCallResults@http://127.0.0.1:8000/webgpu/webgpu/shader/execution/expression/call/builtin/texture_utils.js:2331:40
     @http://127.0.0.1:8000/webgpu/webgpu/shader/execution/expression/call/builtin/textureSampleBaseClampToEdge.spec.js:125:39
   - (in subcase: samplePoints="texel-centre") INFO: subcase ran
   - (in subcase: samplePoints="spiral") EXPECTATION FAILED: result was not as expected:
@@ -2695,7 +1706,6 @@ FAIL :2d_coords:stage="f";textureType="texture_external";filt="linear";modeU="r"
 
     ### turn on debugging to see sample points ###
     checkCallResults@http://127.0.0.1:8000/webgpu/webgpu/shader/execution/expression/call/builtin/texture_utils.js:2742:37
-    checkCallResults@http://127.0.0.1:8000/webgpu/webgpu/shader/execution/expression/call/builtin/texture_utils.js:2331:40
     @http://127.0.0.1:8000/webgpu/webgpu/shader/execution/expression/call/builtin/textureSampleBaseClampToEdge.spec.js:125:39
   - (in subcase: samplePoints="spiral") INFO: subcase ran
  Reached unreachable code
@@ -2724,7 +1734,6 @@ FAIL :2d_coords:stage="f";textureType="texture_external";filt="linear";modeU="r"
 
     ### turn on debugging to see sample points ###
     checkCallResults@http://127.0.0.1:8000/webgpu/webgpu/shader/execution/expression/call/builtin/texture_utils.js:2742:37
-    checkCallResults@http://127.0.0.1:8000/webgpu/webgpu/shader/execution/expression/call/builtin/texture_utils.js:2331:40
     @http://127.0.0.1:8000/webgpu/webgpu/shader/execution/expression/call/builtin/textureSampleBaseClampToEdge.spec.js:125:39
   - (in subcase: samplePoints="texel-centre") INFO: subcase ran
   - (in subcase: samplePoints="spiral") EXPECTATION FAILED: result was not as expected:
@@ -2751,7 +1760,6 @@ FAIL :2d_coords:stage="f";textureType="texture_external";filt="linear";modeU="r"
 
     ### turn on debugging to see sample points ###
     checkCallResults@http://127.0.0.1:8000/webgpu/webgpu/shader/execution/expression/call/builtin/texture_utils.js:2742:37
-    checkCallResults@http://127.0.0.1:8000/webgpu/webgpu/shader/execution/expression/call/builtin/texture_utils.js:2331:40
     @http://127.0.0.1:8000/webgpu/webgpu/shader/execution/expression/call/builtin/textureSampleBaseClampToEdge.spec.js:125:39
   - (in subcase: samplePoints="spiral") INFO: subcase ran
  Reached unreachable code
@@ -2780,7 +1788,6 @@ FAIL :2d_coords:stage="f";textureType="texture_external";filt="linear";modeU="r"
 
     ### turn on debugging to see sample points ###
     checkCallResults@http://127.0.0.1:8000/webgpu/webgpu/shader/execution/expression/call/builtin/texture_utils.js:2742:37
-    checkCallResults@http://127.0.0.1:8000/webgpu/webgpu/shader/execution/expression/call/builtin/texture_utils.js:2331:40
     @http://127.0.0.1:8000/webgpu/webgpu/shader/execution/expression/call/builtin/textureSampleBaseClampToEdge.spec.js:125:39
   - (in subcase: samplePoints="texel-centre") INFO: subcase ran
   - (in subcase: samplePoints="spiral") EXPECTATION FAILED: result was not as expected:
@@ -2807,7 +1814,6 @@ FAIL :2d_coords:stage="f";textureType="texture_external";filt="linear";modeU="r"
 
     ### turn on debugging to see sample points ###
     checkCallResults@http://127.0.0.1:8000/webgpu/webgpu/shader/execution/expression/call/builtin/texture_utils.js:2742:37
-    checkCallResults@http://127.0.0.1:8000/webgpu/webgpu/shader/execution/expression/call/builtin/texture_utils.js:2331:40
     @http://127.0.0.1:8000/webgpu/webgpu/shader/execution/expression/call/builtin/textureSampleBaseClampToEdge.spec.js:125:39
   - (in subcase: samplePoints="spiral") INFO: subcase ran
  Reached unreachable code
@@ -2836,7 +1842,6 @@ FAIL :2d_coords:stage="f";textureType="texture_external";filt="linear";modeU="m"
 
     ### turn on debugging to see sample points ###
     checkCallResults@http://127.0.0.1:8000/webgpu/webgpu/shader/execution/expression/call/builtin/texture_utils.js:2742:37
-    checkCallResults@http://127.0.0.1:8000/webgpu/webgpu/shader/execution/expression/call/builtin/texture_utils.js:2331:40
     @http://127.0.0.1:8000/webgpu/webgpu/shader/execution/expression/call/builtin/textureSampleBaseClampToEdge.spec.js:125:39
   - (in subcase: samplePoints="texel-centre") INFO: subcase ran
   - (in subcase: samplePoints="spiral") EXPECTATION FAILED: result was not as expected:
@@ -2863,7 +1868,6 @@ FAIL :2d_coords:stage="f";textureType="texture_external";filt="linear";modeU="m"
 
     ### turn on debugging to see sample points ###
     checkCallResults@http://127.0.0.1:8000/webgpu/webgpu/shader/execution/expression/call/builtin/texture_utils.js:2742:37
-    checkCallResults@http://127.0.0.1:8000/webgpu/webgpu/shader/execution/expression/call/builtin/texture_utils.js:2331:40
     @http://127.0.0.1:8000/webgpu/webgpu/shader/execution/expression/call/builtin/textureSampleBaseClampToEdge.spec.js:125:39
   - (in subcase: samplePoints="spiral") INFO: subcase ran
  Reached unreachable code
@@ -2892,7 +1896,6 @@ FAIL :2d_coords:stage="f";textureType="texture_external";filt="linear";modeU="m"
 
     ### turn on debugging to see sample points ###
     checkCallResults@http://127.0.0.1:8000/webgpu/webgpu/shader/execution/expression/call/builtin/texture_utils.js:2742:37
-    checkCallResults@http://127.0.0.1:8000/webgpu/webgpu/shader/execution/expression/call/builtin/texture_utils.js:2331:40
     @http://127.0.0.1:8000/webgpu/webgpu/shader/execution/expression/call/builtin/textureSampleBaseClampToEdge.spec.js:125:39
   - (in subcase: samplePoints="texel-centre") INFO: subcase ran
   - (in subcase: samplePoints="spiral") EXPECTATION FAILED: result was not as expected:
@@ -2919,7 +1922,6 @@ FAIL :2d_coords:stage="f";textureType="texture_external";filt="linear";modeU="m"
 
     ### turn on debugging to see sample points ###
     checkCallResults@http://127.0.0.1:8000/webgpu/webgpu/shader/execution/expression/call/builtin/texture_utils.js:2742:37
-    checkCallResults@http://127.0.0.1:8000/webgpu/webgpu/shader/execution/expression/call/builtin/texture_utils.js:2331:40
     @http://127.0.0.1:8000/webgpu/webgpu/shader/execution/expression/call/builtin/textureSampleBaseClampToEdge.spec.js:125:39
   - (in subcase: samplePoints="spiral") INFO: subcase ran
  Reached unreachable code
@@ -2948,7 +1950,6 @@ FAIL :2d_coords:stage="f";textureType="texture_external";filt="linear";modeU="m"
 
     ### turn on debugging to see sample points ###
     checkCallResults@http://127.0.0.1:8000/webgpu/webgpu/shader/execution/expression/call/builtin/texture_utils.js:2742:37
-    checkCallResults@http://127.0.0.1:8000/webgpu/webgpu/shader/execution/expression/call/builtin/texture_utils.js:2331:40
     @http://127.0.0.1:8000/webgpu/webgpu/shader/execution/expression/call/builtin/textureSampleBaseClampToEdge.spec.js:125:39
   - (in subcase: samplePoints="texel-centre") INFO: subcase ran
   - (in subcase: samplePoints="spiral") EXPECTATION FAILED: result was not as expected:
@@ -2975,492 +1976,27 @@ FAIL :2d_coords:stage="f";textureType="texture_external";filt="linear";modeU="m"
 
     ### turn on debugging to see sample points ###
     checkCallResults@http://127.0.0.1:8000/webgpu/webgpu/shader/execution/expression/call/builtin/texture_utils.js:2742:37
-    checkCallResults@http://127.0.0.1:8000/webgpu/webgpu/shader/execution/expression/call/builtin/texture_utils.js:2331:40
     @http://127.0.0.1:8000/webgpu/webgpu/shader/execution/expression/call/builtin/textureSampleBaseClampToEdge.spec.js:125:39
   - (in subcase: samplePoints="spiral") INFO: subcase ran
  Reached unreachable code
 PASS :2d_coords:stage="v";textureType="texture_2d%3Cf32%3E";filt="nearest";modeU="c";modeV="c"
-FAIL :2d_coords:stage="v";textureType="texture_2d%3Cf32%3E";filt="nearest";modeU="c";modeV="r" assert_unreached:
-  - (in subcase: samplePoints="texel-centre") INFO: subcase ran
-  - (in subcase: samplePoints="spiral") EXPECTATION FAILED: result was not as expected:
-       physical size: [8, 8, 1]
-        baseMipLevel: 0
-       mipLevelCount: 3
-    baseMipLevelSize: [8, 8, 1]
-      baseArrayLayer: 0
-     arrayLayerCount: 1
-    physicalMipCount: 3
-
-         lodMinClamp: 0 (effective)
-         lodMaxClamp: 2 (effective)
-                call: textureSampleBaseClampToEdge(texture: T, sampler: S, coords: vec2f(0.4375, -0.0625))  // #18
-              : as texel coord @ mip level[0]: (3.500, -0.500)
-              : as texel coord @ mip level[1]: (1.750, -0.250)
-              : as texel coord @ mip level[2]: (0.875, -0.125)
-           got: 0.24706, 0.93725, 0.81176, 0.28235
-      expected: 0.52941, 0.87059, 0.76471, 0.24706
-      max diff: 0
-     abs diffs: 0.28235, 0.06667, 0.04706, 0.03529
-     rel diffs: 53.33%, 7.11%, 5.80%, 12.50%
-     ulp diffs: 72, 17, 12, 9
-
-    ### turn on debugging to see sample points ###
-    checkCallResults@http://127.0.0.1:8000/webgpu/webgpu/shader/execution/expression/call/builtin/texture_utils.js:2742:37
-    checkCallResults@http://127.0.0.1:8000/webgpu/webgpu/shader/execution/expression/call/builtin/texture_utils.js:2331:40
-    @http://127.0.0.1:8000/webgpu/webgpu/shader/execution/expression/call/builtin/textureSampleBaseClampToEdge.spec.js:125:39
-  - (in subcase: samplePoints="spiral") INFO: subcase ran
- Reached unreachable code
-FAIL :2d_coords:stage="v";textureType="texture_2d%3Cf32%3E";filt="nearest";modeU="c";modeV="m" assert_unreached:
-  - (in subcase: samplePoints="texel-centre") INFO: subcase ran
-  - (in subcase: samplePoints="spiral") EXPECTATION FAILED: result was not as expected:
-       physical size: [8, 8, 1]
-        baseMipLevel: 0
-       mipLevelCount: 3
-    baseMipLevelSize: [8, 8, 1]
-      baseArrayLayer: 0
-     arrayLayerCount: 1
-    physicalMipCount: 3
-
-         lodMinClamp: 0 (effective)
-         lodMaxClamp: 2 (effective)
-                call: textureSampleBaseClampToEdge(texture: T, sampler: S, coords: vec2f(1.03125, 1.15625))  // #28
-              : as texel coord @ mip level[0]: (8.250, 9.250)
-              : as texel coord @ mip level[1]: (4.125, 4.625)
-              : as texel coord @ mip level[2]: (2.063, 2.313)
-           got: 0.85098, 0.41569, 0.45490, 0.02353
-      expected: 0.11373, 0.04314, 0.78824, 0.33725
-      max diff: 0
-     abs diffs: 0.73725, 0.37255, 0.33333, 0.31373
-     rel diffs: 86.64%, 89.62%, 42.29%, 93.02%
-     ulp diffs: 188, 95, 85, 80
-
-    ### turn on debugging to see sample points ###
-    checkCallResults@http://127.0.0.1:8000/webgpu/webgpu/shader/execution/expression/call/builtin/texture_utils.js:2742:37
-    checkCallResults@http://127.0.0.1:8000/webgpu/webgpu/shader/execution/expression/call/builtin/texture_utils.js:2331:40
-    @http://127.0.0.1:8000/webgpu/webgpu/shader/execution/expression/call/builtin/textureSampleBaseClampToEdge.spec.js:125:39
-  - (in subcase: samplePoints="spiral") INFO: subcase ran
- Reached unreachable code
-FAIL :2d_coords:stage="v";textureType="texture_2d%3Cf32%3E";filt="nearest";modeU="r";modeV="c" assert_unreached:
-  - (in subcase: samplePoints="texel-centre") INFO: subcase ran
-  - (in subcase: samplePoints="spiral") EXPECTATION FAILED: result was not as expected:
-       physical size: [8, 8, 1]
-        baseMipLevel: 0
-       mipLevelCount: 3
-    baseMipLevelSize: [8, 8, 1]
-      baseArrayLayer: 0
-     arrayLayerCount: 1
-    physicalMipCount: 3
-
-         lodMinClamp: 0 (effective)
-         lodMaxClamp: 2 (effective)
-                call: textureSampleBaseClampToEdge(texture: T, sampler: S, coords: vec2f(1.03125, 0.09375))  // #22
-              : as texel coord @ mip level[0]: (8.250, 0.750)
-              : as texel coord @ mip level[1]: (4.125, 0.375)
-              : as texel coord @ mip level[2]: (2.063, 0.188)
-           got: 1.00000, 0.80000, 0.29804, 0.27059
-      expected: 0.58431, 0.53333, 0.20000, 0.13725
-      max diff: 0
-     abs diffs: 0.41569, 0.26667, 0.09804, 0.13333
-     rel diffs: 41.57%, 33.33%, 32.89%, 49.28%
-     ulp diffs: 106, 68, 25, 34
-
-    ### turn on debugging to see sample points ###
-    checkCallResults@http://127.0.0.1:8000/webgpu/webgpu/shader/execution/expression/call/builtin/texture_utils.js:2742:37
-    checkCallResults@http://127.0.0.1:8000/webgpu/webgpu/shader/execution/expression/call/builtin/texture_utils.js:2331:40
-    @http://127.0.0.1:8000/webgpu/webgpu/shader/execution/expression/call/builtin/textureSampleBaseClampToEdge.spec.js:125:39
-  - (in subcase: samplePoints="spiral") INFO: subcase ran
- Reached unreachable code
-FAIL :2d_coords:stage="v";textureType="texture_2d%3Cf32%3E";filt="nearest";modeU="r";modeV="r" assert_unreached:
-  - (in subcase: samplePoints="texel-centre") INFO: subcase ran
-  - (in subcase: samplePoints="spiral") EXPECTATION FAILED: result was not as expected:
-       physical size: [8, 8, 1]
-        baseMipLevel: 0
-       mipLevelCount: 3
-    baseMipLevelSize: [8, 8, 1]
-      baseArrayLayer: 0
-     arrayLayerCount: 1
-    physicalMipCount: 3
-
-         lodMinClamp: 0 (effective)
-         lodMaxClamp: 2 (effective)
-                call: textureSampleBaseClampToEdge(texture: T, sampler: S, coords: vec2f(0.4375, -0.0625))  // #18
-              : as texel coord @ mip level[0]: (3.500, -0.500)
-              : as texel coord @ mip level[1]: (1.750, -0.250)
-              : as texel coord @ mip level[2]: (0.875, -0.125)
-           got: 0.24706, 0.93725, 0.81176, 0.28235
-      expected: 0.52941, 0.87059, 0.76471, 0.24706
-      max diff: 0
-     abs diffs: 0.28235, 0.06667, 0.04706, 0.03529
-     rel diffs: 53.33%, 7.11%, 5.80%, 12.50%
-     ulp diffs: 72, 17, 12, 9
-
-    ### turn on debugging to see sample points ###
-    checkCallResults@http://127.0.0.1:8000/webgpu/webgpu/shader/execution/expression/call/builtin/texture_utils.js:2742:37
-    checkCallResults@http://127.0.0.1:8000/webgpu/webgpu/shader/execution/expression/call/builtin/texture_utils.js:2331:40
-    @http://127.0.0.1:8000/webgpu/webgpu/shader/execution/expression/call/builtin/textureSampleBaseClampToEdge.spec.js:125:39
-  - (in subcase: samplePoints="spiral") INFO: subcase ran
- Reached unreachable code
-FAIL :2d_coords:stage="v";textureType="texture_2d%3Cf32%3E";filt="nearest";modeU="r";modeV="m" assert_unreached:
-  - (in subcase: samplePoints="texel-centre") INFO: subcase ran
-  - (in subcase: samplePoints="spiral") EXPECTATION FAILED: result was not as expected:
-       physical size: [8, 8, 1]
-        baseMipLevel: 0
-       mipLevelCount: 3
-    baseMipLevelSize: [8, 8, 1]
-      baseArrayLayer: 0
-     arrayLayerCount: 1
-    physicalMipCount: 3
-
-         lodMinClamp: 0 (effective)
-         lodMaxClamp: 2 (effective)
-                call: textureSampleBaseClampToEdge(texture: T, sampler: S, coords: vec2f(1.03125, 0.09375))  // #22
-              : as texel coord @ mip level[0]: (8.250, 0.750)
-              : as texel coord @ mip level[1]: (4.125, 0.375)
-              : as texel coord @ mip level[2]: (2.063, 0.188)
-           got: 1.00000, 0.80000, 0.29804, 0.27059
-      expected: 0.58431, 0.53333, 0.20000, 0.13725
-      max diff: 0
-     abs diffs: 0.41569, 0.26667, 0.09804, 0.13333
-     rel diffs: 41.57%, 33.33%, 32.89%, 49.28%
-     ulp diffs: 106, 68, 25, 34
-
-    ### turn on debugging to see sample points ###
-    checkCallResults@http://127.0.0.1:8000/webgpu/webgpu/shader/execution/expression/call/builtin/texture_utils.js:2742:37
-    checkCallResults@http://127.0.0.1:8000/webgpu/webgpu/shader/execution/expression/call/builtin/texture_utils.js:2331:40
-    @http://127.0.0.1:8000/webgpu/webgpu/shader/execution/expression/call/builtin/textureSampleBaseClampToEdge.spec.js:125:39
-  - (in subcase: samplePoints="spiral") INFO: subcase ran
- Reached unreachable code
-FAIL :2d_coords:stage="v";textureType="texture_2d%3Cf32%3E";filt="nearest";modeU="m";modeV="c" assert_unreached:
-  - (in subcase: samplePoints="texel-centre") INFO: subcase ran
-  - (in subcase: samplePoints="spiral") EXPECTATION FAILED: result was not as expected:
-       physical size: [8, 8, 1]
-        baseMipLevel: 0
-       mipLevelCount: 3
-    baseMipLevelSize: [8, 8, 1]
-      baseArrayLayer: 0
-     arrayLayerCount: 1
-    physicalMipCount: 3
-
-         lodMinClamp: 0 (effective)
-         lodMaxClamp: 2 (effective)
-                call: textureSampleBaseClampToEdge(texture: T, sampler: S, coords: vec2f(1.15625, 0.21875))  // #23
-              : as texel coord @ mip level[0]: (9.250, 1.750)
-              : as texel coord @ mip level[1]: (4.625, 0.875)
-              : as texel coord @ mip level[2]: (2.313, 0.438)
-           got: 0.67059, 0.76863, 0.85490, 0.25098
-      expected: 0.18431, 0.16471, 0.60000, 0.45098
-      max diff: 0
-     abs diffs: 0.48627, 0.60392, 0.25490, 0.20000
-     rel diffs: 72.51%, 78.57%, 29.82%, 44.35%
-     ulp diffs: 124, 154, 65, 51
-
-    ### turn on debugging to see sample points ###
-    checkCallResults@http://127.0.0.1:8000/webgpu/webgpu/shader/execution/expression/call/builtin/texture_utils.js:2742:37
-    checkCallResults@http://127.0.0.1:8000/webgpu/webgpu/shader/execution/expression/call/builtin/texture_utils.js:2331:40
-    @http://127.0.0.1:8000/webgpu/webgpu/shader/execution/expression/call/builtin/textureSampleBaseClampToEdge.spec.js:125:39
-  - (in subcase: samplePoints="spiral") INFO: subcase ran
- Reached unreachable code
-FAIL :2d_coords:stage="v";textureType="texture_2d%3Cf32%3E";filt="nearest";modeU="m";modeV="r" assert_unreached:
-  - (in subcase: samplePoints="texel-centre") INFO: subcase ran
-  - (in subcase: samplePoints="spiral") EXPECTATION FAILED: result was not as expected:
-       physical size: [8, 8, 1]
-        baseMipLevel: 0
-       mipLevelCount: 3
-    baseMipLevelSize: [8, 8, 1]
-      baseArrayLayer: 0
-     arrayLayerCount: 1
-    physicalMipCount: 3
-
-         lodMinClamp: 0 (effective)
-         lodMaxClamp: 2 (effective)
-                call: textureSampleBaseClampToEdge(texture: T, sampler: S, coords: vec2f(0.4375, -0.0625))  // #18
-              : as texel coord @ mip level[0]: (3.500, -0.500)
-              : as texel coord @ mip level[1]: (1.750, -0.250)
-              : as texel coord @ mip level[2]: (0.875, -0.125)
-           got: 0.24706, 0.93725, 0.81176, 0.28235
-      expected: 0.52941, 0.87059, 0.76471, 0.24706
-      max diff: 0
-     abs diffs: 0.28235, 0.06667, 0.04706, 0.03529
-     rel diffs: 53.33%, 7.11%, 5.80%, 12.50%
-     ulp diffs: 72, 17, 12, 9
-
-    ### turn on debugging to see sample points ###
-    checkCallResults@http://127.0.0.1:8000/webgpu/webgpu/shader/execution/expression/call/builtin/texture_utils.js:2742:37
-    checkCallResults@http://127.0.0.1:8000/webgpu/webgpu/shader/execution/expression/call/builtin/texture_utils.js:2331:40
-    @http://127.0.0.1:8000/webgpu/webgpu/shader/execution/expression/call/builtin/textureSampleBaseClampToEdge.spec.js:125:39
-  - (in subcase: samplePoints="spiral") INFO: subcase ran
- Reached unreachable code
-FAIL :2d_coords:stage="v";textureType="texture_2d%3Cf32%3E";filt="nearest";modeU="m";modeV="m" assert_unreached:
-  - (in subcase: samplePoints="texel-centre") INFO: subcase ran
-  - (in subcase: samplePoints="spiral") EXPECTATION FAILED: result was not as expected:
-       physical size: [8, 8, 1]
-        baseMipLevel: 0
-       mipLevelCount: 3
-    baseMipLevelSize: [8, 8, 1]
-      baseArrayLayer: 0
-     arrayLayerCount: 1
-    physicalMipCount: 3
-
-         lodMinClamp: 0 (effective)
-         lodMaxClamp: 2 (effective)
-                call: textureSampleBaseClampToEdge(texture: T, sampler: S, coords: vec2f(1.15625, 0.21875))  // #23
-              : as texel coord @ mip level[0]: (9.250, 1.750)
-              : as texel coord @ mip level[1]: (4.625, 0.875)
-              : as texel coord @ mip level[2]: (2.313, 0.438)
-           got: 0.67059, 0.76863, 0.85490, 0.25098
-      expected: 0.18431, 0.16471, 0.60000, 0.45098
-      max diff: 0
-     abs diffs: 0.48627, 0.60392, 0.25490, 0.20000
-     rel diffs: 72.51%, 78.57%, 29.82%, 44.35%
-     ulp diffs: 124, 154, 65, 51
-
-    ### turn on debugging to see sample points ###
-    checkCallResults@http://127.0.0.1:8000/webgpu/webgpu/shader/execution/expression/call/builtin/texture_utils.js:2742:37
-    checkCallResults@http://127.0.0.1:8000/webgpu/webgpu/shader/execution/expression/call/builtin/texture_utils.js:2331:40
-    @http://127.0.0.1:8000/webgpu/webgpu/shader/execution/expression/call/builtin/textureSampleBaseClampToEdge.spec.js:125:39
-  - (in subcase: samplePoints="spiral") INFO: subcase ran
- Reached unreachable code
+PASS :2d_coords:stage="v";textureType="texture_2d%3Cf32%3E";filt="nearest";modeU="c";modeV="r"
+PASS :2d_coords:stage="v";textureType="texture_2d%3Cf32%3E";filt="nearest";modeU="c";modeV="m"
+PASS :2d_coords:stage="v";textureType="texture_2d%3Cf32%3E";filt="nearest";modeU="r";modeV="c"
+PASS :2d_coords:stage="v";textureType="texture_2d%3Cf32%3E";filt="nearest";modeU="r";modeV="r"
+PASS :2d_coords:stage="v";textureType="texture_2d%3Cf32%3E";filt="nearest";modeU="r";modeV="m"
+PASS :2d_coords:stage="v";textureType="texture_2d%3Cf32%3E";filt="nearest";modeU="m";modeV="c"
+PASS :2d_coords:stage="v";textureType="texture_2d%3Cf32%3E";filt="nearest";modeU="m";modeV="r"
+PASS :2d_coords:stage="v";textureType="texture_2d%3Cf32%3E";filt="nearest";modeU="m";modeV="m"
 PASS :2d_coords:stage="v";textureType="texture_2d%3Cf32%3E";filt="linear";modeU="c";modeV="c"
-FAIL :2d_coords:stage="v";textureType="texture_2d%3Cf32%3E";filt="linear";modeU="c";modeV="r" assert_unreached:
-  - (in subcase: samplePoints="texel-centre") INFO: subcase ran
-  - (in subcase: samplePoints="spiral") EXPECTATION FAILED: result was not as expected:
-       physical size: [8, 8, 1]
-        baseMipLevel: 0
-       mipLevelCount: 3
-    baseMipLevelSize: [8, 8, 1]
-      baseArrayLayer: 0
-     arrayLayerCount: 1
-    physicalMipCount: 3
-
-         lodMinClamp: 0 (effective)
-         lodMaxClamp: 2 (effective)
-                call: textureSampleBaseClampToEdge(texture: T, sampler: S, coords: vec2f(0.3125, 0))  // #17
-              : as texel coord @ mip level[0]: (2.500, 0.000)
-              : as texel coord @ mip level[1]: (1.250, 0.000)
-              : as texel coord @ mip level[2]: (0.625, 0.000)
-           got: 0.37647, 0.45490, 0.43725, 0.31765
-      expected: 0.56078, 0.21569, 0.40000, 0.42353
-      max diff: 0.027450980392156862
-     abs diffs: 0.18431, 0.23922, 0.03725, 0.10588
-     rel diffs: 32.87%, 52.59%, 8.52%, 25.00%
-     ulp diffs: 47, 61, 10, 27
-
-    ### turn on debugging to see sample points ###
-    checkCallResults@http://127.0.0.1:8000/webgpu/webgpu/shader/execution/expression/call/builtin/texture_utils.js:2742:37
-    checkCallResults@http://127.0.0.1:8000/webgpu/webgpu/shader/execution/expression/call/builtin/texture_utils.js:2331:40
-    @http://127.0.0.1:8000/webgpu/webgpu/shader/execution/expression/call/builtin/textureSampleBaseClampToEdge.spec.js:125:39
-  - (in subcase: samplePoints="spiral") INFO: subcase ran
- Reached unreachable code
-FAIL :2d_coords:stage="v";textureType="texture_2d%3Cf32%3E";filt="linear";modeU="c";modeV="m" assert_unreached:
-  - (in subcase: samplePoints="texel-centre") INFO: subcase ran
-  - (in subcase: samplePoints="spiral") EXPECTATION FAILED: result was not as expected:
-       physical size: [8, 8, 1]
-        baseMipLevel: 0
-       mipLevelCount: 3
-    baseMipLevelSize: [8, 8, 1]
-      baseArrayLayer: 0
-     arrayLayerCount: 1
-    physicalMipCount: 3
-
-         lodMinClamp: 0 (effective)
-         lodMaxClamp: 2 (effective)
-                call: textureSampleBaseClampToEdge(texture: T, sampler: S, coords: vec2f(0.5625, -0.09375))  // #19
-              : as texel coord @ mip level[0]: (4.500, -0.750)
-              : as texel coord @ mip level[1]: (2.250, -0.375)
-              : as texel coord @ mip level[2]: (1.125, -0.188)
-           got: 0.67157, 0.75490, 0.40000, 0.12843
-      expected: 0.74510, 0.94510, 0.38431, 0.03529
-      max diff: 0.027450980392156862
-     abs diffs: 0.07353, 0.19020, 0.01569, 0.09314
-     rel diffs: 9.87%, 20.12%, 3.92%, 72.52%
-     ulp diffs: 19, 49, 4, 24
-
-    ### turn on debugging to see sample points ###
-    checkCallResults@http://127.0.0.1:8000/webgpu/webgpu/shader/execution/expression/call/builtin/texture_utils.js:2742:37
-    checkCallResults@http://127.0.0.1:8000/webgpu/webgpu/shader/execution/expression/call/builtin/texture_utils.js:2331:40
-    @http://127.0.0.1:8000/webgpu/webgpu/shader/execution/expression/call/builtin/textureSampleBaseClampToEdge.spec.js:125:39
-  - (in subcase: samplePoints="spiral") INFO: subcase ran
- Reached unreachable code
-FAIL :2d_coords:stage="v";textureType="texture_2d%3Cf32%3E";filt="linear";modeU="r";modeV="c" assert_unreached:
-  - (in subcase: samplePoints="texel-centre") INFO: subcase ran
-  - (in subcase: samplePoints="spiral") EXPECTATION FAILED: result was not as expected:
-       physical size: [8, 8, 1]
-        baseMipLevel: 0
-       mipLevelCount: 3
-    baseMipLevelSize: [8, 8, 1]
-      baseArrayLayer: 0
-     arrayLayerCount: 1
-    physicalMipCount: 3
-
-         lodMinClamp: 0 (effective)
-         lodMaxClamp: 2 (effective)
-                call: textureSampleBaseClampToEdge(texture: T, sampler: S, coords: vec2f(1.03125, 0.09375))  // #22
-              : as texel coord @ mip level[0]: (8.250, 0.750)
-              : as texel coord @ mip level[1]: (4.125, 0.375)
-              : as texel coord @ mip level[2]: (2.063, 0.188)
-           got: 0.82843, 0.68824, 0.29559, 0.33995
-      expected: 0.48431, 0.44118, 0.30000, 0.21569
-      max diff: 0.027450980392156862
-     abs diffs: 0.34412, 0.24706, 0.00441, 0.12426
-     rel diffs: 41.54%, 35.90%, 1.47%, 36.55%
-     ulp diffs: 87, 62, 2, 32
-
-    ### turn on debugging to see sample points ###
-    checkCallResults@http://127.0.0.1:8000/webgpu/webgpu/shader/execution/expression/call/builtin/texture_utils.js:2742:37
-    checkCallResults@http://127.0.0.1:8000/webgpu/webgpu/shader/execution/expression/call/builtin/texture_utils.js:2331:40
-    @http://127.0.0.1:8000/webgpu/webgpu/shader/execution/expression/call/builtin/textureSampleBaseClampToEdge.spec.js:125:39
-  - (in subcase: samplePoints="spiral") INFO: subcase ran
- Reached unreachable code
-FAIL :2d_coords:stage="v";textureType="texture_2d%3Cf32%3E";filt="linear";modeU="r";modeV="r" assert_unreached:
-  - (in subcase: samplePoints="texel-centre") INFO: subcase ran
-  - (in subcase: samplePoints="spiral") EXPECTATION FAILED: result was not as expected:
-       physical size: [8, 8, 1]
-        baseMipLevel: 0
-       mipLevelCount: 3
-    baseMipLevelSize: [8, 8, 1]
-      baseArrayLayer: 0
-     arrayLayerCount: 1
-    physicalMipCount: 3
-
-         lodMinClamp: 0 (effective)
-         lodMaxClamp: 2 (effective)
-                call: textureSampleBaseClampToEdge(texture: T, sampler: S, coords: vec2f(0.3125, 0))  // #17
-              : as texel coord @ mip level[0]: (2.500, 0.000)
-              : as texel coord @ mip level[1]: (1.250, 0.000)
-              : as texel coord @ mip level[2]: (0.625, 0.000)
-           got: 0.37647, 0.45490, 0.43725, 0.31765
-      expected: 0.56078, 0.21569, 0.40000, 0.42353
-      max diff: 0.027450980392156862
-     abs diffs: 0.18431, 0.23922, 0.03725, 0.10588
-     rel diffs: 32.87%, 52.59%, 8.52%, 25.00%
-     ulp diffs: 47, 61, 10, 27
-
-    ### turn on debugging to see sample points ###
-    checkCallResults@http://127.0.0.1:8000/webgpu/webgpu/shader/execution/expression/call/builtin/texture_utils.js:2742:37
-    checkCallResults@http://127.0.0.1:8000/webgpu/webgpu/shader/execution/expression/call/builtin/texture_utils.js:2331:40
-    @http://127.0.0.1:8000/webgpu/webgpu/shader/execution/expression/call/builtin/textureSampleBaseClampToEdge.spec.js:125:39
-  - (in subcase: samplePoints="spiral") INFO: subcase ran
- Reached unreachable code
-FAIL :2d_coords:stage="v";textureType="texture_2d%3Cf32%3E";filt="linear";modeU="r";modeV="m" assert_unreached:
-  - (in subcase: samplePoints="texel-centre") INFO: subcase ran
-  - (in subcase: samplePoints="spiral") EXPECTATION FAILED: result was not as expected:
-       physical size: [8, 8, 1]
-        baseMipLevel: 0
-       mipLevelCount: 3
-    baseMipLevelSize: [8, 8, 1]
-      baseArrayLayer: 0
-     arrayLayerCount: 1
-    physicalMipCount: 3
-
-         lodMinClamp: 0 (effective)
-         lodMaxClamp: 2 (effective)
-                call: textureSampleBaseClampToEdge(texture: T, sampler: S, coords: vec2f(0.5625, -0.09375))  // #19
-              : as texel coord @ mip level[0]: (4.500, -0.750)
-              : as texel coord @ mip level[1]: (2.250, -0.375)
-              : as texel coord @ mip level[2]: (1.125, -0.188)
-           got: 0.67157, 0.75490, 0.40000, 0.12843
-      expected: 0.74510, 0.94510, 0.38431, 0.03529
-      max diff: 0.027450980392156862
-     abs diffs: 0.07353, 0.19020, 0.01569, 0.09314
-     rel diffs: 9.87%, 20.12%, 3.92%, 72.52%
-     ulp diffs: 19, 49, 4, 24
-
-    ### turn on debugging to see sample points ###
-    checkCallResults@http://127.0.0.1:8000/webgpu/webgpu/shader/execution/expression/call/builtin/texture_utils.js:2742:37
-    checkCallResults@http://127.0.0.1:8000/webgpu/webgpu/shader/execution/expression/call/builtin/texture_utils.js:2331:40
-    @http://127.0.0.1:8000/webgpu/webgpu/shader/execution/expression/call/builtin/textureSampleBaseClampToEdge.spec.js:125:39
-  - (in subcase: samplePoints="spiral") INFO: subcase ran
- Reached unreachable code
-FAIL :2d_coords:stage="v";textureType="texture_2d%3Cf32%3E";filt="linear";modeU="m";modeV="c" assert_unreached:
-  - (in subcase: samplePoints="texel-centre") INFO: subcase ran
-  - (in subcase: samplePoints="spiral") EXPECTATION FAILED: result was not as expected:
-       physical size: [8, 8, 1]
-        baseMipLevel: 0
-       mipLevelCount: 3
-    baseMipLevelSize: [8, 8, 1]
-      baseArrayLayer: 0
-     arrayLayerCount: 1
-    physicalMipCount: 3
-
-         lodMinClamp: 0 (effective)
-         lodMaxClamp: 2 (effective)
-                call: textureSampleBaseClampToEdge(texture: T, sampler: S, coords: vec2f(1.125, 0.21875))  // #23
-              : as texel coord @ mip level[0]: (9.000, 1.750)
-              : as texel coord @ mip level[1]: (4.500, 0.875)
-              : as texel coord @ mip level[2]: (2.250, 0.438)
-           got: 0.42892, 0.53971, 0.68676, 0.41225
-      expected: 0.30686, 0.29314, 0.61667, 0.43922
-      max diff: 0.027450980392156862
-     abs diffs: 0.12206, 0.24657, 0.07010, 0.02696
-     rel diffs: 28.46%, 45.69%, 10.21%, 6.14%
-     ulp diffs: 31, 63, 18, 7
-
-    ### turn on debugging to see sample points ###
-    checkCallResults@http://127.0.0.1:8000/webgpu/webgpu/shader/execution/expression/call/builtin/texture_utils.js:2742:37
-    checkCallResults@http://127.0.0.1:8000/webgpu/webgpu/shader/execution/expression/call/builtin/texture_utils.js:2331:40
-    @http://127.0.0.1:8000/webgpu/webgpu/shader/execution/expression/call/builtin/textureSampleBaseClampToEdge.spec.js:125:39
-  - (in subcase: samplePoints="spiral") INFO: subcase ran
- Reached unreachable code
-FAIL :2d_coords:stage="v";textureType="texture_2d%3Cf32%3E";filt="linear";modeU="m";modeV="r" assert_unreached:
-  - (in subcase: samplePoints="texel-centre") INFO: subcase ran
-  - (in subcase: samplePoints="spiral") EXPECTATION FAILED: result was not as expected:
-       physical size: [8, 8, 1]
-        baseMipLevel: 0
-       mipLevelCount: 3
-    baseMipLevelSize: [8, 8, 1]
-      baseArrayLayer: 0
-     arrayLayerCount: 1
-    physicalMipCount: 3
-
-         lodMinClamp: 0 (effective)
-         lodMaxClamp: 2 (effective)
-                call: textureSampleBaseClampToEdge(texture: T, sampler: S, coords: vec2f(0.3125, 0))  // #17
-              : as texel coord @ mip level[0]: (2.500, 0.000)
-              : as texel coord @ mip level[1]: (1.250, 0.000)
-              : as texel coord @ mip level[2]: (0.625, 0.000)
-           got: 0.37647, 0.45490, 0.43725, 0.31765
-      expected: 0.56078, 0.21569, 0.40000, 0.42353
-      max diff: 0.027450980392156862
-     abs diffs: 0.18431, 0.23922, 0.03725, 0.10588
-     rel diffs: 32.87%, 52.59%, 8.52%, 25.00%
-     ulp diffs: 47, 61, 10, 27
-
-    ### turn on debugging to see sample points ###
-    checkCallResults@http://127.0.0.1:8000/webgpu/webgpu/shader/execution/expression/call/builtin/texture_utils.js:2742:37
-    checkCallResults@http://127.0.0.1:8000/webgpu/webgpu/shader/execution/expression/call/builtin/texture_utils.js:2331:40
-    @http://127.0.0.1:8000/webgpu/webgpu/shader/execution/expression/call/builtin/textureSampleBaseClampToEdge.spec.js:125:39
-  - (in subcase: samplePoints="spiral") INFO: subcase ran
- Reached unreachable code
-FAIL :2d_coords:stage="v";textureType="texture_2d%3Cf32%3E";filt="linear";modeU="m";modeV="m" assert_unreached:
-  - (in subcase: samplePoints="texel-centre") INFO: subcase ran
-  - (in subcase: samplePoints="spiral") EXPECTATION FAILED: result was not as expected:
-       physical size: [8, 8, 1]
-        baseMipLevel: 0
-       mipLevelCount: 3
-    baseMipLevelSize: [8, 8, 1]
-      baseArrayLayer: 0
-     arrayLayerCount: 1
-    physicalMipCount: 3
-
-         lodMinClamp: 0 (effective)
-         lodMaxClamp: 2 (effective)
-                call: textureSampleBaseClampToEdge(texture: T, sampler: S, coords: vec2f(0.5625, -0.09375))  // #19
-              : as texel coord @ mip level[0]: (4.500, -0.750)
-              : as texel coord @ mip level[1]: (2.250, -0.375)
-              : as texel coord @ mip level[2]: (1.125, -0.188)
-           got: 0.67157, 0.75490, 0.40000, 0.12843
-      expected: 0.74510, 0.94510, 0.38431, 0.03529
-      max diff: 0.027450980392156862
-     abs diffs: 0.07353, 0.19020, 0.01569, 0.09314
-     rel diffs: 9.87%, 20.12%, 3.92%, 72.52%
-     ulp diffs: 19, 49, 4, 24
-
-    ### turn on debugging to see sample points ###
-    checkCallResults@http://127.0.0.1:8000/webgpu/webgpu/shader/execution/expression/call/builtin/texture_utils.js:2742:37
-    checkCallResults@http://127.0.0.1:8000/webgpu/webgpu/shader/execution/expression/call/builtin/texture_utils.js:2331:40
-    @http://127.0.0.1:8000/webgpu/webgpu/shader/execution/expression/call/builtin/textureSampleBaseClampToEdge.spec.js:125:39
-  - (in subcase: samplePoints="spiral") INFO: subcase ran
- Reached unreachable code
+PASS :2d_coords:stage="v";textureType="texture_2d%3Cf32%3E";filt="linear";modeU="c";modeV="r"
+PASS :2d_coords:stage="v";textureType="texture_2d%3Cf32%3E";filt="linear";modeU="c";modeV="m"
+PASS :2d_coords:stage="v";textureType="texture_2d%3Cf32%3E";filt="linear";modeU="r";modeV="c"
+PASS :2d_coords:stage="v";textureType="texture_2d%3Cf32%3E";filt="linear";modeU="r";modeV="r"
+PASS :2d_coords:stage="v";textureType="texture_2d%3Cf32%3E";filt="linear";modeU="r";modeV="m"
+PASS :2d_coords:stage="v";textureType="texture_2d%3Cf32%3E";filt="linear";modeU="m";modeV="c"
+PASS :2d_coords:stage="v";textureType="texture_2d%3Cf32%3E";filt="linear";modeU="m";modeV="r"
+PASS :2d_coords:stage="v";textureType="texture_2d%3Cf32%3E";filt="linear";modeU="m";modeV="m"
 FAIL :2d_coords:stage="v";textureType="texture_external";filt="nearest";modeU="c";modeV="c" assert_unreached:
   - (in subcase: samplePoints="texel-centre") EXPECTATION FAILED: result was not as expected:
        physical size: [8, 8, 1]
@@ -3486,7 +2022,6 @@ FAIL :2d_coords:stage="v";textureType="texture_external";filt="nearest";modeU="c
 
     ### turn on debugging to see sample points ###
     checkCallResults@http://127.0.0.1:8000/webgpu/webgpu/shader/execution/expression/call/builtin/texture_utils.js:2742:37
-    checkCallResults@http://127.0.0.1:8000/webgpu/webgpu/shader/execution/expression/call/builtin/texture_utils.js:2331:40
     @http://127.0.0.1:8000/webgpu/webgpu/shader/execution/expression/call/builtin/textureSampleBaseClampToEdge.spec.js:125:39
   - (in subcase: samplePoints="texel-centre") INFO: subcase ran
   - (in subcase: samplePoints="spiral") EXPECTATION FAILED: result was not as expected:
@@ -3513,7 +2048,6 @@ FAIL :2d_coords:stage="v";textureType="texture_external";filt="nearest";modeU="c
 
     ### turn on debugging to see sample points ###
     checkCallResults@http://127.0.0.1:8000/webgpu/webgpu/shader/execution/expression/call/builtin/texture_utils.js:2742:37
-    checkCallResults@http://127.0.0.1:8000/webgpu/webgpu/shader/execution/expression/call/builtin/texture_utils.js:2331:40
     @http://127.0.0.1:8000/webgpu/webgpu/shader/execution/expression/call/builtin/textureSampleBaseClampToEdge.spec.js:125:39
   - (in subcase: samplePoints="spiral") INFO: subcase ran
  Reached unreachable code
@@ -3542,7 +2076,6 @@ FAIL :2d_coords:stage="v";textureType="texture_external";filt="nearest";modeU="c
 
     ### turn on debugging to see sample points ###
     checkCallResults@http://127.0.0.1:8000/webgpu/webgpu/shader/execution/expression/call/builtin/texture_utils.js:2742:37
-    checkCallResults@http://127.0.0.1:8000/webgpu/webgpu/shader/execution/expression/call/builtin/texture_utils.js:2331:40
     @http://127.0.0.1:8000/webgpu/webgpu/shader/execution/expression/call/builtin/textureSampleBaseClampToEdge.spec.js:125:39
   - (in subcase: samplePoints="texel-centre") INFO: subcase ran
   - (in subcase: samplePoints="spiral") EXPECTATION FAILED: result was not as expected:
@@ -3569,7 +2102,6 @@ FAIL :2d_coords:stage="v";textureType="texture_external";filt="nearest";modeU="c
 
     ### turn on debugging to see sample points ###
     checkCallResults@http://127.0.0.1:8000/webgpu/webgpu/shader/execution/expression/call/builtin/texture_utils.js:2742:37
-    checkCallResults@http://127.0.0.1:8000/webgpu/webgpu/shader/execution/expression/call/builtin/texture_utils.js:2331:40
     @http://127.0.0.1:8000/webgpu/webgpu/shader/execution/expression/call/builtin/textureSampleBaseClampToEdge.spec.js:125:39
   - (in subcase: samplePoints="spiral") INFO: subcase ran
  Reached unreachable code
@@ -3598,7 +2130,6 @@ FAIL :2d_coords:stage="v";textureType="texture_external";filt="nearest";modeU="c
 
     ### turn on debugging to see sample points ###
     checkCallResults@http://127.0.0.1:8000/webgpu/webgpu/shader/execution/expression/call/builtin/texture_utils.js:2742:37
-    checkCallResults@http://127.0.0.1:8000/webgpu/webgpu/shader/execution/expression/call/builtin/texture_utils.js:2331:40
     @http://127.0.0.1:8000/webgpu/webgpu/shader/execution/expression/call/builtin/textureSampleBaseClampToEdge.spec.js:125:39
   - (in subcase: samplePoints="texel-centre") INFO: subcase ran
   - (in subcase: samplePoints="spiral") EXPECTATION FAILED: result was not as expected:
@@ -3625,7 +2156,6 @@ FAIL :2d_coords:stage="v";textureType="texture_external";filt="nearest";modeU="c
 
     ### turn on debugging to see sample points ###
     checkCallResults@http://127.0.0.1:8000/webgpu/webgpu/shader/execution/expression/call/builtin/texture_utils.js:2742:37
-    checkCallResults@http://127.0.0.1:8000/webgpu/webgpu/shader/execution/expression/call/builtin/texture_utils.js:2331:40
     @http://127.0.0.1:8000/webgpu/webgpu/shader/execution/expression/call/builtin/textureSampleBaseClampToEdge.spec.js:125:39
   - (in subcase: samplePoints="spiral") INFO: subcase ran
  Reached unreachable code
@@ -3654,7 +2184,6 @@ FAIL :2d_coords:stage="v";textureType="texture_external";filt="nearest";modeU="r
 
     ### turn on debugging to see sample points ###
     checkCallResults@http://127.0.0.1:8000/webgpu/webgpu/shader/execution/expression/call/builtin/texture_utils.js:2742:37
-    checkCallResults@http://127.0.0.1:8000/webgpu/webgpu/shader/execution/expression/call/builtin/texture_utils.js:2331:40
     @http://127.0.0.1:8000/webgpu/webgpu/shader/execution/expression/call/builtin/textureSampleBaseClampToEdge.spec.js:125:39
   - (in subcase: samplePoints="texel-centre") INFO: subcase ran
   - (in subcase: samplePoints="spiral") EXPECTATION FAILED: result was not as expected:
@@ -3681,7 +2210,6 @@ FAIL :2d_coords:stage="v";textureType="texture_external";filt="nearest";modeU="r
 
     ### turn on debugging to see sample points ###
     checkCallResults@http://127.0.0.1:8000/webgpu/webgpu/shader/execution/expression/call/builtin/texture_utils.js:2742:37
-    checkCallResults@http://127.0.0.1:8000/webgpu/webgpu/shader/execution/expression/call/builtin/texture_utils.js:2331:40
     @http://127.0.0.1:8000/webgpu/webgpu/shader/execution/expression/call/builtin/textureSampleBaseClampToEdge.spec.js:125:39
   - (in subcase: samplePoints="spiral") INFO: subcase ran
  Reached unreachable code
@@ -3710,7 +2238,6 @@ FAIL :2d_coords:stage="v";textureType="texture_external";filt="nearest";modeU="r
 
     ### turn on debugging to see sample points ###
     checkCallResults@http://127.0.0.1:8000/webgpu/webgpu/shader/execution/expression/call/builtin/texture_utils.js:2742:37
-    checkCallResults@http://127.0.0.1:8000/webgpu/webgpu/shader/execution/expression/call/builtin/texture_utils.js:2331:40
     @http://127.0.0.1:8000/webgpu/webgpu/shader/execution/expression/call/builtin/textureSampleBaseClampToEdge.spec.js:125:39
   - (in subcase: samplePoints="texel-centre") INFO: subcase ran
   - (in subcase: samplePoints="spiral") EXPECTATION FAILED: result was not as expected:
@@ -3737,7 +2264,6 @@ FAIL :2d_coords:stage="v";textureType="texture_external";filt="nearest";modeU="r
 
     ### turn on debugging to see sample points ###
     checkCallResults@http://127.0.0.1:8000/webgpu/webgpu/shader/execution/expression/call/builtin/texture_utils.js:2742:37
-    checkCallResults@http://127.0.0.1:8000/webgpu/webgpu/shader/execution/expression/call/builtin/texture_utils.js:2331:40
     @http://127.0.0.1:8000/webgpu/webgpu/shader/execution/expression/call/builtin/textureSampleBaseClampToEdge.spec.js:125:39
   - (in subcase: samplePoints="spiral") INFO: subcase ran
  Reached unreachable code
@@ -3766,7 +2292,6 @@ FAIL :2d_coords:stage="v";textureType="texture_external";filt="nearest";modeU="r
 
     ### turn on debugging to see sample points ###
     checkCallResults@http://127.0.0.1:8000/webgpu/webgpu/shader/execution/expression/call/builtin/texture_utils.js:2742:37
-    checkCallResults@http://127.0.0.1:8000/webgpu/webgpu/shader/execution/expression/call/builtin/texture_utils.js:2331:40
     @http://127.0.0.1:8000/webgpu/webgpu/shader/execution/expression/call/builtin/textureSampleBaseClampToEdge.spec.js:125:39
   - (in subcase: samplePoints="texel-centre") INFO: subcase ran
   - (in subcase: samplePoints="spiral") EXPECTATION FAILED: result was not as expected:
@@ -3793,7 +2318,6 @@ FAIL :2d_coords:stage="v";textureType="texture_external";filt="nearest";modeU="r
 
     ### turn on debugging to see sample points ###
     checkCallResults@http://127.0.0.1:8000/webgpu/webgpu/shader/execution/expression/call/builtin/texture_utils.js:2742:37
-    checkCallResults@http://127.0.0.1:8000/webgpu/webgpu/shader/execution/expression/call/builtin/texture_utils.js:2331:40
     @http://127.0.0.1:8000/webgpu/webgpu/shader/execution/expression/call/builtin/textureSampleBaseClampToEdge.spec.js:125:39
   - (in subcase: samplePoints="spiral") INFO: subcase ran
  Reached unreachable code
@@ -3822,7 +2346,6 @@ FAIL :2d_coords:stage="v";textureType="texture_external";filt="nearest";modeU="m
 
     ### turn on debugging to see sample points ###
     checkCallResults@http://127.0.0.1:8000/webgpu/webgpu/shader/execution/expression/call/builtin/texture_utils.js:2742:37
-    checkCallResults@http://127.0.0.1:8000/webgpu/webgpu/shader/execution/expression/call/builtin/texture_utils.js:2331:40
     @http://127.0.0.1:8000/webgpu/webgpu/shader/execution/expression/call/builtin/textureSampleBaseClampToEdge.spec.js:125:39
   - (in subcase: samplePoints="texel-centre") INFO: subcase ran
   - (in subcase: samplePoints="spiral") EXPECTATION FAILED: result was not as expected:
@@ -3849,7 +2372,6 @@ FAIL :2d_coords:stage="v";textureType="texture_external";filt="nearest";modeU="m
 
     ### turn on debugging to see sample points ###
     checkCallResults@http://127.0.0.1:8000/webgpu/webgpu/shader/execution/expression/call/builtin/texture_utils.js:2742:37
-    checkCallResults@http://127.0.0.1:8000/webgpu/webgpu/shader/execution/expression/call/builtin/texture_utils.js:2331:40
     @http://127.0.0.1:8000/webgpu/webgpu/shader/execution/expression/call/builtin/textureSampleBaseClampToEdge.spec.js:125:39
   - (in subcase: samplePoints="spiral") INFO: subcase ran
  Reached unreachable code
@@ -3878,7 +2400,6 @@ FAIL :2d_coords:stage="v";textureType="texture_external";filt="nearest";modeU="m
 
     ### turn on debugging to see sample points ###
     checkCallResults@http://127.0.0.1:8000/webgpu/webgpu/shader/execution/expression/call/builtin/texture_utils.js:2742:37
-    checkCallResults@http://127.0.0.1:8000/webgpu/webgpu/shader/execution/expression/call/builtin/texture_utils.js:2331:40
     @http://127.0.0.1:8000/webgpu/webgpu/shader/execution/expression/call/builtin/textureSampleBaseClampToEdge.spec.js:125:39
   - (in subcase: samplePoints="texel-centre") INFO: subcase ran
   - (in subcase: samplePoints="spiral") EXPECTATION FAILED: result was not as expected:
@@ -3905,7 +2426,6 @@ FAIL :2d_coords:stage="v";textureType="texture_external";filt="nearest";modeU="m
 
     ### turn on debugging to see sample points ###
     checkCallResults@http://127.0.0.1:8000/webgpu/webgpu/shader/execution/expression/call/builtin/texture_utils.js:2742:37
-    checkCallResults@http://127.0.0.1:8000/webgpu/webgpu/shader/execution/expression/call/builtin/texture_utils.js:2331:40
     @http://127.0.0.1:8000/webgpu/webgpu/shader/execution/expression/call/builtin/textureSampleBaseClampToEdge.spec.js:125:39
   - (in subcase: samplePoints="spiral") INFO: subcase ran
  Reached unreachable code
@@ -3934,7 +2454,6 @@ FAIL :2d_coords:stage="v";textureType="texture_external";filt="nearest";modeU="m
 
     ### turn on debugging to see sample points ###
     checkCallResults@http://127.0.0.1:8000/webgpu/webgpu/shader/execution/expression/call/builtin/texture_utils.js:2742:37
-    checkCallResults@http://127.0.0.1:8000/webgpu/webgpu/shader/execution/expression/call/builtin/texture_utils.js:2331:40
     @http://127.0.0.1:8000/webgpu/webgpu/shader/execution/expression/call/builtin/textureSampleBaseClampToEdge.spec.js:125:39
   - (in subcase: samplePoints="texel-centre") INFO: subcase ran
   - (in subcase: samplePoints="spiral") EXPECTATION FAILED: result was not as expected:
@@ -3961,7 +2480,6 @@ FAIL :2d_coords:stage="v";textureType="texture_external";filt="nearest";modeU="m
 
     ### turn on debugging to see sample points ###
     checkCallResults@http://127.0.0.1:8000/webgpu/webgpu/shader/execution/expression/call/builtin/texture_utils.js:2742:37
-    checkCallResults@http://127.0.0.1:8000/webgpu/webgpu/shader/execution/expression/call/builtin/texture_utils.js:2331:40
     @http://127.0.0.1:8000/webgpu/webgpu/shader/execution/expression/call/builtin/textureSampleBaseClampToEdge.spec.js:125:39
   - (in subcase: samplePoints="spiral") INFO: subcase ran
  Reached unreachable code
@@ -3990,7 +2508,6 @@ FAIL :2d_coords:stage="v";textureType="texture_external";filt="linear";modeU="c"
 
     ### turn on debugging to see sample points ###
     checkCallResults@http://127.0.0.1:8000/webgpu/webgpu/shader/execution/expression/call/builtin/texture_utils.js:2742:37
-    checkCallResults@http://127.0.0.1:8000/webgpu/webgpu/shader/execution/expression/call/builtin/texture_utils.js:2331:40
     @http://127.0.0.1:8000/webgpu/webgpu/shader/execution/expression/call/builtin/textureSampleBaseClampToEdge.spec.js:125:39
   - (in subcase: samplePoints="texel-centre") INFO: subcase ran
   - (in subcase: samplePoints="spiral") EXPECTATION FAILED: result was not as expected:
@@ -4017,7 +2534,6 @@ FAIL :2d_coords:stage="v";textureType="texture_external";filt="linear";modeU="c"
 
     ### turn on debugging to see sample points ###
     checkCallResults@http://127.0.0.1:8000/webgpu/webgpu/shader/execution/expression/call/builtin/texture_utils.js:2742:37
-    checkCallResults@http://127.0.0.1:8000/webgpu/webgpu/shader/execution/expression/call/builtin/texture_utils.js:2331:40
     @http://127.0.0.1:8000/webgpu/webgpu/shader/execution/expression/call/builtin/textureSampleBaseClampToEdge.spec.js:125:39
   - (in subcase: samplePoints="spiral") INFO: subcase ran
  Reached unreachable code
@@ -4046,7 +2562,6 @@ FAIL :2d_coords:stage="v";textureType="texture_external";filt="linear";modeU="c"
 
     ### turn on debugging to see sample points ###
     checkCallResults@http://127.0.0.1:8000/webgpu/webgpu/shader/execution/expression/call/builtin/texture_utils.js:2742:37
-    checkCallResults@http://127.0.0.1:8000/webgpu/webgpu/shader/execution/expression/call/builtin/texture_utils.js:2331:40
     @http://127.0.0.1:8000/webgpu/webgpu/shader/execution/expression/call/builtin/textureSampleBaseClampToEdge.spec.js:125:39
   - (in subcase: samplePoints="texel-centre") INFO: subcase ran
   - (in subcase: samplePoints="spiral") EXPECTATION FAILED: result was not as expected:
@@ -4073,7 +2588,6 @@ FAIL :2d_coords:stage="v";textureType="texture_external";filt="linear";modeU="c"
 
     ### turn on debugging to see sample points ###
     checkCallResults@http://127.0.0.1:8000/webgpu/webgpu/shader/execution/expression/call/builtin/texture_utils.js:2742:37
-    checkCallResults@http://127.0.0.1:8000/webgpu/webgpu/shader/execution/expression/call/builtin/texture_utils.js:2331:40
     @http://127.0.0.1:8000/webgpu/webgpu/shader/execution/expression/call/builtin/textureSampleBaseClampToEdge.spec.js:125:39
   - (in subcase: samplePoints="spiral") INFO: subcase ran
  Reached unreachable code
@@ -4102,7 +2616,6 @@ FAIL :2d_coords:stage="v";textureType="texture_external";filt="linear";modeU="c"
 
     ### turn on debugging to see sample points ###
     checkCallResults@http://127.0.0.1:8000/webgpu/webgpu/shader/execution/expression/call/builtin/texture_utils.js:2742:37
-    checkCallResults@http://127.0.0.1:8000/webgpu/webgpu/shader/execution/expression/call/builtin/texture_utils.js:2331:40
     @http://127.0.0.1:8000/webgpu/webgpu/shader/execution/expression/call/builtin/textureSampleBaseClampToEdge.spec.js:125:39
   - (in subcase: samplePoints="texel-centre") INFO: subcase ran
   - (in subcase: samplePoints="spiral") EXPECTATION FAILED: result was not as expected:
@@ -4129,7 +2642,6 @@ FAIL :2d_coords:stage="v";textureType="texture_external";filt="linear";modeU="c"
 
     ### turn on debugging to see sample points ###
     checkCallResults@http://127.0.0.1:8000/webgpu/webgpu/shader/execution/expression/call/builtin/texture_utils.js:2742:37
-    checkCallResults@http://127.0.0.1:8000/webgpu/webgpu/shader/execution/expression/call/builtin/texture_utils.js:2331:40
     @http://127.0.0.1:8000/webgpu/webgpu/shader/execution/expression/call/builtin/textureSampleBaseClampToEdge.spec.js:125:39
   - (in subcase: samplePoints="spiral") INFO: subcase ran
  Reached unreachable code
@@ -4158,7 +2670,6 @@ FAIL :2d_coords:stage="v";textureType="texture_external";filt="linear";modeU="r"
 
     ### turn on debugging to see sample points ###
     checkCallResults@http://127.0.0.1:8000/webgpu/webgpu/shader/execution/expression/call/builtin/texture_utils.js:2742:37
-    checkCallResults@http://127.0.0.1:8000/webgpu/webgpu/shader/execution/expression/call/builtin/texture_utils.js:2331:40
     @http://127.0.0.1:8000/webgpu/webgpu/shader/execution/expression/call/builtin/textureSampleBaseClampToEdge.spec.js:125:39
   - (in subcase: samplePoints="texel-centre") INFO: subcase ran
   - (in subcase: samplePoints="spiral") EXPECTATION FAILED: result was not as expected:
@@ -4185,7 +2696,6 @@ FAIL :2d_coords:stage="v";textureType="texture_external";filt="linear";modeU="r"
 
     ### turn on debugging to see sample points ###
     checkCallResults@http://127.0.0.1:8000/webgpu/webgpu/shader/execution/expression/call/builtin/texture_utils.js:2742:37
-    checkCallResults@http://127.0.0.1:8000/webgpu/webgpu/shader/execution/expression/call/builtin/texture_utils.js:2331:40
     @http://127.0.0.1:8000/webgpu/webgpu/shader/execution/expression/call/builtin/textureSampleBaseClampToEdge.spec.js:125:39
   - (in subcase: samplePoints="spiral") INFO: subcase ran
  Reached unreachable code
@@ -4214,7 +2724,6 @@ FAIL :2d_coords:stage="v";textureType="texture_external";filt="linear";modeU="r"
 
     ### turn on debugging to see sample points ###
     checkCallResults@http://127.0.0.1:8000/webgpu/webgpu/shader/execution/expression/call/builtin/texture_utils.js:2742:37
-    checkCallResults@http://127.0.0.1:8000/webgpu/webgpu/shader/execution/expression/call/builtin/texture_utils.js:2331:40
     @http://127.0.0.1:8000/webgpu/webgpu/shader/execution/expression/call/builtin/textureSampleBaseClampToEdge.spec.js:125:39
   - (in subcase: samplePoints="texel-centre") INFO: subcase ran
   - (in subcase: samplePoints="spiral") EXPECTATION FAILED: result was not as expected:
@@ -4241,7 +2750,6 @@ FAIL :2d_coords:stage="v";textureType="texture_external";filt="linear";modeU="r"
 
     ### turn on debugging to see sample points ###
     checkCallResults@http://127.0.0.1:8000/webgpu/webgpu/shader/execution/expression/call/builtin/texture_utils.js:2742:37
-    checkCallResults@http://127.0.0.1:8000/webgpu/webgpu/shader/execution/expression/call/builtin/texture_utils.js:2331:40
     @http://127.0.0.1:8000/webgpu/webgpu/shader/execution/expression/call/builtin/textureSampleBaseClampToEdge.spec.js:125:39
   - (in subcase: samplePoints="spiral") INFO: subcase ran
  Reached unreachable code
@@ -4270,7 +2778,6 @@ FAIL :2d_coords:stage="v";textureType="texture_external";filt="linear";modeU="r"
 
     ### turn on debugging to see sample points ###
     checkCallResults@http://127.0.0.1:8000/webgpu/webgpu/shader/execution/expression/call/builtin/texture_utils.js:2742:37
-    checkCallResults@http://127.0.0.1:8000/webgpu/webgpu/shader/execution/expression/call/builtin/texture_utils.js:2331:40
     @http://127.0.0.1:8000/webgpu/webgpu/shader/execution/expression/call/builtin/textureSampleBaseClampToEdge.spec.js:125:39
   - (in subcase: samplePoints="texel-centre") INFO: subcase ran
   - (in subcase: samplePoints="spiral") EXPECTATION FAILED: result was not as expected:
@@ -4297,7 +2804,6 @@ FAIL :2d_coords:stage="v";textureType="texture_external";filt="linear";modeU="r"
 
     ### turn on debugging to see sample points ###
     checkCallResults@http://127.0.0.1:8000/webgpu/webgpu/shader/execution/expression/call/builtin/texture_utils.js:2742:37
-    checkCallResults@http://127.0.0.1:8000/webgpu/webgpu/shader/execution/expression/call/builtin/texture_utils.js:2331:40
     @http://127.0.0.1:8000/webgpu/webgpu/shader/execution/expression/call/builtin/textureSampleBaseClampToEdge.spec.js:125:39
   - (in subcase: samplePoints="spiral") INFO: subcase ran
  Reached unreachable code
@@ -4326,7 +2832,6 @@ FAIL :2d_coords:stage="v";textureType="texture_external";filt="linear";modeU="m"
 
     ### turn on debugging to see sample points ###
     checkCallResults@http://127.0.0.1:8000/webgpu/webgpu/shader/execution/expression/call/builtin/texture_utils.js:2742:37
-    checkCallResults@http://127.0.0.1:8000/webgpu/webgpu/shader/execution/expression/call/builtin/texture_utils.js:2331:40
     @http://127.0.0.1:8000/webgpu/webgpu/shader/execution/expression/call/builtin/textureSampleBaseClampToEdge.spec.js:125:39
   - (in subcase: samplePoints="texel-centre") INFO: subcase ran
   - (in subcase: samplePoints="spiral") EXPECTATION FAILED: result was not as expected:
@@ -4353,7 +2858,6 @@ FAIL :2d_coords:stage="v";textureType="texture_external";filt="linear";modeU="m"
 
     ### turn on debugging to see sample points ###
     checkCallResults@http://127.0.0.1:8000/webgpu/webgpu/shader/execution/expression/call/builtin/texture_utils.js:2742:37
-    checkCallResults@http://127.0.0.1:8000/webgpu/webgpu/shader/execution/expression/call/builtin/texture_utils.js:2331:40
     @http://127.0.0.1:8000/webgpu/webgpu/shader/execution/expression/call/builtin/textureSampleBaseClampToEdge.spec.js:125:39
   - (in subcase: samplePoints="spiral") INFO: subcase ran
  Reached unreachable code
@@ -4382,7 +2886,6 @@ FAIL :2d_coords:stage="v";textureType="texture_external";filt="linear";modeU="m"
 
     ### turn on debugging to see sample points ###
     checkCallResults@http://127.0.0.1:8000/webgpu/webgpu/shader/execution/expression/call/builtin/texture_utils.js:2742:37
-    checkCallResults@http://127.0.0.1:8000/webgpu/webgpu/shader/execution/expression/call/builtin/texture_utils.js:2331:40
     @http://127.0.0.1:8000/webgpu/webgpu/shader/execution/expression/call/builtin/textureSampleBaseClampToEdge.spec.js:125:39
   - (in subcase: samplePoints="texel-centre") INFO: subcase ran
   - (in subcase: samplePoints="spiral") EXPECTATION FAILED: result was not as expected:
@@ -4409,7 +2912,6 @@ FAIL :2d_coords:stage="v";textureType="texture_external";filt="linear";modeU="m"
 
     ### turn on debugging to see sample points ###
     checkCallResults@http://127.0.0.1:8000/webgpu/webgpu/shader/execution/expression/call/builtin/texture_utils.js:2742:37
-    checkCallResults@http://127.0.0.1:8000/webgpu/webgpu/shader/execution/expression/call/builtin/texture_utils.js:2331:40
     @http://127.0.0.1:8000/webgpu/webgpu/shader/execution/expression/call/builtin/textureSampleBaseClampToEdge.spec.js:125:39
   - (in subcase: samplePoints="spiral") INFO: subcase ran
  Reached unreachable code
@@ -4438,7 +2940,6 @@ FAIL :2d_coords:stage="v";textureType="texture_external";filt="linear";modeU="m"
 
     ### turn on debugging to see sample points ###
     checkCallResults@http://127.0.0.1:8000/webgpu/webgpu/shader/execution/expression/call/builtin/texture_utils.js:2742:37
-    checkCallResults@http://127.0.0.1:8000/webgpu/webgpu/shader/execution/expression/call/builtin/texture_utils.js:2331:40
     @http://127.0.0.1:8000/webgpu/webgpu/shader/execution/expression/call/builtin/textureSampleBaseClampToEdge.spec.js:125:39
   - (in subcase: samplePoints="texel-centre") INFO: subcase ran
   - (in subcase: samplePoints="spiral") EXPECTATION FAILED: result was not as expected:
@@ -4465,7 +2966,6 @@ FAIL :2d_coords:stage="v";textureType="texture_external";filt="linear";modeU="m"
 
     ### turn on debugging to see sample points ###
     checkCallResults@http://127.0.0.1:8000/webgpu/webgpu/shader/execution/expression/call/builtin/texture_utils.js:2742:37
-    checkCallResults@http://127.0.0.1:8000/webgpu/webgpu/shader/execution/expression/call/builtin/texture_utils.js:2331:40
     @http://127.0.0.1:8000/webgpu/webgpu/shader/execution/expression/call/builtin/textureSampleBaseClampToEdge.spec.js:125:39
   - (in subcase: samplePoints="spiral") INFO: subcase ran
  Reached unreachable code
